@@ -1,0 +1,27 @@
+{{#if sendByYou}}
+    <div class="message-container message-send-by-you">
+        <div class="message-container__content">
+            {{ text }}
+        </div>
+        <div class="message-container-delivered">
+            <svg width="8" height="5" viewBox="0 0 8 5" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <line y1="-0.5" x2="3.765" y2="-0.5" transform="matrix(0.705933 0.708278 -0.705933 0.708278 0.700195 2.33313)"/>
+                <line y1="-0.5" x2="5.6475" y2="-0.5" transform="matrix(0.705933 -0.708278 0.705933 0.708278 3.35828 5)"/>
+            </svg>
+        </div>
+        <div class="message-container-read">
+            <svg width="8" height="5" viewBox="0 0 8 5" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <line y1="-0.5" x2="5.6475" y2="-0.5" transform="matrix(0.705933 -0.708278 0.705933 0.708278 3.35828 5)"/>
+            </svg>
+        </div>
+        <div class="message-container__time message-container__time-send-by-you">{{ time }}</div>
+    </div>
+{{else}}
+    <div class="message-container">
+        <div class="message-container__content">
+            {{ text }}
+        </div>
+        <div class="message-container__time">{{ time }}</div>
+    </div>
+{{/if}}
+

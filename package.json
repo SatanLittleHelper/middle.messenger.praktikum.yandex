@@ -1,0 +1,19 @@
+{
+  "name": "ya",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "parcel --no-cache src/pages/*.hbs src/pages/**/*.hbs"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@anikin/parcel-transformer-handlebars": "^1.0.2",
+    "parcel": "^2.8.3",
+    "postcss": "^8.4.23",
+    "postcss-nested": "^6.0.1"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.7"
+  }
+}

@@ -1,0 +1,19 @@
+<div class="form__container">
+        <div class="form__header">
+            <h2 class="form__title"> {{ header }}</h2>
+        </div>
+    <form action="" class="form__content">
+    <div class="form__content__inputs">
+        {{#each formInputs}}
+            {{> components/inputs/input text = this }}
+        {{/each}}
+        {{#each formPasswordInputs}}
+            {{> components/inputs/password text = this }}
+        {{/each}}
+    </div>
+    <div class="form__content__buttons">
+        <a href="{{ links.main }}" class="button button__main">{{buttonsText.mainBtn}}</a>
+        <a href="{{ links.sub }}" class="button button__sub">{{buttonsText.subBtn}}</a>
+    </div>
+</form>
+</div>

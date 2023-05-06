@@ -1,0 +1,37 @@
+@import "variables.pcss";
+@import "fonts.pcss";
+@import "../modules/auth-page/styles.pcss";
+@import "../modules/components/form/styles.pcss";
+@import "../modules/components/inputs/styles.pcss";
+@import "../modules/components/buttons/styles.pcss";
+@import "../modules/components/modal/styles.pcss";
+@import "../modules/error-page/styles.pcss";
+@import "../modules/profile-page/styles.pcss";
+@import "../modules/messenger-page/styles.pcss";
+
+* {
+    font-family: Euclidcirculara, serif;
+}
+body {
+    margin: 0;
+}
+
+p {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.-hide {
+    display: none !important;
+}
+.main__container {
+    display: flex;
+    min-height: calc(100vh - 52px);
+    justify-content: center;
+    align-items: center;
+    padding-top: 52px;
+    background-color: #FFF;
+}

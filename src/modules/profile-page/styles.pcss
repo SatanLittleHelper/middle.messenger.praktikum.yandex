@@ -1,0 +1,127 @@
+.profile{
+    display: flex;
+    min-height: 100vh;
+
+    &__navigate__buttons {
+        display: flex;
+        width: 64px;
+        background-color: #FBFBFB;
+        border-right: 1px solid #EAEAEA;
+    }
+
+    &__navigate__button {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        border: 0;
+        background-color: transparent;
+        color: var(--main-color);
+    }
+
+    &__container {
+        display: flex;
+        min-width: 1280px;
+        width: 95vw;
+        padding-top: 60px;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: auto 0;
+        flex: 1;
+        gap: 60px;
+    }
+
+    &__icon {
+        color: #EFEFEF;
+    }
+
+    &__icon:hover {
+        color:black;
+    }
+
+    &__header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__information {
+        display: flex;
+        flex-direction: column;
+        min-width: 510px;
+        gap: 10px;
+
+        &__items {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #EAEAEA;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 13px;
+            padding-bottom: 10px;
+        }
+
+        &__title {
+
+            margin: 0;
+            color: #1E1E1E;
+        }
+
+        &__value {
+            margin: 0;
+            color: #999;
+
+            &-edit {
+                flex: 1;
+                border: 0;
+                padding: 0;
+                margin: -2px 0;
+                text-align: end;
+                outline: 0;
+
+                font-weight: 500;
+                color: #999;
+                font-size: 13px;
+            }
+        }
+    }
+
+
+    &__buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        min-width: 510px;
+        min-height: 70px;
+        gap: 10px;
+
+        &__container {
+            border-bottom: 1px solid #EAEAEA;
+        }
+    }
+
+    &__button {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 13px;
+        color: var(--main-color);
+        border: 0;
+        background-color: #FFF;
+        padding: 0 0 10px;
+    }
+
+    &__button-red {
+        color: #F00;
+        border-bottom: 0;
+    }
+}
+
+
+
+

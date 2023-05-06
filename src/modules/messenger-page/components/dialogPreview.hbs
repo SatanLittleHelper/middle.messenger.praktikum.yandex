@@ -1,0 +1,31 @@
+<div class="dialog-preview">
+    <div class="dialog-preview__container">
+        <div class="dialog-preview__icon-wrapper">
+            <img src="https://placehold.co/47x47" class="dialog-preview__icon">
+        </div>
+        <div class="dialog-preview__content-wrapper">
+            <div class="dialog-preview__header">
+                <div class="dialog-preview__message_title">
+                    <p>{{ username }}</p>
+                </div>
+                <div class="dialog-preview__time">
+                    <p>{{ time }}</p>
+                </div>
+            </div>
+            <div class="dialog-preview__content">
+                <div class="dialog-preview__message_text">
+                    {{#if sendByYou }}
+                        <p class="dialog-preview__message_text_by-you">Вы: </p>
+                    {{/if}}
+                    <p>{{ message }}</p>
+                </div>
+                {{#if unreadCount}}
+                    <div class="dialog-preview__unread-count">
+                        <p>{{ unreadCount }}</p>
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+
+    </div>
+</div>

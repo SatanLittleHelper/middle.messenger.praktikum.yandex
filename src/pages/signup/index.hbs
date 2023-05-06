@@ -1,0 +1,44 @@
+---
+{
+title: Sign up,
+header: Registration,
+
+formInputs: [
+    "E-mail",
+    "Login",
+    "First name",
+    "Second name",
+    "Phone",
+    ],
+
+formPasswordInputs: [
+    "Password",
+    "Repeat password"
+    ],
+
+links: {
+    main: "messenger",
+    sub: "signin"
+
+    },
+buttonsText: {
+    mainBtn: "Sign up",
+    subBtn: "Log in"
+    },
+}
+---
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../styles/styles.pcss">
+    <title>Uber chat / {{title}} </title>
+</head>
+<body>
+    <div class="main__container">
+        {{> auth-page/auth  }}
+</div>
+</body>
+</html>
