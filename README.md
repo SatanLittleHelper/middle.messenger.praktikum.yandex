@@ -4,7 +4,8 @@
 
 
 comands: 
-npm run dev
+npm run dev - Запуска локально на 1234 порту
+npm run start - Запуск локально на 3000 порту
 
 
 design: https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?type=design&node-id=0-1&t=NHWpGrfz4APgDfUI-0
