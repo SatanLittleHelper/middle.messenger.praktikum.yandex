@@ -1,4 +1,4 @@
-<div class="messenger__main-container__header">
+<header class="messenger__main-container__header">
     <div class="messenger__main-container__header__popup">
         {{> messenger-page/components/popup  }}
     </div>
@@ -11,14 +11,14 @@
             <div class="messenger__main-container__header__menu__item"> </div>
         </div>
     </div>
-</div>
-<div class="messenger__main-container__content">
+</header>
+<main class="messenger__main-container__content">
     <div class="message-date">{{ messageDate }}</div>
     {{#each messages}}
             {{> messenger-page/components/message  }}
     {{/each}}
-</div>
-<div class="messenger__main-container__footer">
+</main>
+<footer class="messenger__main-container__footer">
     <div class="messenger__main-container__footer__popup">
         {{> messenger-page/components/popup  }}
     </div>
@@ -43,4 +43,4 @@
             </svg>
         </a>
     </div>
-</div>
+</footer>

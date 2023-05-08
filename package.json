@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "parcel --no-cache src/pages/*.hbs src/pages/**/*.hbs"
+    "dev": "parcel --no-cache src/pages/*.hbs src/pages/**/*.hbs",
+    "start": "parcel --port 3000 src/pages/*.hbs src/pages/**/*.hbs"
   },
   "author": "",
   "license": "ISC",
