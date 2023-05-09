@@ -314,7 +314,10 @@
 
     &__content {
         margin-top: 14px;
-        overflow-y: auto;
+        overflow-y: scroll;
+    }
+    &__content::-webkit-scrollbar {
+        width: 0;
     }
 }
 
