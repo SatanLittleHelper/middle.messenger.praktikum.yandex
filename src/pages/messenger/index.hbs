@@ -1,0 +1,91 @@
+---
+{
+title: Chats,
+messageDate: "19 июня",
+dialogs: [
+{
+username: "Андрей",
+time: "10:49",
+message: "Изображение",
+unreadCount: 2
+},
+{
+username: "Киноклуб",
+time: "12:00",
+message: "стикер",
+sendByYou: true
+},
+{
+username: "Илья",
+time: "15:12",
+message: "Друзья, у меня для вас особенный выпуск новостей!...",
+unreadCount: 2
+},
+{
+username: "Вадим",
+time: "Пт",
+message: "Круто!",
+sendByYou: true
+},
+{
+username: "тет-а-теты",
+time: "Ср",
+message: "И Human Interface Guidelines и Material Design рекомендуют..."
+},
+{
+username: "1, 2, 3",
+time: "Пн",
+message: "Миллионы россиян ежедневно проводят десятки часов свое...",
+},
+{
+username: "Design Destroyer",
+time: "Пн",
+message: "В 2008 году художник Jon Rafman начал собирать..."
+},
+{
+username: "Day.",
+time: "1 Мая 2020",
+message: "Так увлёкся работой по курсу, что совсем забыл его анонсир..."
+}
+],
+messages: [
+{
+text: "Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.
+
+Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.",
+time: "11:56"
+},
+{
+text: "Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.
+
+Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.",
+time: "11:56"
+},
+{
+text: "Круто!",
+time: "12:00",
+sendByYou: true,
+}
+]
+}
+---
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../styles/styles.pcss">
+    <title>Uber chat / {{title}} </title>
+</head>
+<body>
+<div class="messenger__container">
+    <aside class="messenger__sidebar">
+        {{> messenger-page/components/dialogsSideBar  }}
+    </aside>
+    <main class="messenger__main-container">
+        {{> messenger-page/components/messenger }}
+    </main>
+</div>
+</body>
+</html>
