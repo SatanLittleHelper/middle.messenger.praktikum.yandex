@@ -16,8 +16,7 @@ class Block {
     public children: Record<string, Block>;
 
     /** JSDoc
-     * @param {string} tagName
-     * @param {Object} props
+     * @param {Object} propsWithChildren
      *
      * @returns {void}
      */
@@ -128,7 +127,7 @@ class Block {
                     (component) => `<div data-id="${component.id}"></div>`
                 );
             } else {
-                contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
+                contextAndStubs[name] = `<div data-id="${component?.id}"></div>`;
             }
         });
 
@@ -139,7 +138,7 @@ class Block {
         temp.innerHTML = html;
 
         const replaceStubToComponent = (component: Block) => {
-            const stub = temp.content.querySelector(`[data-id="${component.id}"]`);
+            const stub = temp.content.querySelector(`[data-id="${component?.id}"]`);
 
             if (!stub) {
                 return;

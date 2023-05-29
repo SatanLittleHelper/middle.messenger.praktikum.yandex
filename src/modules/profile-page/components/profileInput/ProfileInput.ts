@@ -6,6 +6,7 @@ export interface ProfileInputProps {
     text: string;
     name: string;
     error: string;
+    value: string;
     events: {};
 }
 

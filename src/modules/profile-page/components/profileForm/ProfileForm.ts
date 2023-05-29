@@ -14,7 +14,7 @@ export  class ProfileForm extends Block {
     }
 
     protected init() {
-    this.children.inputs = this.props.inputs.map((props) => new ProfileInput(props));
+    this.children.inputs = this.props.inputs?.map((props) => new ProfileInput(props));
     }
 
     render() {

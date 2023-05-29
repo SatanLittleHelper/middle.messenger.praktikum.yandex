@@ -185,6 +185,112 @@ window.addEventListener('DOMContentLoaded', () => {
         },
                     ]}
     });
+    const changePassword = new Profile({
+        control: {
+            buttons: [],
+            saveButtons: [
+                {
+                link: "/profile",
+            },
+            ]
+
+        },
+        profileForm: {
+            formId: "change_password",
+            inputs: [
+                {
+                    type: "password",
+                    text: "Old password",
+                    name: "old-password",
+                    error: "",
+                    value: "",
+                    events: {},
+                },
+                {
+                    type: "password",
+                    text: "New password",
+                    name: "new-password",
+                    error: "",
+                    value: "",
+                    events: {},
+                },
+                {
+                    type: "password",
+                    text: "Repeat password",
+                    name: "repeat-password",
+                    error: "",
+                    value: "",
+                    events: {},
+                },
+            ]
+        }
+
+    });
+    const editProfile = new Profile({
+        control: {
+            buttons: [],
+            saveButtons: [
+                {
+                    link: "/profile",
+                },
+            ]
+
+        },
+        profileForm: {
+            formId: "change_profile_information",
+            inputs: [
+                {
+                    type: "text",
+                    text: "E-mail",
+                    name: "email",
+                    error: "",
+                    events: {},
+                    value: "pochta@yandex.ru"
+                },
+                {
+                    type: "text",
+                    text: "Login",
+                    name: "login",
+                    error: "",
+                    value: "ivanivanov",
+                    events: {},
+                },
+                {
+                    type: "text",
+                    text: "First name",
+                    name: "first_name",
+                    error: "",
+                    value: "Иван",
+                    events: {},
+                },
+                {
+                    type: "text",
+                    text: "Second name",
+                    name: "second_name",
+                    error: "",
+                    value: "Иванов",
+                    events: {},
+                },
+                {
+                    type: "text",
+                    text: "Display name",
+                    name: "display_name",
+                    error: "",
+                    value: "Иван",
+                    events: {},
+                },
+                {
+                    type: "tel",
+                    text: "Phone",
+                    name: "phone",
+                    error: "",
+                    value: "+7 (909) 967 30 30",
+                    events: {},
+                },
+            ]
+        }
+
+    })
     const profile = new Profile({
         control: {
             buttons: [
@@ -208,71 +314,40 @@ window.addEventListener('DOMContentLoaded', () => {
             saveButtons: []
 
         },
-        profileForm: {
-            formId: "change_password",
-            inputs: [
+        profileInformation: {
+            fields: [
                 {
-                    type: "password",
-                    text: "Old password",
-                    name: "old-password",
-                    error: "",
-                    events: {},
+                    text: "E-mail",
+                    value: "pochta@yandex.ru",
+                    name: "email"
                 },
                 {
-                    type: "password",
-                    text: "New password",
-                    name: "new-password",
-                    error: "",
-                    events: {},
+                    text: "Login",
+                    value: "ivanivanov",
+                    name: "login"
                 },
                 {
-                    type: "password",
-                    text: "Repeat password",
-                    name: "repeat-password",
-                    error: "",
-                    events: {},
+                    text: "First name",
+                    value: "Иван",
+                    name: "first_name"
                 },
-            ]
+                {
+                    text: "Second name",
+                    value: "Иванов",
+                    name: "second_name"
+                },
+                {
+                    text: "Display name",
+                    value: "Иван",
+                    name: "display_name"
+                },
+                {
+                    text: "Phone",
+                    value: "+7 (909) 967 30 30",
+                    name: "phone"
+                },
+            ],
         }
-
-    })
-    const changePassword = new Profile({
-        control: {
-            buttons: [],
-            saveButtons: [
-                {
-                link: "/profile",
-            },
-            ]
-
-        },
-        profileForm: {
-            formId: "change_password",
-            inputs: [
-                {
-                    type: "password",
-                    text: "Old password",
-                    name: "old-password",
-                    error: "",
-                    events: {},
-                },
-                {
-                    type: "password",
-                    text: "New password",
-                    name: "new-password",
-                    error: "",
-                    events: {},
-                },
-                {
-                    type: "password",
-                    text: "Repeat password",
-                    name: "repeat-password",
-                    error: "",
-                    events: {},
-                },
-            ]
-        }
-
     })
 
 
@@ -290,6 +365,12 @@ window.addEventListener('DOMContentLoaded', () => {
             renderDOM(messenger);
             break;
         case "/profile":
+            renderDOM(profile);
+            break;
+        case "/edit-profile":
+            renderDOM(editProfile);
+            break;
+        case "/change-password":
             renderDOM(changePassword);
             break;
         default:
