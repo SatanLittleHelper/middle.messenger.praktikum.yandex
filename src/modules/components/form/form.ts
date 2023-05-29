@@ -15,12 +15,11 @@ export  class Form extends Block {
     }
 
     protected init() {
-        this.children.formInputs = this.props.formInputs.map((props) => new Input(props));
+        this.children.inputs = this.props.formInputs.map((props) => new Input(props));
 
     }
 
     render() {
-        console.log((this.props))
         return this.compile(template, this.props);
     }
 }

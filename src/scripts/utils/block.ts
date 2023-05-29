@@ -120,19 +120,21 @@ class Block {
     }
 
     protected compile(template: (context: any) => string, context: any) {
-        const contextAndStubs = { ...context};
+        const contextAndStubs = { ...context };
 
         Object.entries(this.children).forEach(([name, component]) => {
             if (Array.isArray(component)) {
-                contextAndStubs[name] = component.map(component => `<div data-id="${component.id}" />`);
-            }
-            else {
-                contextAndStubs[name] = `<div data-id="${component.id}" />`;
+                contextAndStubs[name] = component.map(
+                    (component) => `<div data-id="${component.id}"></div>`
+                );
+            } else {
+                contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
             }
         });
 
         const html = template(contextAndStubs);
-        const temp = document.createElement('template');
+
+        const temp = document.createElement("template");
 
         temp.innerHTML = html;
 
@@ -155,7 +157,6 @@ class Block {
                 replaceStubToComponent(component);
             }
         });
-
 
         return temp.content;
     }
