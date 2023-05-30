@@ -1,5 +1,5 @@
 import Block from "../../../../scripts/utils/block";
-import  template  from "./profileInput.hbs";
+import template  from "./profileInput.hbs";
 
 export interface ProfileInputProps {
     type: string;

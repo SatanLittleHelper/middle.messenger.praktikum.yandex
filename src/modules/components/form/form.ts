@@ -1,14 +1,15 @@
 import Block from "../../../scripts/utils/block";
 import {Input, InputProps} from "../inputs/Input";
-import  template  from "./form.hbs";
-import FormHandler from "../../../scripts/content/handlers/FormHandler";
+import template  from "./form.hbs";
+import {collectInputsData} from "../../../scripts/content/handlers/FormHandler";
 
 
-interface FormProps {
+export interface FormProps {
     header: string;
     links: Record<string, string>;
     buttonsText: Record<string, string>;
     formInputs: InputProps[];
+    events?: {}
 }
 
 export  class Form extends Block {
@@ -18,11 +19,12 @@ export  class Form extends Block {
 
     protected init() {
         this.children.inputs = this.props.formInputs.map((props) => new Input(props));
+        this.props.events = {
+            submit: (event) => {
+                collectInputsData(event);
 
-    }
-
-    protected componentDidMount() {
-        new FormHandler();
+            }
+        }
 
     }
 

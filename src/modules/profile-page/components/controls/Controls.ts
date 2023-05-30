@@ -2,8 +2,8 @@ import Block from "../../../../scripts/utils/block";
 import  template  from "./controls.hbs";
 
 export interface ControlsProps {
-    saveButtons: ProfileSaveButtonsProps[];
-    buttons: ProfileButtonsProps[];
+    saveButtons?: ProfileSaveButtonsProps[];
+    buttons?: ProfileButtonsProps[];
 }
 
 export interface ProfileButtonsProps {

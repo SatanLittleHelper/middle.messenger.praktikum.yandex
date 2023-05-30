@@ -1,5 +1,5 @@
 import Block from "../../../../scripts/utils/block";
-import  template  from "./profile.hbs";
+import template  from "./profile.hbs";
 import {ProfileForm, ProfileFormProps} from "../profileForm/ProfileForm";
 import {Controls, ControlsProps} from "../controls/Controls";
 import {ProfileInformation, ProfileInformationProps} from "../profileInformation/ProfileInformation";
@@ -18,7 +18,6 @@ export  class Profile extends Block {
 
     protected init() {
         this.children.control = new Controls(<ControlsProps> this.props.control);
-
         if (this.props.profileForm) {
             this.children.profileForm = new ProfileForm(<ProfileFormProps> this.props.profileForm);
 

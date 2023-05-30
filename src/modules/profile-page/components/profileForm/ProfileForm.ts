@@ -1,12 +1,12 @@
 import Block from "../../../../scripts/utils/block";
-import  template  from "./profileForm.hbs";
+import template  from "./profileForm.hbs";
 import {ProfileInput, ProfileInputProps} from "../profileInput/ProfileInput";
-import FormHandler from "../../../../scripts/content/handlers/FormHandler";
+import {collectInputsData} from "../../../../scripts/content/handlers/FormHandler";
 
 export interface ProfileFormProps {
     inputs: ProfileInputProps[];
     formId: string;
-    events?: {};
+    events?: {}
 
 }
 
@@ -16,14 +16,14 @@ export  class ProfileForm extends Block {
     }
 
     protected init() {
-    this.children.inputs = this.props.inputs?.map((props) => new ProfileInput(props));
-    this.props.events = {
+        this.props.events = {
+            submit: (event) => {
+                collectInputsData(event);
 
-    }
-    }
+            }
+        };
+        this.children.inputs = this.props.inputs?.map((props) => new ProfileInput(props));
 
-    protected componentDidMount() {
-        new FormHandler();
 
     }
     render() {

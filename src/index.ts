@@ -111,6 +111,7 @@ window.addEventListener('DOMContentLoaded', () => {
             main: "/messenger",
             sub: "/login"
         },
+        events: {}
     });
     const errorPage = new AppError({
         code: "404",
@@ -146,8 +147,8 @@ window.addEventListener('DOMContentLoaded', () => {
             ]
         },
         sidebar: {
-                    dialogs: [
-                        {
+            dialogs: [
+                {
                             events: {},
                             text: "kkkk",
                             sendByYou: false,
@@ -156,7 +157,7 @@ window.addEventListener('DOMContentLoaded', () => {
                             username: "Alfaf"
 
         },
-                        {
+                {
                             events: {},
                             text: "kkkasfasfasfasfasfasfkkkkasfasfasfasfasfasfkkkkasfasfasfasfasfasfkkkasfasfasfasfasfasfkkkkasfasfasfasfasfasfk",
                             sendByYou: true,
@@ -165,7 +166,7 @@ window.addEventListener('DOMContentLoaded', () => {
                             username: "Alfaf"
 
         },
-                        {
+                {
                             events: {},
                             text: "kkkk",
                             sendByYou: false,
@@ -174,7 +175,7 @@ window.addEventListener('DOMContentLoaded', () => {
                             username: "Alfaf"
 
         },
-                        {
+                {
                             events: {},
                             text: "kkkk",
                             sendByYou: false,
@@ -183,7 +184,7 @@ window.addEventListener('DOMContentLoaded', () => {
                             username: "Alfaf"
 
         },
-                    ]}
+            ]}
     });
     const changePassword = new Profile({
         control: {
@@ -311,7 +312,6 @@ window.addEventListener('DOMContentLoaded', () => {
                 }
 
             ],
-            saveButtons: []
 
         },
         profileInformation: {

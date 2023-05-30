@@ -6,5 +6,4 @@ export default function renderDOM(block: Block, selector: string = "#app") {
     root!.innerHTML = "";
     root!.appendChild(block.getContent());
     block.dispatchComponentDidMount();
-    console.log(block);
 }
