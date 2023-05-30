@@ -357,6 +357,7 @@ window.addEventListener('DOMContentLoaded', () => {
             break;
         case "/login":
             renderDOM(loginPage);
+
             break;
         case "/signup":
             renderDOM(signUpPage);
@@ -377,5 +378,6 @@ window.addEventListener('DOMContentLoaded', () => {
             renderDOM(errorPage);
             break;
     }
+
 
 })

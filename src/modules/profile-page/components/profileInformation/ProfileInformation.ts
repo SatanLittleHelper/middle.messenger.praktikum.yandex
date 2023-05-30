@@ -16,8 +16,6 @@ export  class ProfileInformation extends Block {
     }
 
     protected init() {
-        console.log(this.props);
-        console.log(this.props.fields)
         this.children.fields = this.props.fields?.map((props) => new ProfileInformationField(props));
     }
 

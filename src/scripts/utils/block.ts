@@ -91,9 +91,12 @@ class Block {
     public dispatchComponentDidMount() {
         this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 
-        Object.values(this.children).forEach((child) =>
-            child.dispatchComponentDidMount()
-        );
+        if(typeof this.children === 'Block'){
+            Object.values(this.children).forEach((child) =>
+                child.dispatchComponentDidMount()
+            );
+        }
+
     }
 
    private _componentDidUpdate(oldProps: Record<string, unknown>, newProps: Record<string, unknown>) {

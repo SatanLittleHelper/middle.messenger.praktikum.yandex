@@ -15,7 +15,7 @@ type Options = {
 // и удаляет из первого типа ключ, переданный вторым аргументом
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 // Этот тип эквивалентен следующему:
-// type OptionsWithoutMethod = { data?: any };
+// type OptionsWithoutMethod = { handlers?: any };
 
 function queryStringify(data) {
     let query = '?';

@@ -39,7 +39,7 @@
         }
 
         onShow = (event) => {
-            this.el.innerHTML = event.target.getAttribute('data-tooltip');
+            this.el.innerHTML = event.target.getAttribute('handlers-tooltip');
             this.el.classList.toggle(`${this.name}_active`, true);
 
             const spanRect = event.target.getBoundingClientRect();
@@ -61,8 +61,8 @@
 
         attach(root) {
             this
-                .delegate('mouseover', root, '[data-tooltip]', this.onShow)
-                .delegate('mouseout', root, '[data-tooltip]', this.onHide);
+                .delegate('mouseover', root, '[handlers-tooltip]', this.onShow)
+                .delegate('mouseout', root, '[handlers-tooltip]', this.onHide);
 
         }
 
