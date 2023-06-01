@@ -13,7 +13,6 @@ window.addEventListener('DOMContentLoaded', () => {
         formInputs: [
             {
                 events: {
-                    change: () => {},
                 },
                 text: "Log in",
                 name: "login",
@@ -22,7 +21,6 @@ window.addEventListener('DOMContentLoaded', () => {
             },
             {
                 events: {
-                    change: () => {},
                 },
                 text: "Password",
                 name: "password",
@@ -44,7 +42,6 @@ window.addEventListener('DOMContentLoaded', () => {
         formInputs: [
             {
                 events: {
-                    change: () => {},
                 },
                 text: "E-mail",
                 name: "email",
@@ -53,7 +50,6 @@ window.addEventListener('DOMContentLoaded', () => {
             },
             {
                 events: {
-                    change: () => {},
                 },
                 text: "Login",
                 name: "login",
@@ -62,7 +58,6 @@ window.addEventListener('DOMContentLoaded', () => {
             },
             {
                 events: {
-                    change: () => {},
                 },
                 text: "First name",
                 name: "first_name",
@@ -71,7 +66,6 @@ window.addEventListener('DOMContentLoaded', () => {
             },
             {
                 events: {
-                    change: () => {},
                 },
                 text: "Second name",
                 name: "second_name",
@@ -80,7 +74,6 @@ window.addEventListener('DOMContentLoaded', () => {
             },
             {
                 events: {
-                    change: () => {},
                 },
                 text: "Phone",
                 name: "phone",
@@ -89,7 +82,6 @@ window.addEventListener('DOMContentLoaded', () => {
             },
             {
                 events: {
-                    change: () => {},
                 },
                 text: "Password",
                 name: "password",
@@ -98,7 +90,6 @@ window.addEventListener('DOMContentLoaded', () => {
             },
             {
                 events: {
-                    change: () => {},
                 },
                 text: "Password",
                 name: "repeat_password",
