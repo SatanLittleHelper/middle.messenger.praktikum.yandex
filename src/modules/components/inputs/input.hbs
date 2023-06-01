@@ -1,5 +1,7 @@
 <div class="inputs__wrapper">
     <label for="{{name}}" class="inputs__item__sup-title -hide">{{text}}</label>
-    <input id="{{name}}" name="{{name}}" type="text" class="inputs__item" placeholder="{{text}}">
-    <p class="inputs__item__error -hide">Incorrect {{text}}</p>
+    <input id="{{name}}" name="{{name}}" type="{{type}}" class="inputs__item" placeholder="{{text}}" value="{{value}}">
+    {{#if error}}
+        <p class="inputs__item__error">{{error}}</p>
+    {{/if}}
 </div>

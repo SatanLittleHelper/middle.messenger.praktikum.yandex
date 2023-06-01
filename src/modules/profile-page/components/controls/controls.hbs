@@ -1,0 +1,20 @@
+<div class="profile__buttons">
+    {{#if saveButtons}}
+            {{#each saveButtons}}
+                <a href="{{link}}" class="button button__main">Save</a>
+            {{/each}}
+        {{/if}}
+    {{#if buttons}}
+            {{#each buttons}}
+                {{#if buttonRed}}
+                    <div class="profile__buttons__container">
+                        <a href="{{link}}" class="profile__button profile__button-red button">{{text}}</a>
+                    </div>
+                {{else}}
+                    <div class="profile__buttons__container">
+                        <a href="{{link}}" class="profile__button button">{{text}}</a>
+                    </div>
+                {{/if}}
+            {{/each}}
+        {{/if}}
+</div>

@@ -1,3 +1,3 @@
 module.exports = {
-    partials: './src/modules'
-}
+  partials: './src/modules',
+};
