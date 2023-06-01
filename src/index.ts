@@ -3,6 +3,7 @@ import renderDOM from "./scripts/utils/renderDOM";
 import {AppError} from "./modules/error/AppError";
 import {Messenger} from "./modules/messenger/Messenger";
 import {Profile} from "./modules/profile-page/components/profile/Profile";
+import {AllPages} from "./pages/allPages/AllPages";
 
 window.addEventListener('DOMContentLoaded', () => {
     const loginPage = new Form({
@@ -341,6 +342,17 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     })
 
+    const pages = [
+        { link: "/login", label: "login" },
+        { link: "/signup", label: "signup" },
+        { link: "/messenger", label: "messenger" },
+        { link: "/profile", label: "profile" },
+        { link: "/edit-profile", label: "edit-profile" },
+        { link: "/change-password", label: "change-password" },
+        { link: "/error", label: "error" },
+    ];
+    const allPages = new AllPages({ pages });
+    renderDOM(allPages, "#nav");
 
     switch (window.location.pathname) {
         case "/":
@@ -364,6 +376,9 @@ window.addEventListener('DOMContentLoaded', () => {
             break;
         case "/change-password":
             renderDOM(changePassword);
+            break;
+        case "/error":
+            renderDOM(errorPage);
             break;
         default:
             renderDOM(errorPage);
