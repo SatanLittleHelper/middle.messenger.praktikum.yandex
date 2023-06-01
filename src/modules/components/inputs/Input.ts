@@ -1,6 +1,6 @@
 import Block from "../../../scripts/utils/block";
 import  template  from "./input.hbs";
-import {validateInput} from "../../../scripts/validator/validator";
+import {validateInputTriggeredByEvent} from "../../../scripts/validator/validator";
 
 export interface InputProps {
     type: string;
@@ -19,12 +19,7 @@ export  class Input extends Block {
     protected init() {
         this.props.events = {
             focusout: (event) => {
-                this.props.error = validateInput(event);
-                this.props.value = event.target.value;
-
-            },
-            submit: (event) => {
-                this.props.error = validateInput(event);
+                this.props.error = validateInputTriggeredByEvent(event);
                 this.props.value = event.target.value;
 
             },

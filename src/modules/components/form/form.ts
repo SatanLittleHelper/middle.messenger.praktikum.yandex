@@ -2,7 +2,7 @@ import Block from "../../../scripts/utils/block";
 import {Input, InputProps} from "../inputs/Input";
 import template  from "./form.hbs";
 import {collectInputsData} from "../../../scripts/content/handlers/FormHandler";
-import {validateInput} from "../../../scripts/validator/validator";
+import {validateForm} from "../../../scripts/validator/validator";
 
 
 export interface FormProps {
@@ -23,7 +23,7 @@ export  class Form extends Block {
         this.props.events = {
             submit: (event) => {
                 collectInputsData(event);
-
+                validateForm(this);
             }
         }
 

@@ -2,6 +2,7 @@ import Block from "../../../../scripts/utils/block";
 import template  from "./profileForm.hbs";
 import {ProfileInput, ProfileInputProps} from "../profileInput/ProfileInput";
 import {collectInputsData} from "../../../../scripts/content/handlers/FormHandler";
+import {validateForm} from "../../../../scripts/validator/validator";
 
 export interface ProfileFormProps {
     inputs: ProfileInputProps[];
@@ -19,7 +20,7 @@ export  class ProfileForm extends Block {
         this.props.events = {
             submit: (event) => {
                 collectInputsData(event);
-
+                validateForm(this);
             }
         };
         this.children.inputs = this.props.inputs?.map((props) => new ProfileInput(props));
