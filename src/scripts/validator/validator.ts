@@ -10,16 +10,14 @@ export function validateInput(event):string {
         return error
     }
     if (inputType === constants.FIRST_NAME || inputType === constants.SECOND_NAME) {
-        console.log(isDash(inputText));
         if (!isCyrillic(inputText) && !isLatin(inputText)) {
             return "Must be Cyrillic or Latin"
         }
         if (isNumber(inputText)) {
             return 'Can\' contain numbers';
         }
-        if (isSpace(inputText)) {
+        if (!isNamePattern(inputText)) {
             return 'Can\' contain space and special symbols';
-            //TODO:Дописать обработку спецсимволов
         }
         if (!firstSymbolIsUpperCase(inputText)) {
             return 'First symbol must be to upper case'
@@ -36,14 +34,13 @@ export function validateInput(event):string {
         if (!isLatin(inputText)) {
             return 'Can\'t contain only numbers'
         }
-        if (isSpace(inputText)) {
+        if (!isLoginPattern(inputText)) {
             return 'Can\' contain space and special symbols';
-            //TODO:Дописать обработку спецсимволов
         }
     }
 
     if (inputType === constants.PHONE) {
-        if (!isPhone(inputText)) {
+        if (!isPhonePattern(inputText)) {
             return 'Can be only digits, mau start from +'
         }
         if (!isSize(10, 15, inputText)) {
@@ -54,7 +51,7 @@ export function validateInput(event):string {
         if (isCyrillic(inputText)) {
             return 'Can contain only latin symbol'
         }
-        if (!isEmail(inputText)) {
+        if (!isEmailPattern(inputText)) {
             return 'Incorrect email address'
         }
 
@@ -88,11 +85,11 @@ function isLatin(text):boolean {
 function isNumber(text):boolean {
     return text.match(/\d+/);
 }
-function isSpace(text):boolean {
-    return text.match(/\s+/);
+function isLoginPattern(text):boolean {
+    return text.match(/^[a-zA-Z0-9_-]*$/);
 }
-function isDash(text):boolean {
-    return text.match(/-+/);
+function isNamePattern(text):boolean {
+    return text.match(/^[a-zA-Z0-9-]*$/);
 }
 
 function firstSymbolIsUpperCase(text):boolean {
@@ -104,7 +101,7 @@ function isSize(from, to, text):boolean {
 
 }
 
-function isPhone(text):boolean {
+function isPhonePattern(text):boolean {
     return text.match(/\d+|\+\d+/)
 }
 
@@ -119,6 +116,6 @@ function isUpperCase(symbol):boolean {
     return symbol.match(/[A-Z]/);
 }
 
-function isEmail(text):boolean {
+function isEmailPattern(text):boolean {
     return text.match(/.+@.+\..+/);
 }

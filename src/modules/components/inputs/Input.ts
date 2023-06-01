@@ -23,6 +23,11 @@ export  class Input extends Block {
                 this.props.value = event.target.value;
 
             },
+            submit: (event) => {
+                this.props.error = validateInput(event);
+                this.props.value = event.target.value;
+
+            },
 
         }
     }

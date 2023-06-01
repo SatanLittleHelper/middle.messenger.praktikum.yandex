@@ -2,6 +2,7 @@ import Block from "../../../scripts/utils/block";
 import {Input, InputProps} from "../inputs/Input";
 import template  from "./form.hbs";
 import {collectInputsData} from "../../../scripts/content/handlers/FormHandler";
+import {validateInput} from "../../../scripts/validator/validator";
 
 
 export interface FormProps {
