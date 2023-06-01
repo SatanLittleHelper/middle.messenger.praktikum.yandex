@@ -4,30 +4,17 @@ enum METHOD {
     PUT = 'PUT',
     PATCH = 'PATCH',
     DELETE = 'DELETE'
-};
+}
 
 type Options = {
     method: METHOD;
     data?: any;
+    headers?: Record<string, any>
 };
 
-// Тип Omit принимает два аргумента: первый — тип, второй — строка
-// и удаляет из первого типа ключ, переданный вторым аргументом
 type OptionsWithoutMethod = Omit<Options, 'method'>;
-// Этот тип эквивалентен следующему:
-// type OptionsWithoutMethod = { handlers?: any };
 
-function queryStringify(data) {
-    let query = '?';
-
-    for (let key in data) {
-        query += `${key}=${data[key]}&`;
-    }
-
-    return query.slice(0, -1);
-}
-
-class HTTPTransport {
+export class HTTPTransport {
 
     fetchWithRetry(url, options = {}) {
         const {tries = 1} = options;
@@ -49,19 +36,40 @@ class HTTPTransport {
     get(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
         const { data } = options;
         if (data) {
-            url = url.concat(queryStringify(data));
+            url = url.concat(this.queryStringify(data));
         }
 
         return this.request(url, {...options, method: METHOD.GET});
     };
+    post(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
 
-    request(url: string, options: Options = { method: METHOD.GET }): Promise<XMLHttpRequest> {
-        const {method, data} = options;
+        return this.request(url, {...options, method: METHOD.POST});
+    };
+    put(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
 
+        return this.request(url, {...options, method: METHOD.PUT});
+    };
+    delete(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+
+        return this.request(url, {...options, method: METHOD.DELETE});
+    };
+    patch(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+
+        return this.request(url, {...options, method: METHOD.PATCH});
+    };
+
+   private request(url: string, options: Options = { method: METHOD.GET }): Promise<XMLHttpRequest> {
+        const {method, data, headers} = options;
+        console.log(options);
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.open(method, url);
 
+            if (headers) {
+                Object.entries(headers).forEach((value) => {
+                    xhr.setRequestHeader(value[0], value[1]);
+                })
+            }
             xhr.onload = function() {
                 resolve(xhr);
             };
@@ -72,9 +80,19 @@ class HTTPTransport {
 
             if (method === METHOD.GET || !data) {
                 xhr.send();
-            } else {
-                xhr.send(data);
+            }
+            else {
+                xhr.send(JSON.stringify(data));
             }
         });
     };
+    private queryStringify(data) {
+        let query = '?';
+
+        for (let key in data) {
+            query += `${key}=${data[key]}&`;
+        }
+
+        return query.slice(0, -1);
+    }
 }
