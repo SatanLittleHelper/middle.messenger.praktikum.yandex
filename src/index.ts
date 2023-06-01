@@ -343,6 +343,7 @@ window.addEventListener('DOMContentLoaded', () => {
     })
 
     const pages = [
+        { link: "/", label: "home" },
         { link: "/login", label: "login" },
         { link: "/signup", label: "signup" },
         { link: "/messenger", label: "messenger" },
