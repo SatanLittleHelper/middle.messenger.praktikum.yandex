@@ -91,13 +91,13 @@ window.addEventListener('DOMContentLoaded', () => {
             {
                 events: {
                 },
-                text: "Password",
+                text: "Repeat password",
                 name: "repeat_password",
                 type: "password",
                 error: "",
             }
         ],
-        header: "Log in",
+        header: "Sign up",
         links: {
             main: "/messenger",
             sub: "/login"
