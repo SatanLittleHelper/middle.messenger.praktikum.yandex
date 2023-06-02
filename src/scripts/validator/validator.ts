@@ -1,6 +1,6 @@
 import constants from "../constants";
 import {Form} from "../../modules/components/form/form";
-import Block from "../utils/block";
+import Block from "../utils/Block";
 
 let error: string;
 export function validateInputTriggeredByEvent(event):string {

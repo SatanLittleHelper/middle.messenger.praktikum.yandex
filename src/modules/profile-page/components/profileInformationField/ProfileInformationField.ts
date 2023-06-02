@@ -1,4 +1,4 @@
-import Block from "../../../../scripts/utils/block";
+import Block from "../../../../scripts/utils/Block";
 import  template  from "./profileInformationField.hbs";
 
 export interface ProfileInformationFieldProps {

@@ -1,4 +1,4 @@
-import Block from "../../../../scripts/utils/block";
+import Block from "../../../../scripts/utils/Block";
 import template  from "./ProfileInformation.hbs";
 import {
     ProfileInformationField,
