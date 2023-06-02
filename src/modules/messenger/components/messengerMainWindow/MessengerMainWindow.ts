@@ -1,4 +1,4 @@
-import Block from "../../../../scripts/utils/block";
+import Block from "../../../../scripts/utils/Block";
 import  template  from "./messengerMainWindow.hbs";
 import {Message, MessageProps} from "../message/Message";
 import {collectInputsData} from "../../../../scripts/content/handlers/FormHandler";

@@ -1,4 +1,4 @@
-import Block from "../../../../scripts/utils/block";
+import Block from "../../../../scripts/utils/Block";
 import template  from "./profile.hbs";
 import {ProfileForm, ProfileFormProps} from "../profileForm/ProfileForm";
 import {Controls, ControlsProps} from "../controls/Controls";

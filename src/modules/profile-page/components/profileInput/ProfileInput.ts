@@ -1,4 +1,4 @@
-import Block from "../../../../scripts/utils/block";
+import Block from "../../../../scripts/utils/Block";
 import template  from "./profileInput.hbs";
 import {validateInputTriggeredByEvent} from "../../../../scripts/validator/validator";
 

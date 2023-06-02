@@ -1,4 +1,4 @@
-import Block from "../../scripts/utils/block";
+import Block from "../../scripts/utils/Block";
 import  template  from "./messenger.hbs";
 import {MessengerMainWindow, MessengerMainWindowProps} from "./components/messengerMainWindow/MessengerMainWindow";
 import {DialogsSideBar, DialogsSideBarProps} from "./components/dialogsSidebar/dialogsSideBar";
