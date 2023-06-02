@@ -1,5 +1,5 @@
 import template from "./allPages.hbs";
-import Block from "../../scripts/utils/Block";
+import Block from "../../scripts/utils/block";
 
 type link = {
     link: string;
