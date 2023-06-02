@@ -1,5 +1,5 @@
 import Block from "../../../../scripts/utils/Block";
-import template  from "./ProfileInformation.hbs";
+import template  from "./profileInformation.hbs";
 import {
     ProfileInformationField,
     ProfileInformationFieldProps
