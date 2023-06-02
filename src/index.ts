@@ -3,7 +3,7 @@ import renderDOM from "./scripts/utils/renderDOM";
 import {AppError} from "./modules/error/AppError";
 import {Messenger} from "./modules/messenger/Messenger";
 import {Profile} from "./modules/profile-page/components/profile/Profile";
-import {AllPages} from "./pages/allPages/allPages";
+import {AllPages} from "./pages/allPages/AllPages";
 
 window.addEventListener('DOMContentLoaded', () => {
     const loginPage = new Form({
