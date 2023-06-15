@@ -1,6 +1,6 @@
 import Block from "../../../scripts/utils/Block";
-import  template  from "./input.hbs";
-import {validateInputTriggeredByEvent} from "../../../scripts/validator/validator";
+import template from "./input.hbs";
+import {validateInputTriggeredByEvent} from "../../../scripts/content/validator/validator";
 
 export interface InputProps {
     type: string;

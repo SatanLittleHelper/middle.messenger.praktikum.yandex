@@ -1,8 +1,9 @@
 import Block from "../../../scripts/utils/Block";
 import {Input, InputProps} from "../inputs/Input";
-import template  from "./form.hbs";
+import template from "./form.hbs";
 import {collectInputsData} from "../../../scripts/content/handlers/FormHandler";
-import {validateForm} from "../../../scripts/validator/validator";
+import {validateForm} from "../../../scripts/content/validator/validator";
+import {withRouter} from "../../../scripts/utils/withRouter";
 
 
 export interface FormProps {
@@ -19,6 +20,7 @@ export  class Form extends Block {
     }
 
     protected init() {
+        console.log(this.props);
         this.children.inputs = this.props.formInputs.map((props) => new Input(props));
         this.props.events = {
             submit: (event) => {
@@ -33,3 +35,5 @@ export  class Form extends Block {
         return this.compile(template, this.props);
     }
 }
+export default withRouter(Form);
+

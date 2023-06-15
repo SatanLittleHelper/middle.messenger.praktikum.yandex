@@ -2,7 +2,7 @@ import Block from "../../../../scripts/utils/Block";
 import  template  from "./messengerMainWindow.hbs";
 import {Message, MessageProps} from "../message/Message";
 import {collectInputsData} from "../../../../scripts/content/handlers/FormHandler";
-import {validateInput} from "../../../../scripts/validator/validator";
+import {validateInput} from "../../../../scripts/content/validator/validator";
 
 export interface MessengerMainWindowProps {
     messageDate: string,

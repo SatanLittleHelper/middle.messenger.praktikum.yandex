@@ -15,9 +15,15 @@ type Options = {
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 type HTTPMethod = (url: string, options?: OptionsWithoutMethod) => Promise<XMLHttpRequest>
 
-export class HTTPTransport {
 
-    fetchWithRetry(url, options = {}) {
+export class HTTPTransport {
+    private readonly url: string;
+
+    constructor(url: string ) {
+         this.url  = url;
+    }
+
+    fetchWithRetry: HTTPMethod = (url, options = {}) => {
         const {tries = 1} = options;
 
         function onError(err){
@@ -34,7 +40,7 @@ export class HTTPTransport {
     }
 
 
-    get: HTTPMethod = (url, options  = {}) => {
+    get: HTTPMethod = (url= this.url, options  = {}) => {
         const { data } = options;
         if (data) {
             url = url.concat(this.queryStringify(data));
@@ -46,25 +52,25 @@ export class HTTPTransport {
 
         return this.request(url, {...options, method: METHOD.POST});
     };
-    put: HTTPMethod = (url, options = {}) => {
+    put: HTTPMethod = (url = this.url, options = {}) => {
 
         return this.request(url, {...options, method: METHOD.PUT});
     };
-    delete: HTTPMethod = (url, options = {}) => {
+    delete: HTTPMethod = (url = this.url, options = {}) => {
 
         return this.request(url, {...options, method: METHOD.DELETE});
     };
-    patch: HTTPMethod = (url, options = {}) => {
+    patch: HTTPMethod = (url= this.url, options = {}) => {
 
         return this.request(url, {...options, method: METHOD.PATCH});
     };
 
    private request(url: string, options: Options = { method: METHOD.GET }): Promise<XMLHttpRequest> {
         const {method, data, headers} = options;
-        console.log(options);
+        const reqUrl = this.url + url;
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-            xhr.open(method, url);
+            xhr.open(method, reqUrl);
 
             if (headers) {
                 Object.entries(headers).forEach((value) => {
@@ -87,7 +93,7 @@ export class HTTPTransport {
             }
         });
     };
-    private queryStringify(data) {
+    private queryStringify(data: Record<string, any>) {
         let query = '?';
 
         for (let key in data) {

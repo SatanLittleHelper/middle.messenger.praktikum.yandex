@@ -1,19 +1,29 @@
-import { EventBus } from "./eventBus";
+import EventBus from "./eventBus";
 import { nanoid } from "nanoid";
-class Block {
+
+export interface BlockClass<P> extends Function {
+    new (props: P): Block<P>;
+    componentName?: string;
+}
+class Block<P = any> {
     static EVENTS = {
         INIT: "init",
         FLOW_CDM: "flow:component-did-mount",
         FLOW_CDU: "flow:component-did-update",
+        FLOW_CWU: 'flow:component-will-unmount',
         FLOW_RENDER: "flow:render"
     };
 
     public id = nanoid(6);
-    protected props: Record<string, unknown>;
-    private _element: HTMLElement | null = null;
-    private readonly _meta: {props: Record<string, unknown> };
-    private eventBus: () => EventBus;
     public children: Record<string, Block>;
+
+    protected props: P;
+    protected refs: { [key: string]: HTMLElement } = {};
+
+    private _element: HTMLElement | null = null;
+    private eventBus: () => EventBus;
+
+
 
     /** JSDoc
      * @param {Object} propsWithChildren
@@ -24,10 +34,6 @@ class Block {
         const eventBus = new EventBus();
 
         const { props, children } = this._getChildrenAndProps(propsWithChildren);
-
-        this._meta = {
-            props
-        };
 
         this.children = children;
         this.props = this._makePropsProxy(props);
@@ -92,17 +98,15 @@ class Block {
     private _componentDidMount() {
         this.componentDidMount();
     }
-    protected componentDidMount() {}
+    protected componentDidMount() {
+    }
 
     public dispatchComponentDidMount() {
         this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 
-        if(typeof this.children === 'Block'){
-            Object.values(this.children).forEach((child) =>
+        Object.values(this.children).forEach((child) =>
                 child.dispatchComponentDidMount()
-            );
-        }
-
+        );
     }
 
    private _componentDidUpdate(oldProps: Record<string, unknown>, newProps: Record<string, unknown>) {
@@ -112,19 +116,39 @@ class Block {
         }
     }
 
+    // @ts-ignore
     protected componentDidUpdate(oldProps: Record<string, unknown>, newProps: Record<string, unknown>) {
         return true;
     }
 
-    setProps = nextProps => {
+    _componentWillUnmount() {
+        this.eventBus().destroy();
+        this.componentWillUnmount();
+    }
+
+    public componentWillUnmount() {}
+
+    setProps = (nextProps: Partial<P>) => {
         if (!nextProps) {
             return;
         }
+        // @ts-ignore
         Object.assign(this.props, nextProps);
     };
 
     get element() {
         return this._element;
+    }
+
+    _checkInDom() {
+        const elementInDOM = document.body.contains(this._element);
+
+        if (elementInDOM) {
+            setTimeout(() => this._checkInDom(), 1000);
+            return;
+        }
+
+        this.eventBus().emit(Block.EVENTS.FLOW_CWU, this.props);
     }
 
     protected compile(template: (context: any) => string, context: any) {
@@ -184,6 +208,16 @@ class Block {
     }
 
     public getContent() {
+        if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+            setTimeout(() => {
+                if (
+                    this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE
+                ) {
+                    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+                }
+            }, 100);
+        }
+
         return this.element!;
     }
 
@@ -205,6 +239,7 @@ class Block {
             deleteProperty() {
                 throw new Error ('нет доступа');
             },
+
 
         });
     }

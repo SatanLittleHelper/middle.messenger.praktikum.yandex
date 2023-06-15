@@ -2,7 +2,7 @@ import Block from "../../../../scripts/utils/Block";
 import template  from "./profileForm.hbs";
 import {ProfileInput, ProfileInputProps} from "../profileInput/ProfileInput";
 import {collectInputsData} from "../../../../scripts/content/handlers/FormHandler";
-import {validateForm} from "../../../../scripts/validator/validator";
+import {validateForm} from "../../../../scripts/content/validator/validator";
 
 export interface ProfileFormProps {
     inputs: ProfileInputProps[];

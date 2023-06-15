@@ -3,6 +3,8 @@ import template  from "./profile.hbs";
 import {ProfileForm, ProfileFormProps} from "../profileForm/ProfileForm";
 import {Controls, ControlsProps} from "../controls/Controls";
 import {ProfileInformation, ProfileInformationProps} from "../profileInformation/ProfileInformation";
+// import store, { StoreEvents } from '../../../../scripts/utils/store';
+
 
 export interface ProfileProps {
     control: ControlsProps;
@@ -14,6 +16,12 @@ export interface ProfileProps {
 export  class Profile extends Block {
     constructor(props: ProfileProps) {
         super(props);
+
+        // UserController.getUser();
+
+        // store.on(StoreEvents.Updated, () => {
+        //     this.setProps(store.getState());
+        // });
     }
 
     protected init() {
