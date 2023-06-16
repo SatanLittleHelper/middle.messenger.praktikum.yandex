@@ -1,7 +1,7 @@
-import { HashRouter } from './hashRouter/hashRouter';
 import {BlockClass} from "./Block";
+import {router} from "../../router";
 
-type WithRouterProps = { router: HashRouter }
+type WithRouterProps = { }
 
 export function withRouter<P extends WithRouterProps>(WrappedBlock: BlockClass<P>) {
     // @ts-expect-error No base constructor has the specified number of type arguments
@@ -9,7 +9,7 @@ export function withRouter<P extends WithRouterProps>(WrappedBlock: BlockClass<P
         public static componentName = WrappedBlock.componentName || WrappedBlock.name;
 
         constructor(props: P) {
-            super({ ...props, router: window.router });
+            super({ ...props, router: router });
         }
     } as BlockClass<Omit<P, 'router'>>;
 }

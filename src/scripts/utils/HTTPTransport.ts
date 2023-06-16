@@ -23,21 +23,21 @@ export class HTTPTransport {
          this.url  = url;
     }
 
-    fetchWithRetry: HTTPMethod = (url, options = {}) => {
-        const {tries = 1} = options;
-
-        function onError(err){
-            const triesLeft = tries - 1;
-
-            if (!triesLeft){
-                throw err;
-            }
-
-            return this.fetchWithRetry(url, {...options, tries: triesLeft});
-        }
-
-        return fetch(url, options);
-    }
+    // fetchWithRetry: HTTPMethod = (url, options = {}) => {
+    //     const {tries = 1} = options;
+    //
+    //     function onError(err){
+    //         const triesLeft = tries - 1;
+    //
+    //         if (!triesLeft){
+    //             throw err;
+    //         }
+    //
+    //         return this.fetchWithRetry(url, {...options, tries: triesLeft});
+    //     }
+    //
+    //     return fetch(url, options);
+    // }
 
 
     get: HTTPMethod = (url= this.url, options  = {}) => {
@@ -49,8 +49,7 @@ export class HTTPTransport {
         return this.request(url, {...options, method: METHOD.GET});
     };
     post: HTTPMethod = (url, options = {})  => {
-
-        return this.request(url, {...options, method: METHOD.POST});
+        return this.request(url, {...options, method: METHOD.POST})
     };
     put: HTTPMethod = (url = this.url, options = {}) => {
 
@@ -77,6 +76,8 @@ export class HTTPTransport {
                     xhr.setRequestHeader(value[0], value[1]);
                 })
             }
+            xhr.withCredentials = true;
+
             xhr.onload = function() {
                 resolve(xhr);
             };
@@ -89,9 +90,13 @@ export class HTTPTransport {
                 xhr.send();
             }
             else {
+
                 xhr.send(JSON.stringify(data));
             }
-        });
+        }).then((req) => {
+            console.log(req);
+            return  JSON.parse(req.response);
+        });;
     };
     private queryStringify(data: Record<string, any>) {
         let query = '?';

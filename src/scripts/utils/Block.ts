@@ -105,7 +105,7 @@ class Block<P = any> {
         this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 
         Object.values(this.children).forEach((child) =>
-                child.dispatchComponentDidMount()
+                child?.dispatchComponentDidMount()
         );
     }
 
@@ -254,6 +254,10 @@ class Block<P = any> {
 
     hide() {
         this.getContent()!.style.display = "none";
+    }
+
+    public destroy() {
+        this._element!.remove();
     }
 }
 

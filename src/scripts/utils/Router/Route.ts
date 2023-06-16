@@ -1,49 +1,83 @@
-// import isEqual from "../helpers/isEqual";
-// import Block from "../Block";
-// import renderDOM from "../helpers/renderDOM";
-//
-// export interface RouteProps {
-//     querySelector: string;
-// }
-// export class Route {
-//     private _pathname: string;
-//     private readonly _blockClass: any;
-//     private _block: Block | null;
-//     private _props: Record<string, any>;
-//
-//     constructor(pathname:string, view:Block, props:RouteProps) {
-//         this._pathname = pathname;
-//         this._blockClass = view;
-//         this._block = null;
-//         this._props = props;
-//     }
-//
-//     navigate(pathname) {
-//         if (this.match(pathname)) {
-//             this._pathname = pathname;
-//             this.render();
-//         }
-//     }
-//
-//     leave() {
-//         if (this._block) {
-//             this._block.hide();
-//         }
-//     }
-//
-//     match(pathname) {
-//         return isEqual(pathname, this._pathname);
-//     }
-//
-//     render() {
-//         if (!this._block) {
-//             this._block = new this._blockClass();
-//             renderDOM(<Block>this._block, this._props.querySelector);
-//             return;
-//         }
-//
-//         this._block.show();
-//     }
-// }
-//
-//
+import Block from '../Block';
+import renderDOM from "../helpers/renderDOM";
+
+function isEqual(lhs: any, rhs: any) {
+    return lhs === rhs;
+}
+
+export interface IRouterProps {
+    rootQuery: string;
+    exact: boolean;
+}
+
+export default class Route {
+    private readonly _pathname: string;
+    private readonly _blockClass: Block;
+    private _block!: Block;
+    private _props: IRouterProps;
+    private readonly _componentProps: any;
+    // @ts-ignore
+    private _params: {};
+    private readonly _needAuth: boolean;
+    private readonly _onUnautorized: any;
+    private readonly _redirect: () => void;
+
+    constructor(
+        pathname: string,
+        view: Block,
+        props: IRouterProps,
+        componentProps: any,
+        needAuth: boolean,
+        onUnautorized: () => void,
+        redirect: () => void,
+    ) {
+        this._pathname = pathname;
+        this._blockClass = view;
+        this._props = props;
+        this._needAuth = needAuth;
+        this._onUnautorized = onUnautorized;
+        this._componentProps = componentProps;
+        this._params = this.getParams();
+        this._redirect = redirect
+    }
+
+    getParams(): {} {
+        return Object.fromEntries((new URLSearchParams(document.location.search)).entries());
+    }
+
+    leave() {
+        this._block?.destroy();
+    }
+
+    match(pathname: string) {
+        if (this._props.exact) {
+            return isEqual(pathname, this._pathname);
+        } else {
+            return ~pathname.indexOf(this._pathname);
+        }
+
+    }
+
+    checkAuth() {
+        if (this._needAuth) {
+            if (typeof this._onUnautorized === 'function') {
+                return this._onUnautorized(this._pathname);
+            }
+        }
+        return true;
+    }
+
+    render() {
+        if (this.checkAuth()) {
+            if (!this._block) {
+                // @ts-ignore
+                this._block = new this._blockClass({...this._componentProps, routerParams: this.getParams()});
+            } else {
+                this._block.setProps({...this._componentProps, routerParams: this.getParams()});
+            }
+            renderDOM(this._block, this._props.rootQuery);
+        } else {
+            this._redirect()
+        }
+    }
+}

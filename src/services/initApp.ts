@@ -11,36 +11,8 @@ export async function initApp(dispatch: Dispatch<AppState>) {
     // await new Promise(r => setTimeout(r, 700));
 
     try {
-        dispatch({ PageProps: {
-                buttonsText: {
-                    mainBtn: "Log in",
-                    subBtn: "Sign up"
-                },
-                formInputs: [
-                    {
-                        events: {},
-                        text: "Log in",
-                        name: "login",
-                        type: "text",
-                        error: "",
-                    },
-                    {
-                        events: {},
-                        text: "Password",
-                        name: "password",
-                        type: "password",
-                        error: "",
-                    }
-                ],
-                header: "Log in",
-                links: {
-                    main: "/messenger",
-                    sub: "/signup"
-                },
-            } });
 
         const response = await authAPI.me();
-        console.log(response);
 
         if (apiHasError(response)) {
             return;

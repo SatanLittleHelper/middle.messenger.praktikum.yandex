@@ -2,15 +2,14 @@
         <div class="form__header">
             <h2 class="form__title"> {{ header }}</h2>
         </div>
-    <form class="form__content">
+    <form  name="{{formName}}" class="form__content">
     <div class="form__content__inputs">
          {{#each inputs}}
              {{{ this }}}
          {{/each}}
     </div>
     <div class="form__content__buttons">
-        <button style="display: none"></button>
-        <a href="{{ links.main }}" class="button button__main">{{buttonsText.mainBtn}}</a>
+        <button class="button button__main">{{buttonsText.mainBtn}}</button>
         <a href="{{ links.sub }}" class="button button__sub">{{buttonsText.subBtn}}</a>
     </div>
 </form>

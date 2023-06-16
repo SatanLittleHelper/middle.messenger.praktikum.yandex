@@ -4,8 +4,8 @@ import Block from "../../utils/Block";
 
 let error: string;
 export function validateInputTriggeredByEvent(event):string {
-    const inputText = event.target.value;
-    const inputType = event.target.name;
+    const inputText = event.target?.value;
+    const inputType = event.target?.name;
     return _validateInput(inputText, inputType);
 }
 
@@ -19,7 +19,6 @@ export function validateForm(form:Form) {
             error: inputError,
             value: inputElement.value
         })
-        console.log(inputElement);
     })
 }
 

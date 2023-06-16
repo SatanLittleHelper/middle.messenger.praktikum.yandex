@@ -1,14 +1,22 @@
+import {login} from "../../../services/auth";
 
-export function collectInputsData(event) {
+enum FORM_NAME {
+    SIGNIN= 'signIn',
+}
+export function collectInputsData(event: any) {
 
-        event.preventDefault();
-        const inputs = { ...event.target.querySelectorAll('input') };
-        const data: Array<any> = Object.values(inputs).filter(item => item.value);
+        const inputs = { ...event.target?.querySelectorAll('input') };
+        // @ts-ignore
+    const data: Array<any> = Object.values(inputs).filter(item => item.value);
         const result = Object.fromEntries(data.map((item) => [item.name, item.value]));
-        console.log(result);
+        return result;
 
      }
 
-
+export function submitHandler(event: any) {
+    if (event.target.name === FORM_NAME.SIGNIN) {
+        window.store.dispatch(login, {data: collectInputsData(event)});
+    }
+}
 
 

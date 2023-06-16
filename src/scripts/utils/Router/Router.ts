@@ -1,68 +1,81 @@
-// import {Route} from "./Route";
-//
-// export class Router {
-//     private static __instance: Router;
-//     private routes: Route[];
-//     private history: History;
-//     private _currentRoute: Route | null;
-//     private readonly _rootQuery: string;
-//     constructor(rootQuery) {
-//         if (Router.__instance) {
-//             return Router.__instance;
-//         }
-//
-//         this.routes = [];
-//         this.history = window.history;
-//         this._currentRoute = null;
-//         this._rootQuery = rootQuery;
-//
-//         Router.__instance = this;
-//     }
-//
-//     use(pathname, block) {
-//         const route = new Route(pathname, block, {querySelector: this._rootQuery});
-//
-//         this.routes.push(route);
-//
-//         return this;
-//     }
-//
-//     start() {
-//         window.onpopstate = (event => {
-//             this._onRoute(event.currentTarget.location.pathname);
-//         }).bind(this);
-//
-//         this._onRoute(window.location.pathname);
-//     }
-//
-//     _onRoute(pathname) {
-//         const route = this.getRoute(pathname);
-//         if (!route) {
-//             return;
-//         }
-//
-//         if (this._currentRoute && this._currentRoute !== route) {
-//             this._currentRoute.leave();
-//         }
-//
-//         this._currentRoute = route;
-//         route.render();
-//     }
-//
-//     go(pathname) {
-//         this.history.pushState({}, '', pathname);
-//         this._onRoute(pathname);
-//     }
-//
-//     back() {
-//         this.history.back();
-//     }
-//
-//     forward() {
-//         this.history.forward();
-//     }
-//
-//     getRoute(pathname) {
-//         return this.routes.find(route => route.match(pathname));
-//     }
-// }
+import Route from "./Route";
+import Block from "../Block";
+
+type TRouteConstructor = {
+    pathname: string,
+    block: Block,
+    props: any,
+    exact: true,
+    needAuth: boolean,
+    redirectPath: string,
+    onUnautorized: () => void
+}
+
+export default class PathRouter {
+    private static __instance: PathRouter;
+    public history: History;
+    private routes: Route[];
+    private _currentRoute!: Route;
+    private readonly _rootQuery: string;
+
+    constructor(rootQuery: string) {
+
+        this.routes = [];
+        this.history = window.history;
+        this._rootQuery = rootQuery;
+
+    }
+
+    static getInstance() {
+        return this.__instance;
+    }
+
+    use({pathname, block, props = {}, exact = true, needAuth = false, onUnautorized, redirectPath}: TRouteConstructor) {
+        const redirect = () => this.go(redirectPath);
+        const route = new Route(
+            pathname,
+            block,
+            {rootQuery: this._rootQuery, exact},
+            props,
+            needAuth,
+            onUnautorized,
+            redirect
+        );
+        this.routes.push(route);
+        return this;
+    }
+
+    start() {
+        window.onpopstate = (event: any) => {
+            this._onRoute(event.currentTarget?.location.pathname);
+        };
+        this._onRoute(window.location.pathname);
+    }
+
+    _onRoute(pathname: string) {
+        const route = this.getRoute(pathname);
+        if (!route) {
+            return;
+        }
+        this._currentRoute?.leave();
+        this._currentRoute = route;
+        route.render();
+    }
+
+    go(pathname: string) {
+        this.history.pushState({}, '', pathname);
+        this._onRoute(pathname);
+    }
+
+    back() {
+        this.history.go(-1);
+    }
+
+    forward() {
+        this.history.go(1);
+    }
+
+    getRoute(pathname: string) {
+        return this.routes.find((route) => route.match(pathname));
+    }
+}

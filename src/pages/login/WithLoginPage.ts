@@ -1,5 +1,6 @@
 import {InputProps} from "../../modules/components/inputs/Input";
 import {BlockClass} from "../../scripts/utils/Block";
+import {FormProps} from "../../modules/components/form/form";
 
 type WithLoginPageProps = {
     buttonsText: Record<string, string>;
@@ -11,7 +12,8 @@ type WithLoginPageProps = {
 export function withLoginPage<P extends WithLoginPageProps>(WrappedBlock: BlockClass<P>) {
     return class extends WrappedBlock<P> {
         constructor(props: P) {
-            Object.assign(props, {
+            const loginPageProps: FormProps = {
+                formName: "signIn",
                 buttonsText: {
                     mainBtn: "Log in",
                     subBtn: "Sign up"
@@ -34,12 +36,12 @@ export function withLoginPage<P extends WithLoginPageProps>(WrappedBlock: BlockC
                 ],
                 header: "Log in",
                 links: {
-                    main: "/messenger",
                     sub: "/signup"
-                },
-            });
-            console.log("call")
-            super(props);
+                }
+
+            }
+
+            super({props, ...loginPageProps});
 
         }
 
