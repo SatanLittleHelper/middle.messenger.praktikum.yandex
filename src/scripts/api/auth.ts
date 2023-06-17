@@ -10,8 +10,8 @@ type LoginResponseData = {} | APIError;
 const API_ENDPOINT = 'https://ya-praktikum.tech/api/v2/'
 const request = new HTTPTransport(API_ENDPOINT);
 const options = {
-    // credentials: 'include',
-    // mode: 'cors',
+    credentials: 'include',
+    mode: 'cors',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
 };
 

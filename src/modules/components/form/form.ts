@@ -4,6 +4,7 @@ import template from "./form.hbs";
 import {collectInputsData, submitHandler} from "../../../scripts/content/handlers/FormHandler";
 import {validateForm} from "../../../scripts/content/validator/validator";
 import {withRouter} from "../../../scripts/utils/withRouter";
+import {withStore} from "../../../scripts/utils/withStore";
 
 
 export interface FormProps {
@@ -12,6 +13,7 @@ export interface FormProps {
     buttonsText: Record<string, string>;
     formName: string;
     formInputs: InputProps[];
+    authError: string;
     events?: {}
 }
 
@@ -21,6 +23,7 @@ export  class Form extends Block {
     }
 
     protected init() {
+        this.props.authError = this.props.store.getState().loginFormError
         this.children.inputs = this.props?.formInputs?.map((props:InputProps) => new Input(props));
         this.props.events = {
             submit: (event: Event) => {
@@ -37,5 +40,5 @@ export  class Form extends Block {
         return this.compile(template, this.props);
     }
 }
-export default withRouter(Form);
+export default withStore(withRouter(Form));
 

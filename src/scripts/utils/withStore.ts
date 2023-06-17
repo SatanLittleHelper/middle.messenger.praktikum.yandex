@@ -15,6 +15,7 @@ export function withStore<P extends WithStateProps>(WrappedBlock: BlockClass<Omi
         __onChangeStoreCallback = () => {
             // @ts-expect-error this is not typed
             this.setProps({ ...this.props, store: window.store });
+
         }
 
         componentDidMount(props: P) {

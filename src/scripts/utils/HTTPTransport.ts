@@ -95,8 +95,9 @@ export class HTTPTransport {
             }
         }).then((req) => {
             console.log(req);
+
             return  JSON.parse(req.response);
-        });;
+        });
     };
     private queryStringify(data: Record<string, any>) {
         let query = '?';

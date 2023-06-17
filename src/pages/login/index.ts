@@ -1,6 +1,5 @@
-import {Form, FormProps} from "../../modules/components/form/form";
+import Form, { FormProps} from "../../modules/components/form/form";
 import {withLoginPage} from "./WithLoginPage";
-import {withStore} from "../../scripts/utils/withStore";
 
 
  class Login extends Form {
@@ -10,4 +9,4 @@ import {withStore} from "../../scripts/utils/withStore";
 }
 
 
-export default withStore(withLoginPage(Login));
+export default withLoginPage(Login);

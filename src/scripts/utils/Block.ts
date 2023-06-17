@@ -110,10 +110,9 @@ class Block<P = any> {
     }
 
    private _componentDidUpdate(oldProps: Record<string, unknown>, newProps: Record<string, unknown>) {
-        const response = this.componentDidUpdate(oldProps, newProps);
-        if (response) {
-            this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
-        }
+       if (this.componentDidUpdate(oldProps, newProps)) {
+           this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+       }
     }
 
     // @ts-ignore
@@ -194,8 +193,8 @@ class Block<P = any> {
     }
     private _render() {
         this._removeEvents();
-        const fragment = this.render();
 
+        const fragment = this.render();
         const newElement = fragment.firstElementChild as HTMLElement;
         this._element!.replaceWith(newElement);
         this._element = newElement;
@@ -233,6 +232,7 @@ class Block<P = any> {
             set(target: any, prop: string, value: any) {
                 const oldTarget = {...target};
                 target[prop] = value;
+                console.log(target);
                 self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
                 return true;
             },
