@@ -1,6 +1,7 @@
-import constants from "../../constants";
+import {constants} from "../../constants";
 import {Form} from "../../../modules/components/form/form";
 import Block from "../../utils/Block";
+import {ProfileForm} from "../../../modules/profile-page/components/profileForm/ProfileForm";
 
 let error: string;
 export function validateInputTriggeredByEvent(event):string {
@@ -9,9 +10,9 @@ export function validateInputTriggeredByEvent(event):string {
     return _validateInput(inputText, inputType);
 }
 
-export function validateForm(form:Form) {
+export function formHasError(form:Form | ProfileForm) {
     const inputs:Array<Block> = form.children.inputs as Array<Block>;
-
+    console.log(inputs)
     inputs.forEach((item) => {
         const inputElement:HTMLInputElement = item.element!.querySelector('input');
         const inputError = _validateInput(inputElement.value, inputElement.name);
@@ -20,6 +21,52 @@ export function validateForm(form:Form) {
             value: inputElement.value
         })
     })
+    _isMatchPasswords(_getPasswordInputs(inputs));
+
+    const hasError = inputs.find((input) => input.props.error.length > 0);
+    return !!hasError
+}
+
+function _isMatchPasswords(passwordInputs: Block[]): boolean {
+    if (passwordInputs.length === 2) {
+        if (passwordInputs[0].props.value !== passwordInputs[1].props.value) {
+            passwordInputs.forEach((item) => {
+                item.setProps({
+                    error: 'Passwords don\'t match ',
+                    value: item.props.value
+                })
+            })
+            return false;
+        }
+    }
+    if (passwordInputs.length === 3) {
+        if (passwordInputs[0].props.value === passwordInputs[1].props.value) {
+            passwordInputs.forEach((item) => {
+                item.setProps({
+                    error: 'Old password and new password can\'t be same',
+                    value: item.props.value
+                })
+            })
+            return false;
+        }
+        passwordInputs.shift();
+        if (passwordInputs[0].props.value !== passwordInputs[1].props.value) {
+            passwordInputs.forEach((item) => {
+                item.setProps({
+                    error: 'Passwords don\'t match ',
+                    value: item.props.value
+                })
+            })
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function _getPasswordInputs(inputs:Block[]): Block[] {
+    const passwordInputs = inputs.filter((item) => item.props.type === 'password');
+    return passwordInputs
 }
 
 export function validateInput(input:HTMLInputElement): string {
@@ -32,7 +79,7 @@ function _validateInput(inputText:string, inputType:string):string {
     if (isEmpty(inputText)) {
         return error
     }
-    if (inputType === constants.FIRST_NAME || inputType === constants.SECOND_NAME) {
+    if (inputType === constants.FIRST_NAME || inputType === constants.SECOND_NAME || inputType === constants.DISPLAY_NAME) {
         if (!isCyrillic(inputText) && !isLatin(inputText)) {
             return "Must be Cyrillic or Latin"
         }
@@ -86,12 +133,11 @@ function _validateInput(inputText:string, inputType:string):string {
         if (!isSize(8, 40, inputText)) {
             return 'Must be from 8 to 40 symbols';
         }
-        console.log(isPassword(inputText));
     }
     return error;
 }
 
-function isEmpty(text):boolean {
+function isEmpty(text:string):boolean {
     if (!text) {
         error = "Can't be empty";
         return true
@@ -99,46 +145,41 @@ function isEmpty(text):boolean {
     return false;
 }
 
-function isCyrillic(text):boolean {
-    return text.toLowerCase().match(/[а-я]+/) ;
+function isCyrillic(text:string):boolean {
+    return !!text.toLowerCase().match(/[а-я]+/) ;
 }
 
-function isLatin(text):boolean {
-    return text.toLowerCase().match(/[a-z]+/);
+function isLatin(text:string):boolean {
+    return !!text.toLowerCase().match(/[a-z]+/);
 }
-function isNumber(text):boolean {
-    return text.match(/\d+/);
+function isNumber(text: string):boolean {
+    return !!text.match(/\d+/);
 }
-function isLoginPattern(text):boolean {
-    return text.match(/^[a-zA-Z0-9_-]*$/);
+function isLoginPattern(text: string):boolean {
+    return!! text.match(/^[a-zA-Z0-9_-]*$/);
 }
-function isNamePattern(text):boolean {
-    return text.match(/^[a-zA-Z0-9а-яА-Я-]*$/);
-}
-
-function firstSymbolIsUpperCase(text):boolean {
-    return isUpperCase(text[0]);
+function isNamePattern(text: string):boolean {
+    return !!text.match(/^[a-zA-Z0-9а-яА-Я-]*$/);
 }
 
-function isSize(from, to, text):boolean {
+function firstSymbolIsUpperCase(text: string):boolean {
+    return !!isUpperCase(text[0]);
+}
+
+function isSize(from:number, to:number, text: string):boolean {
     text = text.replace(/\s/g,'');
     return text.length >= from && text.length <= to;
 
 }
 
-function isPhonePattern(text):boolean {
-    return text.replace(/\s /,'').match(/\d+|\+\d+|\+\d\(\d{3}\)\d{7}/)
+function isPhonePattern(text: string):boolean {
+    return !!text.replace(/\s /,'').match(/\d+|\+\d+|\+\d\(\d{3}\)\d{7}/)
 }
 
-function isPassword(text:string):boolean {
-    return !!text.match(/[A-Z]/) && !!text.match(/[0-9]+/);
-
+function isUpperCase(text: string):boolean {
+    return !!text.match(/[A-ZА-Я]/);
 }
 
-function isUpperCase(text):boolean {
-    return text.match(/[A-ZА-Я]/);
-}
-
-function isEmailPattern(text):boolean {
-    return text.match(/.+@.+\..+/);
+function isEmailPattern(text: string):boolean {
+    return !!text.match(/.+@.+\..+/);
 }

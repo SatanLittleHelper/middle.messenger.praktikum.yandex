@@ -5,8 +5,17 @@ type LoginRequestData = {
     login: string;
     password: string;
 };
+type SignupRequestData = {
+    "first_name": "string",
+    "second_name": "string",
+    "login": "string",
+    "email": "string",
+    "password": "string",
+    "phone": "string"
+};
 
 type LoginResponseData = {} | APIError;
+type SignupResponseData = {} | APIError;
 const API_ENDPOINT = 'https://ya-praktikum.tech/api/v2/'
 const request = new HTTPTransport(API_ENDPOINT);
 const options = {
@@ -21,5 +30,7 @@ export const authAPI = {
     me: () => request.get<UserDTO | APIError>('auth/user'),
 
     logout: () => request.post('auth/logout'),
+
+    signup: (data: SignupRequestData) => request.post<SignupResponseData>( 'auth/signup', {...options, ...data}),
 };
 

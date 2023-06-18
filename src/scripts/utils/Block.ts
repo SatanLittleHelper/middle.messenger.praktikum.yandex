@@ -76,7 +76,9 @@ class Block<P = any> {
         eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
         eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
-    }
+        eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
+
+     }
 
     _createResources() {
         const  tagName  = 'div';
@@ -96,17 +98,18 @@ class Block<P = any> {
     }
 
     private _componentDidMount() {
+        this._checkInDom();
         this.componentDidMount();
     }
     protected componentDidMount() {
+
     }
 
     public dispatchComponentDidMount() {
         this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 
         Object.values(this.children).forEach((child) =>
-                child?.dispatchComponentDidMount()
-        );
+            child?.dispatchComponentDidMount());
     }
 
    private _componentDidUpdate(oldProps: Record<string, unknown>, newProps: Record<string, unknown>) {
@@ -232,7 +235,6 @@ class Block<P = any> {
             set(target: any, prop: string, value: any) {
                 const oldTarget = {...target};
                 target[prop] = value;
-                console.log(target);
                 self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
                 return true;
             },

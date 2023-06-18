@@ -1,109 +1,12 @@
 import PathRouter from "./scripts/utils/Router/Router";
-import {Form} from "./modules/components/form/form";
 import {AppError} from "./modules/error/AppError";
 import {Messenger} from "./modules/messenger/Messenger";
-import {Profile} from "./modules/profile-page/components/profile/Profile";
 import {Store} from "./scripts/utils/store";
 import Login from "./pages/login";
+import Signup from "./pages/signup";
+import Profile from "./pages/profile";
 
 export const router = new PathRouter('#app')
-const loginPageProps = {
-    buttonsText: {
-        mainBtn: "Log in",
-        subBtn: "Sign up"
-    },
-    formInputs: [
-        {
-            events: {},
-            text: "Log in",
-            name: "login",
-            type: "text",
-            error: "",
-        },
-        {
-            events: {},
-            text: "Password",
-            name: "password",
-            type: "password",
-            error: "",
-        }
-    ],
-    header: "Log in",
-    links: {
-        main: "/messenger",
-        sub: "/signup"
-    },
-}
-const signUpPageProps = {
-    buttonsText: {
-        mainBtn: "Sign up",
-        subBtn: "Log in"
-    },
-    formInputs: [
-        {
-            events: {
-            },
-            text: "E-mail",
-            name: "email",
-            type: "text",
-            error: "",
-        },
-        {
-            events: {
-            },
-            text: "Login",
-            name: "login",
-            type: "text",
-            error: "",
-        },
-        {
-            events: {
-            },
-            text: "First name",
-            name: "first_name",
-            type: "text",
-            error: "",
-        },
-        {
-            events: {
-            },
-            text: "Second name",
-            name: "second_name",
-            type: "text",
-            error: "",
-        },
-        {
-            events: {
-            },
-            text: "Phone",
-            name: "phone",
-            type: "text",
-            error: "",
-        },
-        {
-            events: {
-            },
-            text: "Password",
-            name: "password",
-            type: "password",
-            error: "",
-        },
-        {
-            events: {
-            },
-            text: "Repeat password",
-            name: "repeat_password",
-            type: "password",
-            error: "",
-        }
-    ],
-    header: "Sign up",
-    links: {
-        main: "/messenger",
-        sub: "/login"
-    },
-    events: {}
-}
 const errorPageProps = {
     code: "404",
     description: "Not found",
@@ -176,63 +79,6 @@ const messengerPageProps = {
 
             },
         ]}
-}
-const profilePageProps = {
-    control: {
-        buttons: [
-            {
-                text: "Edit profile",
-                link: "/edit-profile",
-                buttonRed: false,
-            },
-            {
-                text: "Change password",
-                link: "/change-password",
-                buttonRed: false
-            },
-            {
-                text: "Sign out",
-                link: "/login",
-                buttonRed: true,
-            }
-
-        ],
-
-    },
-    profileInformation: {
-        fields: [
-            {
-                text: "E-mail",
-                value: "pochta@yandex.ru",
-                name: "email"
-            },
-            {
-                text: "Login",
-                value: "ivanivanov",
-                name: "login"
-            },
-            {
-                text: "First name",
-                value: "Иван",
-                name: "first_name"
-            },
-            {
-                text: "Second name",
-                value: "Иванов",
-                name: "second_name"
-            },
-            {
-                text: "Display name",
-                value: "Иван",
-                name: "display_name"
-            },
-            {
-                text: "Phone",
-                value: "+7 (909) 967 30 30",
-                name: "phone"
-            },
-        ],
-    }
 }
 const changePasswordPageProps = {
     control: {
@@ -357,18 +203,18 @@ export function initRouter(store: Store<any>) {
             block: Messenger,
             exact: true,
             needAuth: true,
-            onUnautorized: () => Boolean(store.getState().user.id),
+            onUnautorized: () => Boolean(store?.getState()?.user?.id),
             props: messengerPageProps,
             redirectPath: "/login"
         })
         .use({
             pathname: '/signup',
-            block: Form,
+            block: Signup,
             exact: true,
             needAuth: false,
             onUnautorized(): void {
             },
-            props: signUpPageProps,
+            props: {},
             redirectPath: ""
         })
         .use({
@@ -376,7 +222,7 @@ export function initRouter(store: Store<any>) {
             block: Messenger,
             exact: true,
             needAuth: true,
-            onUnautorized: () => Boolean(store.getState().user.id),
+            onUnautorized: () => Boolean(store?.getState()?.user?.id),
             props: messengerPageProps,
             redirectPath: "/login"
         })
@@ -385,8 +231,7 @@ export function initRouter(store: Store<any>) {
             block: Profile,
             exact: true,
             needAuth: true,
-            onUnautorized: () => Boolean(store.getState().user),
-            props: profilePageProps,
+            onUnautorized: () => Boolean(store?.getState()?.user?.id),
             redirectPath: "/login"
         })
         .use({
@@ -394,7 +239,7 @@ export function initRouter(store: Store<any>) {
             block: Profile,
             exact: true,
             needAuth: true,
-            onUnautorized: () => Boolean(store.getState().user),
+            onUnautorized: () => Boolean(store?.getState()?.user?.id),
             props: changePasswordPageProps,
             redirectPath: "/login"
         })
@@ -403,7 +248,7 @@ export function initRouter(store: Store<any>) {
             block: Profile,
             exact: true,
             needAuth: true,
-            onUnautorized: () => Boolean(store.getState().user),
+            onUnautorized: () => Boolean(store?.getState()?.user?.id),
             props: editProfilePageProps,
             redirectPath: "/login"
         })

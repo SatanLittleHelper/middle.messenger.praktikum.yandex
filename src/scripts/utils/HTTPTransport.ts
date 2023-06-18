@@ -40,7 +40,7 @@ export class HTTPTransport {
     // }
 
 
-    get: HTTPMethod = (url= this.url, options  = {}) => {
+    get: HTTPMethod = (url, options  = {}) => {
         const { data } = options;
         if (data) {
             url = url.concat(this.queryStringify(data));
@@ -51,15 +51,15 @@ export class HTTPTransport {
     post: HTTPMethod = (url, options = {})  => {
         return this.request(url, {...options, method: METHOD.POST})
     };
-    put: HTTPMethod = (url = this.url, options = {}) => {
-
+    put: HTTPMethod = (url, options = {}) => {
+        console.log(options)
         return this.request(url, {...options, method: METHOD.PUT});
     };
-    delete: HTTPMethod = (url = this.url, options = {}) => {
+    delete: HTTPMethod = (url, options = {}) => {
 
         return this.request(url, {...options, method: METHOD.DELETE});
     };
-    patch: HTTPMethod = (url= this.url, options = {}) => {
+    patch: HTTPMethod = (url, options = {}) => {
 
         return this.request(url, {...options, method: METHOD.PATCH});
     };
@@ -77,7 +77,7 @@ export class HTTPTransport {
                 })
             }
             xhr.withCredentials = true;
-
+            xhr.responseType = "json";
             xhr.onload = function() {
                 resolve(xhr);
             };
@@ -90,13 +90,10 @@ export class HTTPTransport {
                 xhr.send();
             }
             else {
-
                 xhr.send(JSON.stringify(data));
             }
         }).then((req) => {
-            console.log(req);
-
-            return  JSON.parse(req.response);
+            return req.response;
         });
     };
     private queryStringify(data: Record<string, any>) {

@@ -8,12 +8,14 @@
              {{{ this }}}
          {{/each}}
     </div>
-        {{#if authError}}
-        <div class="form__auth-error">{{authError}}</div>
+        {{#if store.state.loginFormError}}
+        <div class="form__auth-error">{{store.state.loginFormError}}</div>
+        {{/if}}{{#if store.state.signupFormError}}
+        <div class="form__auth-error">{{store.state.signupFormError}}</div>
         {{/if}}
         <div class="form__content__buttons">
-            <button class="button button__main">{{buttonsText.mainBtn}}</button>
-            <a href="{{ links.sub }}" class="button button__sub">{{buttonsText.subBtn}}</a>
+            <button class="button button__main form__button">{{buttonsText.mainBtn}}</button>
+            <a href="{{ links.sub }}" class="button button__sub form__button">{{buttonsText.subBtn}}</a>
         </div>
 </form>
 </div>
