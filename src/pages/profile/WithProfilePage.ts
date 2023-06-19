@@ -1,5 +1,6 @@
 import {BlockClass} from "../../scripts/utils/Block";
 import {ProfileProps} from "../../modules/profile-page/components/profile/Profile";
+import {Modal} from "../../modules/components/modal/Modal";
 
 type WithProfilePageProps = {
     control: Record<string, string>;
@@ -59,7 +60,7 @@ export function withProfilePage<P extends WithProfilePageProps>(WrappedBlock: Bl
                             name: "phone"
                         },
                     ],
-                }
+                },
             }
 
             super({props, ...profilePageProps});

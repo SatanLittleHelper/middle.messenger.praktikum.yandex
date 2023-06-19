@@ -80,111 +80,6 @@ const messengerPageProps = {
             },
         ]}
 }
-const changePasswordPageProps = {
-    control: {
-        buttons: [],
-        saveButtons: [
-            {
-                link: "/profile",
-            },
-        ]
-
-    },
-    profileForm: {
-        formId: "change_password",
-        inputs: [
-            {
-                type: "password",
-                text: "Old password",
-                name: "old-password",
-                error: "",
-                value: "",
-                events: {},
-            },
-            {
-                type: "password",
-                text: "New password",
-                name: "new-password",
-                error: "",
-                value: "",
-                events: {},
-            },
-            {
-                type: "password",
-                text: "Repeat password",
-                name: "repeat-password",
-                error: "",
-                value: "",
-                events: {},
-            },
-        ]
-    }
-
-}
-const editProfilePageProps = {
-    control: {
-        buttons: [],
-        saveButtons: [
-            {
-                link: "/profile",
-            },
-        ]
-
-    },
-    profileForm: {
-        formId: "change_profile_information",
-        inputs: [
-            {
-                type: "text",
-                text: "E-mail",
-                name: "email",
-                error: "",
-                events: {},
-                value: "pochta@yandex.ru"
-            },
-            {
-                type: "text",
-                text: "Login",
-                name: "login",
-                error: "",
-                value: "ivanivanov",
-                events: {},
-            },
-            {
-                type: "text",
-                text: "First name",
-                name: "first_name",
-                error: "",
-                value: "Иван",
-                events: {},
-            },
-            {
-                type: "text",
-                text: "Second name",
-                name: "second_name",
-                error: "",
-                value: "Иванов",
-                events: {},
-            },
-            {
-                type: "text",
-                text: "Display name",
-                name: "display_name",
-                error: "",
-                value: "Иван",
-                events: {},
-            },
-            {
-                type: "tel",
-                text: "Phone",
-                name: "phone",
-                error: "",
-                value: "+7 (909) 967 30 30",
-                events: {},
-            },
-        ]
-    }
-}
 
 export function initRouter(store: Store<any>) {
     router
@@ -232,24 +127,6 @@ export function initRouter(store: Store<any>) {
             exact: true,
             needAuth: true,
             onUnautorized: () => Boolean(store?.getState()?.user?.id),
-            redirectPath: "/login"
-        })
-        .use({
-            pathname: '/change-password',
-            block: Profile,
-            exact: true,
-            needAuth: true,
-            onUnautorized: () => Boolean(store?.getState()?.user?.id),
-            props: changePasswordPageProps,
-            redirectPath: "/login"
-        })
-        .use({
-            pathname: '/edit-profile',
-            block: Profile,
-            exact: true,
-            needAuth: true,
-            onUnautorized: () => Boolean(store?.getState()?.user?.id),
-            props: editProfilePageProps,
             redirectPath: "/login"
         })
         .use({

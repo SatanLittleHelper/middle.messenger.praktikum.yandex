@@ -31,5 +31,6 @@ const options = {
 export const profileAPI = {
     editProfile: (data: ProfileRequestData) => request.put<ProfileResponseData>('profile', {...options, ...data}),
     changePassword: (data: ChangePasswordRequestData) => request.put<ChangePasswordResponseData>('password', {...options, ...data}),
+    changeAvatar: (data: AvatarRequestData) => request.put<AvatarResponseData>('profile/avatar', {...data}),
 };
 

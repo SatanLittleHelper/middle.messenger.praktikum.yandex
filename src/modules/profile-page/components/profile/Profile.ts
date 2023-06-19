@@ -5,6 +5,7 @@ import {Controls, ControlsProps} from "../controls/Controls";
 import {ProfileInformation, ProfileInformationProps} from "../profileInformation/ProfileInformation";
 import {withStore} from "../../../../scripts/utils/withStore";
 import {handleButtonClick} from "../../../../scripts/content/handlers/ButtonsHandler";
+import {Modal, ModalProps} from "../../../components/modal/Modal";
 
 
 
@@ -13,13 +14,18 @@ export interface ProfileProps {
     control: ControlsProps;
     profileForm?: ProfileFormProps;
     profileInformation?: ProfileInformationProps;
+    modal?: Modal;
     events?: {};
 
 }
 
 const changePasswordPageProps: ProfileProps = {
     control: {
-        buttons: [],
+        buttons: [{
+            name: 'cancel',
+            text: 'Cancel',
+            buttonRed: true
+        }],
         saveButtons: [
             {
                 formID: "changePassword",
@@ -62,7 +68,11 @@ const changePasswordPageProps: ProfileProps = {
 }
 const editProfilePageProps: ProfileProps = {
     control: {
-        buttons: [],
+        buttons: [{
+            name: 'cancel',
+            text: 'Cancel',
+            buttonRed: true
+        }],
         saveButtons: [
             {
                 formID: "change_profile_information",
@@ -118,26 +128,37 @@ const editProfilePageProps: ProfileProps = {
                 events: {},
             },
         ]
-    }
+    },
+
 }
 
 enum PROFILE_STATE {
     CHANGE_PASSWORD = 'changePassword',
     EDIT_PROFILE = 'editProfile',
+    CHANGE_AVATAR = 'changeAvatar',
 
-};
+}
+
+const changeAvatarModalProps: ModalProps = {uploadFile:{
+        formID: 'changeAvatar',
+        buttonName: "uploadAvatar",
+        name: 'changeAvatar'
+    }}
 export class Profile extends Block {
 
 
     constructor(props: ProfileProps) {
         super(props);
+
     }
 
     protected init() {
-       this.preparePage();
+
+        this.preparePage();
     }
 
     render() {
+
         this.changeState();
         return this.compile(template, this.props);
     }
@@ -174,6 +195,10 @@ export class Profile extends Block {
         }
         if(this.props.store.state?.profileState === PROFILE_STATE.CHANGE_PASSWORD) {
             this.changeProps(changePasswordPageProps);
+
+        }
+        if(this.props.store.state?.profileState === PROFILE_STATE.CHANGE_AVATAR) {
+            this.children.modal = new Modal(changeAvatarModalProps);
 
         }
     }

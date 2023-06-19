@@ -28,7 +28,7 @@ export const login = async (
 
     const response = await authAPI.login(action);
     if (hasError(response)) {
-        dispatch({ isLoading: false, loginFormError: response.reason });
+        dispatch({ isLoading: false, loginFormError: response?.reason });
         return;
     }
 
@@ -64,7 +64,7 @@ export const signup = async (
 
     const response = await authAPI.signup(action);
     if (hasError(response)) {
-        dispatch({ isLoading: false, signupFormError: response.reason });
+        dispatch({ isLoading: false, signupFormError: response?.reason });
         return;
     }
 

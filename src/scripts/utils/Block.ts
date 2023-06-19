@@ -136,6 +136,8 @@ class Block<P = any> {
         }
         // @ts-ignore
         Object.assign(this.props, nextProps);
+        this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+
     };
 
     get element() {

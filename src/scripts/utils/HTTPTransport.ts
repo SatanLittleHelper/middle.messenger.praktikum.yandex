@@ -52,7 +52,6 @@ export class HTTPTransport {
         return this.request(url, {...options, method: METHOD.POST})
     };
     put: HTTPMethod = (url, options = {}) => {
-        console.log(options)
         return this.request(url, {...options, method: METHOD.PUT});
     };
     delete: HTTPMethod = (url, options = {}) => {
@@ -64,7 +63,7 @@ export class HTTPTransport {
         return this.request(url, {...options, method: METHOD.PATCH});
     };
 
-   private request(url: string, options: Options = { method: METHOD.GET }): Promise<XMLHttpRequest> {
+   private request(url: string, options: Options = { method: METHOD.GET }) {
         const {method, data, headers} = options;
         const reqUrl = this.url + url;
         return new Promise((resolve, reject) => {
@@ -88,6 +87,9 @@ export class HTTPTransport {
 
             if (method === METHOD.GET || !data) {
                 xhr.send();
+            }
+            else if (data instanceof FormData) {
+                xhr.send(data);
             }
             else {
                 xhr.send(JSON.stringify(data));

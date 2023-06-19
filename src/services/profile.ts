@@ -32,7 +32,7 @@ export const editProfile = async (
 
     const response = await profileAPI.editProfile(action);
     if (hasError(response)) {
-        dispatch({ isLoading: false, profileFormError: response.reason });
+        dispatch({ isLoading: false, profileFormError: response?.reason });
         return;
     }
 
@@ -60,7 +60,7 @@ export const changePassword = async (
 
     const response = await profileAPI.changePassword(action);
     if (hasError(response)) {
-        dispatch({ isLoading: false, profileFormError: response.reason });
+        dispatch({ isLoading: false, profileFormError: response?.reason });
         return;
     }
     else {
@@ -69,6 +69,31 @@ export const changePassword = async (
 
         router.go('/profile');
     }
+
+
+
+};export const changeAvatar = async (
+    dispatch: Dispatch<AppState>,
+    state: AppState,
+    action: AvatarPayload,
+) => {
+    // dispatch({ isLoading: true });
+
+    const response = await profileAPI.changeAvatar(action);
+    if (hasError(response)) {
+        dispatch({ isLoading: false, profileFormError: response?.reason });
+        return;
+    }
+    dispatch({ isLoading: false, profileFormError: null });
+
+    const responseUser = await authAPI.me();
+    if (responseUser) {
+        dispatch({ user: transformUser(responseUser as UserDTO) });
+    }
+
+    window.store.dispatch({profileState: 'profile'})
+
+    router.go('/profile');
 
 
 
