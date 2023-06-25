@@ -2,8 +2,8 @@ import {BlockClass} from "../../scripts/utils/Block";
 import {MessengerProps} from "../../modules/messenger/Messenger";
 
 type WithMessengerPageProps = {
-    // messengerMainWindow: Record<string, any>;
-    // sidebar: Record<string, any>;
+    messengerMainWindow: Record<string, any>;
+    sidebar: Record<string, any>;
 
 }
 

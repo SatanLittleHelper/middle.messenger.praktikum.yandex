@@ -101,7 +101,6 @@ export const getChatToken = async (
     action: GetUserTokenPayload,
 ) => {
     // dispatch({ isLoading: true });
-    console.log(action)
     const response = await chatAPI.getChatToken(action) as Record<string, any>;
     if (hasError(response)) {
         dispatch({ isLoading: false, Error: response?.reason, ...state});

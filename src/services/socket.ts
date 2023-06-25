@@ -21,11 +21,10 @@ export const openWebSocket = async (dispatch: Dispatch<AppState>, state: AppStat
     // dispatch({ isLoading: true });
     let interval: NodeJS.Timer;
     const webSocket = await socketAPI.open(action);
-    // console.log(action);
     webSocket.onopen = () => {
 
         const ws = window.store.getState()?.ws;
-        let wsObj: Record<string, WebSocket> = new Object() as Record<string, WebSocket>
+        let wsObj: Record<string, WebSocket> = {} as Record<string, WebSocket>
         wsObj[action.chatId] = webSocket;
         ws!.push(wsObj)
         window.store.dispatch({ws})
@@ -38,13 +37,11 @@ export const openWebSocket = async (dispatch: Dispatch<AppState>, state: AppStat
     webSocket.onclose = (ev) => {
         console.log(ev.type)
         clearInterval(interval);
-        // window.store.dispatch(archiveChatByChatId, {chatId: action.chatId});
 
     }
 
     webSocket.onmessage = (ev) => {
         if (ev.data === "WS token is not valid") {
-            console.log(ev)
             return;
 
         }
@@ -63,8 +60,7 @@ export const openWebSocket = async (dispatch: Dispatch<AppState>, state: AppStat
 
                     }
                 else {
-                    console.log(typeof ev.data)
-                    console.log(JSON.parse(ev.data))
+
                     if (JSON.parse(ev.data).length === 0) {
                         window.store.dispatch({currentChatMessages: JSON.parse(ev.data)});
 

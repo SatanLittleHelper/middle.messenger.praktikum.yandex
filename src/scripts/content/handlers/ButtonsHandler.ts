@@ -3,7 +3,6 @@ import {router} from "../../../router";
 import {BUTTON_NAME} from "../../constant";
 
 export function handleButtonClick(buttonElement: HTMLButtonElement | null) {
-    // console.log(buttonElement?.name);
 
     switch (buttonElement?.name) {
         case BUTTON_NAME.EDIT_PROFILE:
