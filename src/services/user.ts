@@ -5,7 +5,7 @@ import {hasError} from "../scripts/utils/apiHasError";
 import {transformUser} from "../scripts/utils/apiTransformers";
 import {UserDTO} from "../scripts/api/types";
 import {router} from "../router";
-import {profileAPI} from "../scripts/api/profile";
+import {userAPI} from "../scripts/api/user";
 
 type ProfilePayload = {
     "first_name": "string",
@@ -23,22 +23,24 @@ type ChangePasswordPayload = {
     "newPassword": "string"
 };
 
-export const editProfile = async (
-    dispatch: Dispatch<AppState>,
-    state: AppState,
-    action: ProfilePayload,
-) => {
+type SearchUserByLoginPayload = {
+    login: string;
+};
+
+
+// @ts-ignore
+export const editProfile = async (dispatch: Dispatch<AppState>, state: AppState, action: ProfilePayload,) => {
     // dispatch({ isLoading: true });
 
-    const response = await profileAPI.editProfile(action);
+    const response = await userAPI.editProfile(action);
     if (hasError(response)) {
-        dispatch({ isLoading: false, profileFormError: response?.reason });
+        dispatch({ isLoading: false, Error: response?.reason });
         return;
     }
 
     const responseUser = await authAPI.me();
 
-    dispatch({ isLoading: false, profileFormError: null });
+    dispatch({ isLoading: false, Error: null });
 
     if (hasError(responseUser)) {
         return;
@@ -51,20 +53,17 @@ export const editProfile = async (
 
 
 };
-export const changePassword = async (
-    dispatch: Dispatch<AppState>,
-    state: AppState,
-    action: ChangePasswordPayload,
-) => {
+// @ts-ignore
+export const changePassword = async (dispatch: Dispatch<AppState>, state: AppState, action: ChangePasswordPayload,) => {
     // dispatch({ isLoading: true });
 
-    const response = await profileAPI.changePassword(action);
+    const response = await userAPI.changePassword(action);
     if (hasError(response)) {
-        dispatch({ isLoading: false, profileFormError: response?.reason });
+        dispatch({ isLoading: false, Error: response?.reason });
         return;
     }
     else {
-        dispatch({ isLoading: false, profileFormError: null });
+        dispatch({ isLoading: false, Error: null });
         window.store.dispatch({profileState: 'profile'})
 
         router.go('/profile');
@@ -72,19 +71,17 @@ export const changePassword = async (
 
 
 
-};export const changeAvatar = async (
-    dispatch: Dispatch<AppState>,
-    state: AppState,
-    action: AvatarPayload,
-) => {
+};
+// @ts-ignore
+export const changeAvatar = async (dispatch: Dispatch<AppState>, state: AppState, action: AvatarPayload,) => {
     // dispatch({ isLoading: true });
 
-    const response = await profileAPI.changeAvatar(action);
+    const response = await userAPI.changeAvatar(action);
     if (hasError(response)) {
-        dispatch({ isLoading: false, profileFormError: response?.reason });
+        dispatch({ isLoading: false, Error: response?.reason });
         return;
     }
-    dispatch({ isLoading: false, profileFormError: null });
+    dispatch({ isLoading: false, Error: null });
 
     const responseUser = await authAPI.me();
     if (responseUser) {
@@ -95,8 +92,17 @@ export const changePassword = async (
 
     router.go('/profile');
 
-
-
 };
+
+// @ts-ignore
+export const findUserByLogin = async (dispatch: Dispatch<AppState>, state: AppState, action: SearchUserByLoginPayload,) => {
+
+    const response = await userAPI.searchUserByLogin(action);
+    if (hasError(response)) {
+        dispatch({ isLoading: false, Error: response?.reason });
+        return;
+    }
+};
+
 
 

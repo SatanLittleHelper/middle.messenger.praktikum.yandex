@@ -4,12 +4,12 @@ import {BlockClass} from "./Block";
 
 type WithStateProps = { store: Store<AppState> };
 
-export function withStore<P extends WithStateProps>(WrappedBlock: BlockClass<Omit<any, "LoginPage">>) {
+export function withStore<P extends WithStateProps>(WrappedBlock: BlockClass<P>) {
     // @ts-ignore
     return class extends WrappedBlock<P> {
 
         constructor(props: P) {
-            super({ ...props,store: window.store });
+            super({ ...props, store: window.store });
         }
 
         __onChangeStoreCallback = () => {

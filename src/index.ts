@@ -9,10 +9,12 @@ declare global {
     }
 }
 window.addEventListener('DOMContentLoaded', () => {
-
+    console.log("ad")
     const store = new Store<AppState>(defaultState);
 
     window.store = store;
+
+    console.log(window)
 
     store.on('changed', (prevState, nextState) => {
         if(!prevState.appIsInited && nextState.appIsInited) {

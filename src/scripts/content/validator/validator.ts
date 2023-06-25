@@ -1,9 +1,10 @@
-import {constants} from "../../constants";
 import {Form} from "../../../modules/components/form/form";
 import Block from "../../utils/Block";
 import {ProfileForm} from "../../../modules/profile-page/components/profileForm/ProfileForm";
+import {USER} from "../../constant";
 
 let error: string;
+// @ts-ignore
 export function validateInputTriggeredByEvent(event):string {
     const inputText = event.target?.value;
     const inputType = event.target?.name;
@@ -11,10 +12,9 @@ export function validateInputTriggeredByEvent(event):string {
 }
 
 export function formHasError(form:Form | ProfileForm) {
-    const inputs:Array<Block> = form.children.inputs as Array<Block>;
-    console.log(inputs)
+    const inputs:Array<Block> = form.children.inputs as unknown as Array<Block>;
     inputs.forEach((item) => {
-        const inputElement:HTMLInputElement = item.element!.querySelector('input');
+        const inputElement:HTMLInputElement = item.element!.querySelector('input') as HTMLInputElement;
         const inputError = _validateInput(inputElement.value, inputElement.name);
         item.setProps({
             error: inputError,
@@ -69,8 +69,9 @@ function _getPasswordInputs(inputs:Block[]): Block[] {
     return passwordInputs
 }
 
-export function validateInput(input:HTMLInputElement): string {
-    return _validateInput(input.value, input.name);
+export function validateInput(input:HTMLInputElement | null): string {
+    if (!input) return "Wrong type"
+    return _validateInput(input?.value, input?.name);
 }
 
 function _validateInput(inputText:string, inputType:string):string {
@@ -79,7 +80,7 @@ function _validateInput(inputText:string, inputType:string):string {
     if (isEmpty(inputText)) {
         return error
     }
-    if (inputType === constants.FIRST_NAME || inputType === constants.SECOND_NAME || inputType === constants.DISPLAY_NAME) {
+    if (inputType === USER.FIRST_NAME || inputType === USER.SECOND_NAME || inputType === USER.DISPLAY_NAME) {
         if (!isCyrillic(inputText) && !isLatin(inputText)) {
             return "Must be Cyrillic or Latin"
         }
@@ -94,7 +95,7 @@ function _validateInput(inputText:string, inputType:string):string {
         }
     }
 
-    if (inputType === constants.LOGIN) {
+    if (inputType === USER.LOGIN) {
         if (!isSize(3, 20, inputText)) {
             return 'Must be from 3 to 20 symbols';
         }
@@ -109,7 +110,7 @@ function _validateInput(inputText:string, inputType:string):string {
         }
     }
 
-    if (inputType === constants.PHONE) {
+    if (inputType === USER.PHONE) {
         if (!isPhonePattern(inputText)) {
             return 'Can be only numbers, may start from +'
         }
@@ -118,7 +119,7 @@ function _validateInput(inputText:string, inputType:string):string {
         }
 
     }
-    if (inputType === constants.EMAIL) {
+    if (inputType === USER.EMAIL) {
         if (isCyrillic(inputText)) {
             return 'Can contain only latin symbol'
         }
@@ -128,8 +129,8 @@ function _validateInput(inputText:string, inputType:string):string {
 
     }
 
-    if (inputType === constants.PASSWORD || inputType === constants.NEW_PASSWORD ||
-        inputType === constants.OLD_PASSWORD || inputType === constants.REPEAT_PASSWORD) {
+    if (inputType === USER.PASSWORD || inputType === USER.NEW_PASSWORD ||
+        inputType === USER.OLD_PASSWORD || inputType === USER.REPEAT_PASSWORD) {
         if (!isSize(8, 40, inputText)) {
             return 'Must be from 8 to 40 symbols';
         }

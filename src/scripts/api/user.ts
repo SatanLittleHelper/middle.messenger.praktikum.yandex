@@ -1,4 +1,3 @@
-import { APIError } from './types';
 import {HTTPTransport} from "../utils/HTTPTransport";
 
 type ProfileRequestData = {
@@ -17,9 +16,13 @@ type ChangePasswordRequestData = {
     "newPassword": "string"
 };
 
-type ProfileResponseData = {} | APIError;
-type AvatarResponseData = {} | APIError;
-type ChangePasswordResponseData = {} | APIError;
+type SearchUserByLoginRequestData = {
+    login: string;
+}
+type GetUserByIdRequestData = {
+    id: string;
+}
+
 const API_ENDPOINT = 'https://ya-praktikum.tech/api/v2/user/'
 const request = new HTTPTransport(API_ENDPOINT);
 const options = {
@@ -28,9 +31,12 @@ const options = {
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
 };
 
-export const profileAPI = {
-    editProfile: (data: ProfileRequestData) => request.put<ProfileResponseData>('profile', {...options, ...data}),
-    changePassword: (data: ChangePasswordRequestData) => request.put<ChangePasswordResponseData>('password', {...options, ...data}),
-    changeAvatar: (data: AvatarRequestData) => request.put<AvatarResponseData>('profile/avatar', {...data}),
+export const userAPI = {
+    editProfile: (data: ProfileRequestData) => request.put('profile', {...options, ...data}),
+    changePassword: (data: ChangePasswordRequestData) => request.put('password', {...options, ...data}),
+    // @ts-ignore
+    changeAvatar: (data: AvatarRequestData) => request.put('profile/avatar', {...data}),
+    searchUserByLogin: (data: SearchUserByLoginRequestData) => request.post('search', {...options, ...data}),
+    getUserById: (data: GetUserByIdRequestData) => request.get('', {...options, ...data}),
 };
 

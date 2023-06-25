@@ -10,6 +10,7 @@ type WithLoginPageProps = {
 }
 
 export function withLoginPage<P extends WithLoginPageProps>(WrappedBlock: BlockClass<P>) {
+    //@ts-ignore
     return class extends WrappedBlock<P> {
         constructor(props: P) {
             const loginPageProps: FormProps = {

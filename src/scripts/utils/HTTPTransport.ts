@@ -13,7 +13,7 @@ type Options = {
 };
 
 type OptionsWithoutMethod = Omit<Options, 'method'>;
-type HTTPMethod = (url: string, options?: OptionsWithoutMethod) => Promise<XMLHttpRequest>
+type HTTPMethod = (url: string, options?: OptionsWithoutMethod) => Promise<XMLHttpRequest> | {}
 
 
 export class HTTPTransport {
@@ -22,23 +22,6 @@ export class HTTPTransport {
     constructor(url: string ) {
          this.url  = url;
     }
-
-    // fetchWithRetry: HTTPMethod = (url, options = {}) => {
-    //     const {tries = 1} = options;
-    //
-    //     function onError(err){
-    //         const triesLeft = tries - 1;
-    //
-    //         if (!triesLeft){
-    //             throw err;
-    //         }
-    //
-    //         return this.fetchWithRetry(url, {...options, tries: triesLeft});
-    //     }
-    //
-    //     return fetch(url, options);
-    // }
-
 
     get: HTTPMethod = (url, options  = {}) => {
         const { data } = options;
@@ -94,7 +77,10 @@ export class HTTPTransport {
             else {
                 xhr.send(JSON.stringify(data));
             }
-        }).then((req) => {
+        }).then((req:any): {} => {
+            if (!req.response && req.status === 200) {
+                return {}
+            }
             return req.response;
         });
     };

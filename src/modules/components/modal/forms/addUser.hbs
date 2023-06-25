@@ -2,12 +2,12 @@
         <div class="modal__form__header">
             <h2 class="modal__form__title"> Add new user</h2>
         </div>
-        <form action="" class="modal__form__content">
+        <form id="{{formID}}" name="{{name}}" action="" class="modal__form__content">
             <div class="modal__form__content__inputs">
-                {{> components/inputs/input name = "username" text = "User name" }}
+                {{{input}}}
             </div>
             <div class="modal__form__content__buttons">
-                <a href="/messenger" class="button button__main">Add</a>
+                <button name="{{buttonName}}" form="{{formID}}" class="button button__main modal__form__button">Add</button>
             </div>
         </form>
 </div>

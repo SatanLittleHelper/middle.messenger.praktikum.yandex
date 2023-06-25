@@ -69,6 +69,7 @@ export default class Route {
 
     render() {
         if (this.checkAuth()) {
+            // @ts-ignore
             this._block = new this._blockClass({...this._componentProps, routerParams: this.getParams()});
             renderDOM(this._block, this._props.rootQuery);
         } else {

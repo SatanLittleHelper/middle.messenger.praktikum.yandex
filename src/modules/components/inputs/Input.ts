@@ -6,8 +6,9 @@ export interface InputProps {
     type: string;
     text: string;
     name: string;
-    error: string;
+    error?: string;
     value?: string;
+    class_name?: string
     events?: {};
 }
 
@@ -18,9 +19,10 @@ export class Input extends Block {
 
     protected init() {
         this.props.events = {
-            focusout: (event) => {
+            focusout: (event: FocusEvent) => {
                 this.props.error = validateInputTriggeredByEvent(event);
-                this.props.value = event.target.value;
+                // @ts-ignore
+                this.props.value = event.target?.value;
 
             },
 

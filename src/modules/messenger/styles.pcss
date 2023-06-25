@@ -95,9 +95,23 @@
         &__content {
             display: flex;
             height: calc(100vh - 196px);
-            flex-direction: column;
+            flex-direction: column-reverse;
             padding-top: 48px;
             overflow-y: auto;
+        }
+        &__content-notActive {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: calc(100vh - 196px);
+            margin: auto;
+
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 14px;
+            color: var(--second-color);
+
         }
 
         .message {
@@ -186,8 +200,13 @@
 
             &__submit {
                 transform: rotate(180deg);
-                color: var(--main-color);
-                cursor: pointer;
+
+                &__button {
+                    border: 0;
+                    background-color: transparent;
+                    color: var(--main-color);
+
+                }
             }
 
             &__popup {
@@ -209,7 +228,6 @@
         }
 
     }
-
     &__popup {
         display: flex;
         flex-direction: column;
@@ -251,10 +269,11 @@
 
     &__nav {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         align-items: center;
         gap: 8px;
         margin-top: 21px;
+        padding: 0 10px;
 
         &__title {
             display: flex;
@@ -268,12 +287,16 @@
         &__icon {
             width: 8px;
             height: 8px;
-            margin-right: 10px;
             align-self: center;
             border-left: 1px solid #999;
             border-top: 1px solid #999;
             transform: rotate(135deg);
 
+        }
+
+        &__button {
+            border: 0;
+            background-color: transparent;
         }
     }
 
@@ -317,6 +340,29 @@
         margin-top: 14px;
         overflow-y: scroll;
     }
+    &__content-noDialogs {
+        margin: auto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 14px;
+        color: var(--second-color);
+        &__button {
+            border: 0;
+            padding: 0;
+            background-color: transparent;
+
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 14px;
+            color: var(--second-color);
+        }
+        &__button:hover {
+            opacity: 0.8;
+
+        }
+    }
 
     &__content::-webkit-scrollbar {
         width: 0;
@@ -326,6 +372,9 @@
 .dialog-preview {
     width: 310px;
     height: 67px;
+    border: 0;
+    background-color: transparent;
+    padding: 0;
 
     &-active {
         background-color: #e4edfd;

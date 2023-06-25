@@ -1,4 +1,3 @@
-import { APIError, UserDTO } from './types';
 import {HTTPTransport} from "../utils/HTTPTransport";
 
 type LoginRequestData = {
@@ -14,9 +13,7 @@ type SignupRequestData = {
     "phone": "string"
 };
 
-type LoginResponseData = {} | APIError;
-type SignupResponseData = {} | APIError;
-const API_ENDPOINT = 'https://ya-praktikum.tech/api/v2/'
+const API_ENDPOINT = 'https://ya-praktikum.tech/api/v2/auth/'
 const request = new HTTPTransport(API_ENDPOINT);
 const options = {
     credentials: 'include',
@@ -25,12 +22,12 @@ const options = {
 };
 
 export const authAPI = {
-    login: (data: LoginRequestData) => request.post<LoginResponseData>('auth/signin', {...options, ...data}),
+    login: (data: LoginRequestData) => request.post('signin', {...options, ...data}),
 
-    me: () => request.get<UserDTO | APIError>('auth/user'),
+    me: () => request.get('user'),
 
-    logout: () => request.post('auth/logout'),
+    logout: () => request.post('logout'),
 
-    signup: (data: SignupRequestData) => request.post<SignupResponseData>( 'auth/signup', {...options, ...data}),
+    signup: (data: SignupRequestData) => request.post( 'signup', {...options, ...data}),
 };
 

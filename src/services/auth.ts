@@ -19,28 +19,26 @@ type SignupPayload = {
     "phone": "string"
 };
 
-export const login = async (
-    dispatch: Dispatch<AppState>,
-    state: AppState,
-    action: LoginPayload,
-) => {
+// @ts-ignore
+export const login = async (dispatch: Dispatch<AppState>, state: AppState, action: LoginPayload,) => {
     // dispatch({ isLoading: true });
 
     const response = await authAPI.login(action);
     if (hasError(response)) {
-        dispatch({ isLoading: false, loginFormError: response?.reason });
+        dispatch({ isLoading: false, Error: response?.reason });
         return;
     }
 
     const responseUser = await authAPI.me();
 
-    dispatch({ isLoading: false, loginFormError: null });
+    dispatch({ isLoading: false, Error: null });
 
     if (hasError(responseUser)) {
         dispatch(logout);
         return;
     }
 
+    // @ts-ignore
     dispatch({ user: transformUser(responseUser as UserDTO) });
 
     router.go('/messenger');
@@ -56,28 +54,25 @@ export const logout = async (dispatch: Dispatch<AppState>) => {
     router.go('/login');
 };
 
-export const signup = async (
-    dispatch: Dispatch<AppState>,
-    state: AppState,
-    action: SignupPayload
-) => {
+// @ts-ignore
+export const signup = async (dispatch: Dispatch<AppState>, state: AppState, action: SignupPayload) => {
 
     const response = await authAPI.signup(action);
     if (hasError(response)) {
-        dispatch({ isLoading: false, signupFormError: response?.reason });
+        dispatch({ isLoading: false, Error: response?.reason });
         return;
     }
 
     const responseUser = await authAPI.me();
 
-    dispatch({ isLoading: false, signupFormError: null });
+    dispatch({ isLoading: false, Error: null });
 
     if (hasError(responseUser)) {
         dispatch(logout);
         return;
     }
 
-    dispatch({ user: transformUser(responseUser as UserDTO) });
+    dispatch({ user: transformUser(responseUser as unknown as UserDTO) });
 
     router.go('/messenger');
 };

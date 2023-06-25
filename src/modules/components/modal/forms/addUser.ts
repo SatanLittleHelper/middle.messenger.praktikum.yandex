@@ -1,8 +1,14 @@
 import template from "./addUser.hbs";
 import Block from "../../../../scripts/utils/Block";
+import {Input} from "../../inputs/Input";
 
 
 export interface AddUserProps {
+    formID: string,
+    name: string,
+    buttonName: string
+    input?: Input
+
 }
 
 export class AddUser extends Block {
@@ -12,6 +18,7 @@ export class AddUser extends Block {
     }
 
     protected init() {
+        this.children.input = new Input({name: "username", text: "User name", type: "text"})
     }
 
     render() {

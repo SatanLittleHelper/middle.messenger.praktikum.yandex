@@ -10,6 +10,8 @@ type WithSignupPageProps = {
 }
 
 export function withSignupPage<P extends WithSignupPageProps>(WrappedBlock: BlockClass<P>) {
+    //@ts-ignore
+
     return class extends WrappedBlock<P> {
         constructor(props: P) {
             const signUpPageProps: FormProps = {

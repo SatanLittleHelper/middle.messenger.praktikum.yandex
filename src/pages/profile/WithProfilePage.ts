@@ -1,14 +1,14 @@
 import {BlockClass} from "../../scripts/utils/Block";
 import {ProfileProps} from "../../modules/profile-page/components/profile/Profile";
-import {Modal} from "../../modules/components/modal/Modal";
 
 type WithProfilePageProps = {
     control: Record<string, string>;
     profileInformation: Record<string, any>;
-
 }
 
 export function withProfilePage<P extends WithProfilePageProps>(WrappedBlock: BlockClass<P>) {
+    // @ts-expect-error No base constructor has the specified number of type arguments
+
     return class extends WrappedBlock<P> {
         constructor(props: P) {
             const profilePageProps: ProfileProps = {
@@ -68,5 +68,5 @@ export function withProfilePage<P extends WithProfilePageProps>(WrappedBlock: Bl
         }
 
 
-    } as BlockClass<Omit<P, 'ProfilePage'>>;
+    } as BlockClass<Omit<P, 'WithProfilePage'>>;
 }

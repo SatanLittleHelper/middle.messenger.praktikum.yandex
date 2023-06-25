@@ -18,9 +18,10 @@ export  class ProfileInput extends Block {
 
     protected init() {
         this.props.events = {
-            focusout: (event) => {
+            focusout: (event: Event) => {
                 this.props.error = validateInputTriggeredByEvent(event);
-                this.props.value = event.target.value;
+                // @ts-ignore
+                this.props.value = event.target?.value;
 
             },
 

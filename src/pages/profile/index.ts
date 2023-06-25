@@ -9,4 +9,5 @@ class ProfilePage extends Profile {
 }
 
 
+// @ts-ignore
 export default withProfilePage(ProfilePage);

@@ -1,5 +1,6 @@
 import EventBus from "./eventBus";
 import { nanoid } from "nanoid";
+import isEqual from "./helpers/isEqual";
 
 export interface BlockClass<P> extends Function {
     new (props: P): Block<P>;
@@ -9,6 +10,7 @@ class Block<P = any> {
     static EVENTS = {
         INIT: "init",
         FLOW_CDM: "flow:component-did-mount",
+        FLOW_CDR: "flow:component-did-render",
         FLOW_CDU: "flow:component-did-update",
         FLOW_CWU: 'flow:component-will-unmount',
         FLOW_RENDER: "flow:render"
@@ -77,6 +79,7 @@ class Block<P = any> {
         eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
         eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
+        eventBus.on(Block.EVENTS.FLOW_CDR, this._componentDidRender.bind(this));
 
      }
 
@@ -105,6 +108,13 @@ class Block<P = any> {
 
     }
 
+    private _componentDidRender(){
+        this.componentDidRender()
+    }
+
+    private componentDidRender(){
+
+    }
     public dispatchComponentDidMount() {
         this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 
@@ -120,7 +130,7 @@ class Block<P = any> {
 
     // @ts-ignore
     protected componentDidUpdate(oldProps: Record<string, unknown>, newProps: Record<string, unknown>) {
-        return true;
+        return !isEqual(oldProps, newProps);
     }
 
     _componentWillUnmount() {
@@ -205,6 +215,7 @@ class Block<P = any> {
         this._element = newElement;
 
         this._addEvents()
+        this.eventBus().emit(Block.EVENTS.FLOW_CDR);
     }
 
     protected render(): DocumentFragment {

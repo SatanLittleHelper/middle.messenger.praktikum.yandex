@@ -21,7 +21,7 @@ export  class ProfileForm extends Block {
     protected init() {
         const user = this.props.store.state.user;
 
-        this.props.inputs?.forEach((item) => {
+        this.props.inputs?.forEach((item: HTMLInputElement) => {
             item.value = user[item.name];
         })
         this.props.events = {
@@ -32,7 +32,7 @@ export  class ProfileForm extends Block {
                 }
             }
         };
-        this.children.inputs = this.props.inputs?.map((props) => new ProfileInput(props));
+        this.children.inputs = this.props.inputs?.map((props: ProfileInputProps) => new ProfileInput(props));
 
 
     }

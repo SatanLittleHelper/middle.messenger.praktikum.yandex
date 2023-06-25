@@ -5,8 +5,10 @@ import {withLoginPage} from "./WithLoginPage";
  class Login extends Form {
     constructor(props: FormProps) {
         super(props);
+
     }
 }
 
 
+// @ts-ignore
 export default withLoginPage(Login);

@@ -9,6 +9,7 @@ function merge(lhs: Indexed, rhs: Indexed): Indexed {
         }
 
         try {
+            // @ts-ignore
             if (rhs[p].constructor === Object) {
                 rhs[p] = merge(lhs[p] as Indexed, rhs[p] as Indexed);
             } else {

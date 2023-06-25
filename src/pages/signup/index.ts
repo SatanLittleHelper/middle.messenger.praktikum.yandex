@@ -9,4 +9,5 @@ import {withSignupPage} from "./WithSignupPage";
 }
 
 
+// @ts-ignore
 export default withSignupPage(Signup);

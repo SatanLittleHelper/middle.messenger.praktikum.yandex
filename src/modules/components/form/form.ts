@@ -20,13 +20,11 @@ export interface FormProps {
 export class Form extends Block {
     constructor(props: FormProps) {
         super(props);
-        if(this.props.store.state.user?.id) {
-            this.props.router.go('/messenger')
-        }
+
     }
 
     protected init() {
-        this.props.authError = this.props.store.getState().loginFormError
+        this.props.authError = this.props.store.getState()?.Error
         this.children.inputs = this.props?.formInputs?.map((props:InputProps) => new Input(props));
         this.props.events = {
             submit: (event: Event) => {
@@ -39,7 +37,15 @@ export class Form extends Block {
 
     }
 
+    protected componentDidMount() {
+        if(this.props.store.state.user?.id) {
+            this.props.router.go('/messenger')
+            return;
+        }
+    }
+
     render() {
+
         return this.compile(template, this.props);
     }
 }

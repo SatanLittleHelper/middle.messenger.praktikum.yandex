@@ -6,6 +6,7 @@ import {ProfileInformation, ProfileInformationProps} from "../profileInformation
 import {withStore} from "../../../../scripts/utils/withStore";
 import {handleButtonClick} from "../../../../scripts/content/handlers/ButtonsHandler";
 import {Modal, ModalProps} from "../../../components/modal/Modal";
+import {PROFILE_STATE} from "../../../../scripts/constant";
 
 
 
@@ -132,12 +133,7 @@ const editProfilePageProps: ProfileProps = {
 
 }
 
-enum PROFILE_STATE {
-    CHANGE_PASSWORD = 'changePassword',
-    EDIT_PROFILE = 'editProfile',
-    CHANGE_AVATAR = 'changeAvatar',
 
-}
 
 const changeAvatarModalProps: ModalProps = {uploadFile:{
         formID: 'changeAvatar',
@@ -153,7 +149,6 @@ export class Profile extends Block {
     }
 
     protected init() {
-
         this.preparePage();
     }
 
@@ -162,11 +157,11 @@ export class Profile extends Block {
         this.changeState();
         return this.compile(template, this.props);
     }
-     preparePage() {
+    preparePage() {
         const user = this.props.store.state.user;
         this.props.displayName = user.display_name? user.display_name: user.first_name;
 
-        this.props.profileInformation?.fields.forEach((item) => {
+        this.props.profileInformation?.fields.forEach((item: HTMLInputElement) => {
             item.value = user[item.name];
         })
 
