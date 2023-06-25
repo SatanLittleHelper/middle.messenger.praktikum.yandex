@@ -1,6 +1,8 @@
-<form class="profile__information">
+<form name="{{formName}}" id="{{formID}}" class="profile__information">
         {{# each inputs}}
             {{{ this }}}
         {{/each}}
-    <button style="display: none"></button>
+        {{#if store.state.profileFormError}}
+            <div class="form__profile-error">{{store.state.profileFormError}}</div>
+        {{/if}}
 </form>

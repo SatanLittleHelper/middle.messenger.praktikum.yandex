@@ -2,12 +2,12 @@
         <div class="modal__form__header">
             <h2 class="modal__form__title"> Upload file</h2>
         </div>
-    <form action="" class="modal__form__content">
-    <div class="modal__form__content__inputs">
-        <input type="file" class = "modal__form__content__upload-input" name="avatar">
-    </div>
-    <div class="modal__form__content__buttons">
-        <a href="/profile" class="button button__main">Upload</a>
-    </div>
-</form>
+        <form id="{{formID}}" name="{{name}}" class="modal__form__content">
+            <div class="modal__form__content__inputs">
+                {{{input}}}
+            </div>
+            <div class="modal__form__content__buttons">
+                <button name="{{buttonName}}" class="button button__main modal__form__button">Upload</button>
+            </div>
+        </form>
 </div>

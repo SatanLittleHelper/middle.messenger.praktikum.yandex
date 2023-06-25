@@ -1,12 +1,16 @@
-<div class="dialog-preview">
-    <div class="dialog-preview__container">
+<button class="button dialog-preview" id="{{id}}" name="dialog">
+    <div class="button dialog-preview__container">
         <div class="dialog-preview__icon-wrapper">
-            <img src="https://placehold.co/47x47" class="dialog-preview__icon">
+            {{#if avatar}}
+                <img src="https://ya-praktikum.tech/api/v2/resources{{avatar}}" class="dialog-preview__icon">
+            {{else}}
+                <img src="https://placehold.co/47x47" class="dialog-preview__icon">
+            {{/if}}
         </div>
         <div class="dialog-preview__content-wrapper">
             <div class="dialog-preview__header">
                 <div class="dialog-preview__message_title">
-                    <p>{{ username }}</p>
+                    <p>{{ title }}</p>
                 </div>
                 <div class="dialog-preview__time">
                     <p>{{ time }}</p>
@@ -19,13 +23,12 @@
                     {{/if}}
                     <p> {{ text }}</p>
                 </div>
-                {{#if unreadCount}}
+                {{#if unread_count}}
                     <div class="dialog-preview__unread-count">
-                        <p>{{ unreadCount }}</p>
+                        <p>{{ unread_count }}</p>
                     </div>
                 {{/if}}
             </div>
         </div>
-
     </div>
-</div>
+</button>

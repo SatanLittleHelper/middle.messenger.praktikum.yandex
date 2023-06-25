@@ -1,13 +1,15 @@
 import Block from "../../../../scripts/utils/Block";
 import template  from "./profileForm.hbs";
 import {ProfileInput, ProfileInputProps} from "../profileInput/ProfileInput";
-import {collectInputsData} from "../../../../scripts/content/handlers/FormHandler";
-import {validateForm} from "../../../../scripts/validator/validator";
+import {submitHandler} from "../../../../scripts/content/handlers/FormHandler";
+import {formHasError} from "../../../../scripts/content/validator/validator";
+import {withStore} from "../../../../scripts/utils/withStore";
 
 export interface ProfileFormProps {
     inputs: ProfileInputProps[];
-    formId: string;
+    formID: string;
     events?: {}
+    formName: string
 
 }
 
@@ -17,13 +19,20 @@ export  class ProfileForm extends Block {
     }
 
     protected init() {
+        const user = this.props.store.state.user;
+
+        this.props.inputs?.forEach((item: HTMLInputElement) => {
+            item.value = user[item.name];
+        })
         this.props.events = {
-            submit: (event) => {
-                collectInputsData(event);
-                validateForm(this);
+            submit: (event: Event) => {
+                event.preventDefault();
+                if (!formHasError(this)) {
+                    submitHandler(event);
+                }
             }
         };
-        this.children.inputs = this.props.inputs?.map((props) => new ProfileInput(props));
+        this.children.inputs = this.props.inputs?.map((props: ProfileInputProps) => new ProfileInput(props));
 
 
     }
@@ -31,3 +40,5 @@ export  class ProfileForm extends Block {
         return this.compile(template, this.props);
     }
 }
+
+export default withStore(ProfileForm);

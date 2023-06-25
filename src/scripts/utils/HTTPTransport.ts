@@ -13,27 +13,17 @@ type Options = {
 };
 
 type OptionsWithoutMethod = Omit<Options, 'method'>;
+type HTTPMethod = (url: string, options?: OptionsWithoutMethod) => Promise<XMLHttpRequest> | {}
+
 
 export class HTTPTransport {
+    private readonly url: string;
 
-    fetchWithRetry(url, options = {}) {
-        const {tries = 1} = options;
-
-        function onError(err){
-            const triesLeft = tries - 1;
-
-            if (!triesLeft){
-                throw err;
-            }
-
-            return this.fetchWithRetry(url, {...options, tries: triesLeft});
-        }
-
-        return fetch(url, options);
+    constructor(url: string ) {
+         this.url  = url;
     }
 
-
-    get(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+    get: HTTPMethod = (url, options  = {}) => {
         const { data } = options;
         if (data) {
             url = url.concat(this.queryStringify(data));
@@ -41,35 +31,35 @@ export class HTTPTransport {
 
         return this.request(url, {...options, method: METHOD.GET});
     };
-    post(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-
-        return this.request(url, {...options, method: METHOD.POST});
+    post: HTTPMethod = (url, options = {})  => {
+        return this.request(url, {...options, method: METHOD.POST})
     };
-    put(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-
+    put: HTTPMethod = (url, options = {}) => {
         return this.request(url, {...options, method: METHOD.PUT});
     };
-    delete(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+    delete: HTTPMethod = (url, options = {}) => {
 
         return this.request(url, {...options, method: METHOD.DELETE});
     };
-    patch(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+    patch: HTTPMethod = (url, options = {}) => {
 
         return this.request(url, {...options, method: METHOD.PATCH});
     };
 
-   private request(url: string, options: Options = { method: METHOD.GET }): Promise<XMLHttpRequest> {
+   private request(url: string, options: Options = { method: METHOD.GET }) {
         const {method, data, headers} = options;
-        console.log(options);
+        const reqUrl = this.url + url;
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-            xhr.open(method, url);
+            xhr.open(method, reqUrl);
 
             if (headers) {
                 Object.entries(headers).forEach((value) => {
                     xhr.setRequestHeader(value[0], value[1]);
                 })
             }
+            xhr.withCredentials = true;
+            xhr.responseType = "json";
             xhr.onload = function() {
                 resolve(xhr);
             };
@@ -81,12 +71,20 @@ export class HTTPTransport {
             if (method === METHOD.GET || !data) {
                 xhr.send();
             }
+            else if (data instanceof FormData) {
+                xhr.send(data);
+            }
             else {
                 xhr.send(JSON.stringify(data));
             }
+        }).then((req:any): {} => {
+            if (!req.response && req.status === 200) {
+                return {}
+            }
+            return req.response;
         });
     };
-    private queryStringify(data) {
+    private queryStringify(data: Record<string, any>) {
         let query = '?';
 
         for (let key in data) {

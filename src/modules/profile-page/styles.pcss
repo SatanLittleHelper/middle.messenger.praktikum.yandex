@@ -47,6 +47,22 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+
+        &__button {
+            border: 0;
+            width: 130px;
+            height: 130px;
+            background-size: cover;
+            border-radius: 50%;
+        }
+
+        &__button:hover {
+            opacity: 0.8;
+        }
+
+        &__button:active {
+            opacity: 0.95;
+        }
     }
 
     &__information {
@@ -110,6 +126,10 @@
 
         &__container {
             border-bottom: 1px solid #eaeaea;
+        }
+
+        &__button {
+            min-width: 208px;
         }
     }
 
