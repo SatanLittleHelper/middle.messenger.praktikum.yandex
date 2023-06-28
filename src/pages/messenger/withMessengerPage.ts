@@ -15,8 +15,7 @@ export function WithMessengerPage<P extends WithMessengerPageProps>(WrappedBlock
                 messengerMainWindow: {
                     active: false,
                     messageDate: "",
-                    messages: [
-                    ]
+                    messages: [],
                 },
                 sidebar: {
                     dialogs: [

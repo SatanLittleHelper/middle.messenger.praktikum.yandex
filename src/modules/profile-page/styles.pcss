@@ -6,7 +6,17 @@
         display: flex;
         width: 64px;
         background-color: #fbfbfb;
+        border: 0;
+        cursor: pointer;
         border-right: 1px solid #eaeaea;
+    }
+
+    &__navigate__buttons:hover {
+        opacity: 0.8;
+    }
+
+    &__navigate__buttons:active {
+        opacity: 0.95;
     }
 
     &__navigate__button {
@@ -17,6 +27,7 @@
         border: 0;
         background-color: transparent;
         color: var(--main-color);
+        pointer-events: none;
     }
 
     &__container {

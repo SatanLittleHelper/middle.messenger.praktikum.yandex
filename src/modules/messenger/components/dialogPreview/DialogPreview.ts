@@ -27,7 +27,12 @@ export  class DialogPreview extends Block {
        this.props.text = currentChat.last_message?.content;
        this.props.time = changeDateFormat(currentChat.last_message?.time);
        this.props.sendByYou = currentChat.last_message?.user.login === this.props.store.state.user.login;
-       this.props.avatar = currentChat.last_message?.user.avatar;
+
+       if (!this.props.avatar) {
+           this.props.avatar = currentChat.last_message?.user.avatar;
+
+       }
+
        this.props.events = {
            click: (event: Event) => {
                event.stopPropagation();

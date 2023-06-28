@@ -1,22 +1,21 @@
 import {Dispatch} from "../scripts/utils/store";
 import {AppState} from "../scripts/store";
 import {hasError} from "../scripts/utils/apiHasError";
-import {router} from "../router";
 import {chatAPI} from "../scripts/api/chat";
 import {userAPI} from "../scripts/api/user";
-import {MESSENGER_STATE} from "../scripts/constant";
+import {startWebsocket} from "./socket";
 
 type CreateChatPayload = {
     title: string;
     data: Record<string, any>;
-    login: string;
-    chat_id: string
 
 };
+type deleteChatPayload = {
+    chatId: string;
+};
 type AddUserToChatPayload = {
-    data: Record<string, any>
-    chatId: string,
-    users: Array<Record<string, any>>
+    data: Record<string, any>,
+    login: string,
 
 };
 type GetUserTokenPayload = {
@@ -26,56 +25,88 @@ type GetUserTokenPayload = {
 export const createChat = async (dispatch: Dispatch<AppState>, state: AppState, action: CreateChatPayload,) => {
     // dispatch({ isLoading: true });
     const response = await chatAPI.createChat(action);
+    console.log(response)
     if (hasError(response)) {
-        dispatch({ isLoading: false, Error: response?.reason });
+        dispatch({ isLoading: false, Error: response?.reason, messengerState: '' });
         return;
     }
-    const users: Array<Record<string, any>> = await userAPI.searchUserByLogin(action) as unknown as Array<Record<string, any>>;
-
-    if (users.length === 0) {
-        dispatch({ isLoading: false, Error: 'Can\'t find user', messengerState: MESSENGER_STATE.NEW_CHAT});
-        return;
-    }
-
-    const userToAdd = users.filter(user => user.login === action.data.title)
-
-    if (userToAdd.length === 0) {
-        dispatch({ isLoading: false, Error: 'Can\'t find user', messengerState: MESSENGER_STATE.NEW_CHAT});
-        return;
-    }
-    const userToAddId = userToAdd[0].id
     // @ts-ignore
-    dispatch(addUserToChat, {data: {users: [userToAddId], chatId: response.id }});
-    dispatch({ messengerState: null});
-
-    router.go('/messenger');
+    dispatch(startWebsocket,{chatId: response?.id})
+    // @ts-ignore
+    dispatch({currentChatId: response.id, currentChatMessages: []})
+    dispatch(getAllChats)
+};
+// @ts-ignore
+export const deleteChat = async (dispatch: Dispatch<AppState>, state: AppState, action: deleteChatPayload,) => {
+    // dispatch({ isLoading: true });
+    const response = await chatAPI.deleteChat(action);
+    if (hasError(response)) {
+        dispatch({ isLoading: false, Error: response?.reason, messengerState: '' });
+        return;
+    }
+    dispatch({currentChatId: undefined, currentChatMessages: []})
+    dispatch(getAllChats)
 };
 
 // @ts-ignore
 export const addUserToChat = async (dispatch: Dispatch<AppState>, state: AppState, action: AddUserToChatPayload,) => {
-    dispatch({ messengerState: 'addUser'});
+    const chatId = window.store.getState().currentChatId;
+    const users: Array<Record<string, any>> = await userAPI.searchUserByLogin(action) as unknown as Array<Record<string, any>>;
 
-    const response = await chatAPI.addUserToChat(action);
-    if (hasError(response)) {
-        dispatch({ isLoading: false, messengerState: null, Error: response?.reason });
+    if (users.length === 0 ) {
+        dispatch({ isLoading: false, Error: 'Can\'t find user'});
         return;
     }
 
-    dispatch({ messengerState: null});
-    router.go('/messenger');
+    if (hasError(users)) {
+        dispatch({ isLoading: false, Error: users?.reason});
+        return
+    }
+
+    const userToAdd = users.filter(user => user.login === action.data.login)
+
+    if (userToAdd.length === 0) {
+        dispatch({ isLoading: false, Error: 'Can\'t find user'});
+        return;
+    }
+    const userToAddId = userToAdd[0].id
+    // @ts-ignore
+    const response = await chatAPI.addUserToChat({data: {users: [userToAddId], chatId: chatId}});
+    if (hasError(response)) {
+        dispatch({isLoading: false, Error: response?.reason});
+    }
+
+    await getChatUsers(chatId as string)
+    dispatch({messengerState: ''})
 
 };
 // @ts-ignore
 export const deleteUserFromChat = async (dispatch: Dispatch<AppState>, state: AppState, action: AddUserToChatPayload,) => {
-    dispatch({ messengerState: 'addUser'});
 
-    const response = await chatAPI.deleteUserUserFromChat(action);
-    if (hasError(response)) {
-        dispatch({ isLoading: false, messengerState: null, Error: response?.reason });
-        return;
+    const chatId = window.store.getState().currentChatId;
+    const currentChat = window.store.getState().chats?.filter((chat: Record<string, any>) => chat.id.toString() === chatId);
+
+
+    if (currentChat.length > 0) {
+        const userToDelete = currentChat[0].users.filter((user: Record<string, any>) => user.login === action.data.login);
+            if (userToDelete.length === 0) {
+                dispatch({Error: "Can\'t find user in chat", messengerState: ''})
+                return;
+
+            }
+            const userToDeleteId: string = userToDelete[0].id;
+            if (userToDeleteId) {
+                const response = await chatAPI.deleteUserFromChat({data: {users: [userToDeleteId], chatId: chatId as string}});
+
+                if (hasError(response)) {
+                    dispatch({ isLoading: false, messengerState: null, Error: response?.reason });
+                    return;
+                }
+            }
+
+        await getChatUsers(chatId as string)
     }
-
-    dispatch({ messengerState: null});
+    dispatch({messengerState: ''})
 
 };
 export const getAllChats = async (
@@ -91,9 +122,26 @@ export const getAllChats = async (
         return;
     }
     response.forEach((item) => chats?.push(item));
-    dispatch({ chats: chats, chatsOffset: chatsOffset + 10});
-    dispatch({isLoading: false})
+    dispatch({ chats: chats, chatsOffset: chatsOffset + 10, isLoading: false});
+
+    for (const chat of chats) {
+        await getChatUsers(chat.id);
+    }
+
+    dispatch({messengerState: ''})
+
 };
+
+async function getChatUsers(chatId: string) {
+    const allChats = window.store.getState().chats;
+    if (allChats?.length > 0) {
+        const chat = allChats?.filter((chat: Record<string, any>) => chat.id == chatId)
+        const response = await chatAPI.getChatUsers({chatId: chatId})
+        chat[0].users = Object.values(response).filter((item) => item.id !== window.store.getState().user?.id);
+    }
+
+
+}
 
 export const getChatToken = async (
     dispatch: Dispatch<AppState>,

@@ -14,7 +14,7 @@ export interface FormProps {
     formName: string;
     formInputs: InputProps[];
     authError?: string;
-    events?: {}
+    events?: {};
 }
 
 export class Form extends Block {
@@ -31,6 +31,13 @@ export class Form extends Block {
                 event.preventDefault();
                 if (!formHasError(this)) {
                     submitHandler(event);
+                }
+            },
+            click: (event: Event) => {
+
+                    // @ts-ignore
+                if (event.target?.name === 'link') {
+                    this.props.router.go(this.props.links.sub);
                 }
             }
         }

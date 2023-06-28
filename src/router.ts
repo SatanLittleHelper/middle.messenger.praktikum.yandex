@@ -17,7 +17,7 @@ const errorPageProps = {
 export function initRouter(store: Store<any>) {
     router
         .use({
-            pathname: '/login',
+            pathname: '/',
             // @ts-ignore
             block: Login,
             exact: true,
@@ -28,17 +28,7 @@ export function initRouter(store: Store<any>) {
             redirectPath: ""
         })
         .use({
-            pathname: '/',
-            // @ts-ignore
-            block: Messenger,
-            exact: true,
-            needAuth: true,
-            onUnautorized: () => Boolean(store?.getState()?.user?.id),
-            props: {},
-            redirectPath: "/login"
-        })
-        .use({
-            pathname: '/signup',
+            pathname: '/sign-up',
             // @ts-ignore
             block: Signup,
             exact: true,
@@ -56,19 +46,19 @@ export function initRouter(store: Store<any>) {
             needAuth: true,
             onUnautorized: () => Boolean(store?.getState()?.user?.id),
             props: {},
-            redirectPath: "/login"
+            redirectPath: "/"
         })
         .use({
-            pathname: '/profile',
+            pathname: '/settings',
             // @ts-ignore
             block: Profile,
             exact: true,
             needAuth: true,
             onUnautorized: () => Boolean(store?.getState()?.user?.id),
-            redirectPath: "/login"
+            redirectPath: "/"
         })
         .use({
-            pathname: '',
+            pathname: '/404',
             // @ts-ignore
             block: AppError,
             exact: true,
@@ -76,6 +66,6 @@ export function initRouter(store: Store<any>) {
             onUnautorized(): void {
             },
             props: errorPageProps,
-            redirectPath: "/error"
+            redirectPath: ""
         }).start();
 }

@@ -118,8 +118,19 @@ class Block<P = any> {
     public dispatchComponentDidMount() {
         this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 
-        Object.values(this.children).forEach((child) =>
-            child?.dispatchComponentDidMount());
+        if (this.children) {
+            Object.values(this?.children).forEach((child) => {
+                if (child instanceof Array) {
+                    child.forEach((item) => {
+                        item.dispatchComponentDidMount()
+                    })
+                }
+                else {
+                    child?.dispatchComponentDidMount();
+                }
+
+            })
+        }
     }
 
    private _componentDidUpdate(oldProps: Record<string, unknown>, newProps: Record<string, unknown>) {
@@ -138,7 +149,8 @@ class Block<P = any> {
         this.componentWillUnmount();
     }
 
-    public componentWillUnmount() {}
+    public componentWillUnmount() {
+    }
 
     setProps = (nextProps: Partial<P>) => {
         if (!nextProps) {

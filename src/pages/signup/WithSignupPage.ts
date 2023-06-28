@@ -80,7 +80,7 @@ export function withSignupPage<P extends WithSignupPageProps>(WrappedBlock: Bloc
                 ],
                 header: "Sign up",
                 links: {
-                    sub: "/login"
+                    sub: "/"
                 },
                 events: {}
             }

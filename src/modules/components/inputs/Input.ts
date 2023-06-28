@@ -20,11 +20,16 @@ export class Input extends Block {
     protected init() {
         this.props.events = {
             focusout: (event: FocusEvent) => {
-                this.props.error = validateInputTriggeredByEvent(event);
                 // @ts-ignore
-                this.props.value = event.target?.value;
+                if (!event.target!.type) {
+                    this.props.error = validateInputTriggeredByEvent(event);
+                    // @ts-ignore
+                    this.props.value = event.target?.value;
+                }
+
 
             },
+
 
         }
     }

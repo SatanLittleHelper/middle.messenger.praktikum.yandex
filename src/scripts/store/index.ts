@@ -12,7 +12,7 @@ export interface AppState {
     currentChatId?: string;
     currentChatToken?: string;
     ws?: Array<Record<string, WebSocket>>;
-    currentChatMessages?: Array<Record<string, any>>
+    currentChatMessages?: Array<Record<string, any>> | []
 
 }
 

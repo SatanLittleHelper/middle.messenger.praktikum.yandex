@@ -37,7 +37,7 @@ export function withLoginPage<P extends WithLoginPageProps>(WrappedBlock: BlockC
                 ],
                 header: "Log in",
                 links: {
-                    sub: "/signup"
+                    sub: "/sign-up"
                 }
 
             }

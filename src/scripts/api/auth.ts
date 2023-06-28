@@ -1,4 +1,5 @@
 import {HTTPTransport} from "../utils/HTTPTransport";
+import {BASE_URL} from "../constant";
 
 type LoginRequestData = {
     login: string;
@@ -13,7 +14,7 @@ type SignupRequestData = {
     "phone": "string"
 };
 
-const API_ENDPOINT = 'https://ya-praktikum.tech/api/v2/auth/'
+const API_ENDPOINT = BASE_URL + 'auth/'
 const request = new HTTPTransport(API_ENDPOINT);
 const options = {
     credentials: 'include',

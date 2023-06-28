@@ -1,7 +1,6 @@
 import {Dispatch} from "../scripts/utils/store";
 import {AppState} from "../scripts/store";
 import {socketAPI} from "../scripts/api/socket";
-import {getAllChats} from "./chat";
 import {chatAPI} from "../scripts/api/chat";
 
 type WebSocketPayload = {
@@ -13,12 +12,14 @@ type StartAllWebSocketPayload = {
     chats: Array<Record<string, any>>,
     userId: string,
 };
+type StartWebSocketPayload = {
+    chatId: string
+};
 
 
 
 // @ts-ignore
 export const openWebSocket = async (dispatch: Dispatch<AppState>, state: AppState, action: WebSocketPayload,) => {
-    // dispatch({ isLoading: true });
     let interval: NodeJS.Timer;
     const webSocket = await socketAPI.open(action);
     webSocket.onopen = () => {
@@ -39,7 +40,6 @@ export const openWebSocket = async (dispatch: Dispatch<AppState>, state: AppStat
         clearInterval(interval);
 
     }
-
     webSocket.onmessage = (ev) => {
         if (ev.data === "WS token is not valid") {
             return;
@@ -79,7 +79,6 @@ export const openWebSocket = async (dispatch: Dispatch<AppState>, state: AppStat
                 }
             }
 
-            window.store.dispatch(getAllChats);
             window.store.dispatch({isLoading: false});
         }
 
@@ -89,15 +88,23 @@ export const openWebSocket = async (dispatch: Dispatch<AppState>, state: AppStat
 // @ts-ignore
 export const startAllWebsocket  = async  (dispatch: Dispatch<AppState>, state: AppState, action: StartAllWebSocketPayload,) => {
     const ws: Array<Record<string, WebSocket>> | undefined = []
-    dispatch({ws: ws})
+    dispatch({ws: ws, isLoading: true})
     for (const item of action.chats) {
-        const token: Record<string, any> | undefined = await chatAPI.getChatToken({chatId: item.id}) as Record<string, any> | undefined
         const payload = {
-            token: token?.token,
-            userId: action.userId,
             chatId: item.id
         }
-        window.store.dispatch(openWebSocket, payload);
+        dispatch(startWebsocket, payload)
     }
+    dispatch({isLoading:false})
+}
+// @ts-ignore
+export const startWebsocket  = async  (dispatch: Dispatch<AppState>, state: AppState, action: StartWebSocketPayload,) => {
+        const token: Record<string, any> | undefined = await chatAPI.getChatToken({chatId: action.chatId}) as Record<string, any> | undefined
+        const payload = {
+            token: token?.token,
+            userId: window.store?.getState()?.user?.id,
+            chatId: action.chatId,
+        }
+        dispatch(openWebSocket, payload);
 }
 

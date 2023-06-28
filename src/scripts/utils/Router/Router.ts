@@ -55,6 +55,7 @@ export default class PathRouter {
     _onRoute(pathname: string) {
         const route = this.getRoute(pathname);
         if (!route) {
+            this.go('/404')
             return;
         }
         this._currentRoute?.leave();
