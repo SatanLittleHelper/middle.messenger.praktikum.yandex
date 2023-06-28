@@ -184,7 +184,6 @@ export class Profile extends Block {
     }
     changeState() {
         if(this.props.store.state?.profileState === PROFILE_STATE.EDIT_PROFILE) {
-
             this.changeProps(editProfilePageProps);
 
         }

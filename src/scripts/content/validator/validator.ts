@@ -23,16 +23,19 @@ export function formHasError(form:Form | ProfileForm) {
     })
     _isMatchPasswords(_getPasswordInputs(inputs));
 
+    // @ts-ignore
     const hasError = inputs.find((input) => input.props.error.length > 0);
     return !!hasError
 }
 
 function _isMatchPasswords(passwordInputs: Block[]): boolean {
     if (passwordInputs.length === 2) {
+        // @ts-ignore
         if (passwordInputs[0].props.value !== passwordInputs[1].props.value) {
             passwordInputs.forEach((item) => {
                 item.setProps({
                     error: 'Passwords don\'t match ',
+                    // @ts-ignore
                     value: item.props.value
                 })
             })
@@ -40,20 +43,24 @@ function _isMatchPasswords(passwordInputs: Block[]): boolean {
         }
     }
     if (passwordInputs.length === 3) {
+        // @ts-ignore
         if (passwordInputs[0].props.value === passwordInputs[1].props.value) {
             passwordInputs.forEach((item) => {
                 item.setProps({
                     error: 'Old password and new password can\'t be same',
+                    // @ts-ignore
                     value: item.props.value
                 })
             })
             return false;
         }
         passwordInputs.shift();
+        // @ts-ignore
         if (passwordInputs[0].props.value !== passwordInputs[1].props.value) {
             passwordInputs.forEach((item) => {
                 item.setProps({
                     error: 'Passwords don\'t match ',
+                    // @ts-ignore
                     value: item.props.value
                 })
             })
@@ -65,8 +72,8 @@ function _isMatchPasswords(passwordInputs: Block[]): boolean {
 }
 
 function _getPasswordInputs(inputs:Block[]): Block[] {
-    const passwordInputs = inputs.filter((item) => item.props.type === 'password');
-    return passwordInputs
+    // @ts-ignore
+    return inputs.filter((item) => item.props.type === 'password')
 }
 
 export function validateInput(input:HTMLInputElement | null): string {
@@ -164,7 +171,7 @@ function isNamePattern(text: string):boolean {
 }
 
 function firstSymbolIsUpperCase(text: string):boolean {
-    return !!isUpperCase(text[0]);
+    return isUpperCase(text[0]);
 }
 
 function isSize(from:number, to:number, text: string):boolean {

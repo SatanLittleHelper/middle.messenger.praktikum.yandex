@@ -39,47 +39,49 @@
             }
 
             &__menu {
+                height: 100%;
+                width: 33px;
+                padding: 10px;
+                border: 0;
+                background-color: transparent;
+
                 &__wrapper {
+                    margin: auto;
                     display: flex;
-                    padding-right: 10px;;
                     align-items: center;
-                    width: 3px;
-                    height: 24px;
+                    width: 5px;
+                    height: 33px;
+                    pointer-events: none;
 
                 }
 
                 &__item {
                     position: relative;
-                    border: solid 3px #1e1e1e;
+                    border: solid 4px #1e1e1e;
                     border-radius: 50%;
                     background-color: #1e1e1e ;
+
 
                 }
 
                 &__item::before, &__item::after {
                     content: "";
                     position: absolute;
-                    left: -3px;
-                    border: solid 3px #1e1e1e;
+                    left: -4px;
+                    border: solid 4px #1e1e1e;
                     border-radius: 50%;
                     background-color: #1e1e1e ;
                 }
 
                 &__item::before {
-                    top: 6px
+                    top: 8px
                 }
 
                 &__item::after {
-                    bottom: 6px;
+                    bottom: 8px;
                 }
             }
 
-            &__popup {
-                display: flex;
-                position: absolute;
-                top: 80px;
-                right: 10px;
-            }
         }
 
         &__header::after {
@@ -229,35 +231,6 @@
 
     }
 
-    &__popup {
-        display: flex;
-        flex-direction: column;
-        padding: 15px;
-        background-color: #fff;
-        border-radius: 12px;
-        box-shadow: 0 0 6px rgb(0 0 0 / 14%);
-        gap: 17px;
-
-        &__item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-
-            &__icon {
-                width: 22px;
-                height: 22px;
-                color: var(--main-color);
-            }
-
-            &__title {
-                font-style: normal;
-                font-weight: 500;
-                font-size: 12px;
-                line-height: 14px;
-                color: #1e1e1e;
-            }
-        }
-    }
 }
 
 .dialog-sidebar {

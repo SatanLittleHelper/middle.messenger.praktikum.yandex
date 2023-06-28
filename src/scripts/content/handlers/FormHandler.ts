@@ -1,20 +1,22 @@
 import {login, signup} from "../../../services/auth";
 import {FORM_NAME, MESSENGER_STATE} from "../../constant";
 import {changeAvatar, changePassword, editProfile} from "../../../services/user";
-import {createChat} from "../../../services/chat";
+import {addUserToChat, createChat, deleteUserFromChat} from "../../../services/chat";
 import getCurrentChatWebsocket from "../../utils/helpers/getCurrentChatWebsoket";
 
 
 export function collectInputsData(event: any) {
-
     const inputs = { ...event.target?.querySelectorAll('input') };
     // @ts-ignore
-    const data: Array<any> = Object.values(inputs).filter(item => item?.value || item?.files[0]);
+    const data: Array<any> = Object.values(inputs)?.filter(item => item?.value || item?.files[0]);
     return Object.fromEntries(data.map((item) => [item?.name, item?.value || item?.files[0]?.file]));
 
      }
 
 export function submitHandler(event: any) {
+    const messengerState = window.store.getState().messengerState;
+    let inputData;
+
     switch (event.target.name) {
         case FORM_NAME.SIGN_IN:
             window.store.dispatch(login, {data: collectInputsData(event)});
@@ -31,18 +33,33 @@ export function submitHandler(event: any) {
         case FORM_NAME.CHANGE_AVATAR:
             window.store.dispatch(changeAvatar, {data: _prepareFormData(event.target)});
             break
+        case FORM_NAME.ADD_CHAT:
+            inputData = collectInputsData(event);
+            if (messengerState === MESSENGER_STATE.NEW_CHAT) {
+                window.store.dispatch(createChat, {data: {title: inputData.newChatTitle}});
+                window.store.dispatch({messengerState: ''})
+            }
+            break
         case FORM_NAME.ADD_USER:
-            const messengerState = window.store.getState().messengerState;
-            const inputData = collectInputsData(event);
-                if (messengerState === MESSENGER_STATE.NEW_CHAT) {
-                    window.store.dispatch(createChat, {data: {login: inputData.username, title: inputData.username}});
-                    window.store.dispatch({messengerState: null})
-                }
+            inputData = collectInputsData(event);
+            if (messengerState === MESSENGER_STATE.ADD_USER) {
+                window.store.dispatch(addUserToChat, {data: {login: inputData.login}});
+                window.store.dispatch({messengerState: ''})
+            }
+            break
+        case FORM_NAME.DELETE_USER:
+            inputData = collectInputsData(event);
+            if (messengerState === MESSENGER_STATE.DELETE_USER) {
+                window.store.dispatch(deleteUserFromChat, {data: {login: inputData.login}});
+                window.store.dispatch({messengerState: ''})
+            }
             break
         case FORM_NAME.MESSAGE:
             const ws = getCurrentChatWebsocket()
             const message = collectInputsData(event);
-            ws!.send(JSON.stringify({content: message.message, type:"message"}));
+            if (ws) {
+                ws!.send(JSON.stringify({content: message.message, type:"message"}));
+            }
             break
         default:
             break

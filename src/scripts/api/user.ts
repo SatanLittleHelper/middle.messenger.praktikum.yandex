@@ -1,4 +1,5 @@
 import {HTTPTransport} from "../utils/HTTPTransport";
+import {BASE_URL} from "../constant";
 
 type ProfileRequestData = {
     "first_name": "string",
@@ -23,7 +24,7 @@ type GetUserByIdRequestData = {
     id: string;
 }
 
-const API_ENDPOINT = 'https://ya-praktikum.tech/api/v2/user/'
+const API_ENDPOINT = BASE_URL + 'user/'
 const request = new HTTPTransport(API_ENDPOINT);
 const options = {
     credentials: 'include',

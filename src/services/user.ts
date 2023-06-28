@@ -49,7 +49,7 @@ export const editProfile = async (dispatch: Dispatch<AppState>, state: AppState,
     dispatch({ user: transformUser(responseUser as UserDTO) });
     window.store.dispatch({profileState: 'profile'})
 
-    router.go('/profile');
+    router.go('/settings');
 
 
 };
@@ -66,7 +66,7 @@ export const changePassword = async (dispatch: Dispatch<AppState>, state: AppSta
         dispatch({ isLoading: false, Error: null });
         window.store.dispatch({profileState: 'profile'})
 
-        router.go('/profile');
+        router.go('/settings');
     }
 
 
@@ -90,7 +90,7 @@ export const changeAvatar = async (dispatch: Dispatch<AppState>, state: AppState
 
     window.store.dispatch({profileState: 'profile'})
 
-    router.go('/profile');
+    router.go('/settings');
 
 };
 

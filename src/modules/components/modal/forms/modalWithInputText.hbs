@@ -1,13 +1,13 @@
 <div class="modal__form__container">
         <div class="modal__form__header">
-            <h2 class="modal__form__title"> Add new user</h2>
+            <h2 class="modal__form__title"> {{title}}</h2>
         </div>
         <form id="{{formID}}" name="{{name}}" action="" class="modal__form__content">
             <div class="modal__form__content__inputs">
                 {{{input}}}
             </div>
             <div class="modal__form__content__buttons">
-                <button name="{{buttonName}}" form="{{formID}}" class="button button__main modal__form__button">Add</button>
+                <button name="{{buttonName}}" form="{{formID}}" class="button button__main modal__form__button">{{buttonText}}</button>
             </div>
         </form>
 </div>

@@ -51,7 +51,7 @@ export const logout = async (dispatch: Dispatch<AppState>) => {
 
     dispatch({ user: null });
 
-    router.go('/login');
+    router.go('/');
 };
 
 // @ts-ignore

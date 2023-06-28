@@ -82,7 +82,9 @@ export class HTTPTransport {
                 return {}
             }
             return req.response;
-        });
+        }).catch((error) => {
+            console.error(error);
+       });
     };
     private queryStringify(data: Record<string, any>) {
         let query = '?';
