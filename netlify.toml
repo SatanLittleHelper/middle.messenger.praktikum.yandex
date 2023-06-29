@@ -1,7 +1,7 @@
 
 [[redirects]]
     from = "/*"
-    to = "/"
-    status = "302"
+    to = ""
+    status = "200"
     force = true
 
