@@ -67,5 +67,16 @@ export function initRouter(store: Store<any>) {
             },
             props: errorPageProps,
             redirectPath: ""
+        })
+        .use({
+            pathname: '/index.html',
+            // @ts-ignore
+            block: Login,
+            exact: true,
+            needAuth: false,
+            onUnautorized(): void {
+            },
+            props: {},
+            redirectPath: "/"
         }).start();
 }
