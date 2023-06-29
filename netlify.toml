@@ -3,5 +3,4 @@
     from = "/*"
     to = "https://aquamarine-syrniki-ce7300.netlify.app/"
     status = "200"
-    force = true
 
