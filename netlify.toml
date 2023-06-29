@@ -1,6 +1,6 @@
 
 [[redirects]]
-    from = "/*"
-    to = "https://aquamarine-syrniki-ce7300.netlify.app/"
+    from = "/"
+    to = "/asd"
     status = "200"
 
