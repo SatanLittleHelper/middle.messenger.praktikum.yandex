@@ -1,6 +1,5 @@
 
 [[redirects]]
     from = "/*"
-    to = "/asd"
-    status = "200"
+    to = "/"
 
