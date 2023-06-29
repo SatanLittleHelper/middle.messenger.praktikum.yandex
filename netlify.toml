@@ -2,6 +2,6 @@
 [[redirects]]
     from = "/*"
     to = "/"
-    status = "200"
+    status = "302"
     force = true
 
