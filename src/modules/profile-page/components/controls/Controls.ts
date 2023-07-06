@@ -1,19 +1,24 @@
 import Block from "../../../../scripts/utils/Block";
 import  template  from "./controls.hbs";
 
+
 export interface ControlsProps {
     saveButtons?: ProfileSaveButtonsProps[];
     buttons?: ProfileButtonsProps[];
 }
 
 export interface ProfileButtonsProps {
-    link: string;
+    name: string;
+    formID?: string
     text: string;
     buttonRed: boolean;
+    events?: {}
+
 }
 
 export  interface ProfileSaveButtonsProps {
-    link: string;
+    name: string;
+    formID: string
 }
 
 export  class Controls extends Block {

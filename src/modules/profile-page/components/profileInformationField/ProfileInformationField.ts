@@ -3,7 +3,7 @@ import  template  from "./profileInformationField.hbs";
 
 export interface ProfileInformationFieldProps {
     text: string;
-    value: string;
+    value?: string;
     name: string;
 }
 

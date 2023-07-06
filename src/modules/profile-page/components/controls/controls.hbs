@@ -1,18 +1,18 @@
 <div class="profile__buttons">
     {{#if saveButtons}}
             {{#each saveButtons}}
-                <a href="{{link}}" class="button button__main">Save</a>
+                <button type="submit" name="{{name}}" form="{{formID}}" class="profile__buttons__button button button__main">Save</button>
             {{/each}}
         {{/if}}
     {{#if buttons}}
             {{#each buttons}}
                 {{#if buttonRed}}
                     <div class="profile__buttons__container">
-                        <a href="{{link}}" class="profile__button profile__button-red button">{{text}}</a>
+                        <button name="{{name}}" class="profile__button profile__button-red button">{{text}}</button>
                     </div>
                 {{else}}
                     <div class="profile__buttons__container">
-                        <a href="{{link}}" class="profile__button button">{{text}}</a>
+                        <button name="{{name}}" class="profile__button button">{{text}}</button>
                     </div>
                 {{/if}}
             {{/each}}

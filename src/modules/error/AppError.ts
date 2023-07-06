@@ -1,5 +1,6 @@
 import Block from "../../scripts/utils/Block";
 import  template  from "./error.hbs";
+import {handleButtonClick} from "../../scripts/content/handlers/ButtonsHandler";
 
 export interface ErrorProps {
     code: string;
@@ -10,6 +11,14 @@ export interface ErrorProps {
 export  class AppError extends Block {
     constructor(props: ErrorProps) {
         super(props);
+    }
+
+    protected init() {
+        this.props.events = {
+            click: (event: Event) => {
+                handleButtonClick(<HTMLButtonElement>event.target);
+            },
+        }
     }
 
     render() {

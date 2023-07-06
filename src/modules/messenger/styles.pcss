@@ -39,47 +39,49 @@
             }
 
             &__menu {
+                height: 100%;
+                width: 33px;
+                padding: 10px;
+                border: 0;
+                background-color: transparent;
+
                 &__wrapper {
+                    margin: auto;
                     display: flex;
-                    padding-right: 10px;;
                     align-items: center;
-                    width: 3px;
-                    height: 24px;
+                    width: 5px;
+                    height: 33px;
+                    pointer-events: none;
 
                 }
 
                 &__item {
                     position: relative;
-                    border: solid 3px #1e1e1e;
+                    border: solid 4px #1e1e1e;
                     border-radius: 50%;
                     background-color: #1e1e1e ;
+
 
                 }
 
                 &__item::before, &__item::after {
                     content: "";
                     position: absolute;
-                    left: -3px;
-                    border: solid 3px #1e1e1e;
+                    left: -4px;
+                    border: solid 4px #1e1e1e;
                     border-radius: 50%;
                     background-color: #1e1e1e ;
                 }
 
                 &__item::before {
-                    top: 6px
+                    top: 8px
                 }
 
                 &__item::after {
-                    bottom: 6px;
+                    bottom: 8px;
                 }
             }
 
-            &__popup {
-                display: flex;
-                position: absolute;
-                top: 80px;
-                right: 10px;
-            }
         }
 
         &__header::after {
@@ -95,9 +97,23 @@
         &__content {
             display: flex;
             height: calc(100vh - 196px);
-            flex-direction: column;
+            flex-direction: column-reverse;
             padding-top: 48px;
             overflow-y: auto;
+        }
+
+        &__content-notActive {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: calc(100vh - 196px);
+            margin: auto;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 14px;
+            color: var(--second-color);
+
         }
 
         .message {
@@ -186,8 +202,13 @@
 
             &__submit {
                 transform: rotate(180deg);
-                color: var(--main-color);
-                cursor: pointer;
+
+                &__button {
+                    border: 0;
+                    background-color: transparent;
+                    color: var(--main-color);
+
+                }
             }
 
             &__popup {
@@ -210,35 +231,6 @@
 
     }
 
-    &__popup {
-        display: flex;
-        flex-direction: column;
-        padding: 15px;
-        background-color: #fff;
-        border-radius: 12px;
-        box-shadow: 0 0 6px rgb(0 0 0 / 14%);
-        gap: 17px;
-
-        &__item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-
-            &__icon {
-                width: 22px;
-                height: 22px;
-                color: var(--main-color);
-            }
-
-            &__title {
-                font-style: normal;
-                font-weight: 500;
-                font-size: 12px;
-                line-height: 14px;
-                color: #1e1e1e;
-            }
-        }
-    }
 }
 
 .dialog-sidebar {
@@ -251,10 +243,11 @@
 
     &__nav {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         align-items: center;
         gap: 8px;
         margin-top: 21px;
+        padding: 0 10px;
 
         &__title {
             display: flex;
@@ -268,12 +261,16 @@
         &__icon {
             width: 8px;
             height: 8px;
-            margin-right: 10px;
             align-self: center;
             border-left: 1px solid #999;
             border-top: 1px solid #999;
             transform: rotate(135deg);
 
+        }
+
+        &__button {
+            border: 0;
+            background-color: transparent;
         }
     }
 
@@ -318,6 +315,31 @@
         overflow-y: scroll;
     }
 
+    &__content-noDialogs {
+        margin: auto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 14px;
+        color: var(--second-color);
+
+        &__button {
+            border: 0;
+            padding: 0;
+            background-color: transparent;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 14px;
+            color: var(--second-color);
+        }
+
+        &__button:hover {
+            opacity: 0.8;
+
+        }
+    }
+
     &__content::-webkit-scrollbar {
         width: 0;
     }
@@ -326,6 +348,9 @@
 .dialog-preview {
     width: 310px;
     height: 67px;
+    border: 0;
+    background-color: transparent;
+    padding: 0;
 
     &-active {
         background-color: #e4edfd;

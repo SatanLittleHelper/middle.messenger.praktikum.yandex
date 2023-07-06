@@ -7,6 +7,7 @@
 @import url("../modules/error/styles.pcss");
 @import url("../modules/profile-page/styles.pcss");
 @import url("../modules/messenger/styles.pcss");
+@import url("../modules/messenger/components/popup/styles.pcss");
 
 * {
     font-family: Euclidcirculara, serif;
@@ -24,10 +25,40 @@ a {
     text-decoration: none;
 }
 
+form {
+    margin: 0;
+}
+
 .main__container {
     display: flex;
     min-height: calc(100vh - 52px);
     justify-content: center;
     align-items: center;
     background-color: #fff;
+}
+
+.notification-error {
+    position: absolute;
+    top:0;
+    left: calc(50% - 215px);
+    width: 400px;
+    margin-top: 15px;
+    padding: 15px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 6px #00000024;
+}
+
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #999;
+    text-align: center;
+    padding-top: calc(100vh/2);
+    color: #3369f3;
+    font-size: 20px;
 }
