@@ -9,7 +9,8 @@
     "lint": "yarn stylelint '**/*.pcss'",
     "prod": "webpack",
     "precommit": "yarn lint",
-    "prepush": "yarn lint"
+    "prepush": "yarn lint",
+    "prepare": "husky install"
   },
   "author": "",
   "license": "ISC",
