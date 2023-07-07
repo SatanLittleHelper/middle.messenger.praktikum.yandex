@@ -7,7 +7,7 @@ import {withStore} from "../../../../scripts/utils/withStore";
 import {handleButtonClick} from "../../../../scripts/content/handlers/ButtonsHandler";
 import {Modal, ModalProps} from "../../../components/modal/Modal";
 import {PROFILE_STATE} from "../../../../scripts/constant";
-
+import "../../styles.pcss"
 
 
 export interface ProfileProps {

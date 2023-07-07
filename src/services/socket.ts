@@ -54,7 +54,8 @@ export const openWebSocket = async (dispatch: Dispatch<AppState>, state: AppStat
                 if (currentChatMessages.length > 0 && currentChatMessages[0].chat_id == currentChatId) {
                     let newMessage = JSON.parse(ev.data);
                         newMessage = {...newMessage, chat_id: currentChatId};
-                        currentChatMessages.push(newMessage);
+                        // @ts-ignore
+                    currentChatMessages.push(newMessage);
 
                         window.store.dispatch({currentChatMessages: currentChatMessages});
 
@@ -72,6 +73,7 @@ export const openWebSocket = async (dispatch: Dispatch<AppState>, state: AppStat
                     else {
                         let newMessage = JSON.parse(ev.data);
                         newMessage = {...newMessage, chat_id: currentChatId};
+                        // @ts-ignore
                         currentChatMessages.push(newMessage);
 
                         window.store.dispatch({currentChatMessages: currentChatMessages});

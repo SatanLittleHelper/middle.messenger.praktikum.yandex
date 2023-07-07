@@ -3,6 +3,9 @@ import {Store} from "./scripts/utils/store";
 import {initRouter} from "./router";
 import {initApp} from "./services/initApp";
 import {StateHandler} from "./services/stateHandler";
+import "./styles/variables.pcss"
+import "./styles/styles.pcss"
+import "./styles/fonts.pcss"
 
 declare global {
     interface Window {

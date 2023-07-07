@@ -1,6 +1,6 @@
 import template from "./popup.hbs";
 import Block from "../../../../scripts/utils/Block";
-
+import "./styles.pcss"
 export interface PopupProps {
     buttons: Array<PopupButtonsProps>;
     events?: {};

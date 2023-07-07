@@ -1,5 +1,8 @@
 {
   "plugins": {
-    "postcss-nested": true
+    "postcss-nested": true,
+    'postcss-preset-env': {
+                browsers: 'last 2 versions',
+            },
   }
 }

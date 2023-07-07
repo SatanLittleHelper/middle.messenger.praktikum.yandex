@@ -1,7 +1,7 @@
 import Block from "../../scripts/utils/Block";
 import  template  from "./error.hbs";
 import {handleButtonClick} from "../../scripts/content/handlers/ButtonsHandler";
-
+import "./styles.pcss"
 export interface ErrorProps {
     code: string;
     description: string;

@@ -5,7 +5,7 @@ import {withStore} from "../../../scripts/utils/withStore";
 import {UploadFile, UploadFileProps} from "./forms/uploadFile";
 import {ModalWithInputText, ModalWithInputTextProps} from "./forms/modalWithInputText";
 import {validateInput} from "../../../scripts/content/validator/validator";
-
+import "./styles.pcss"
 
 export interface ModalProps {
     uploadFile?: UploadFileProps;
