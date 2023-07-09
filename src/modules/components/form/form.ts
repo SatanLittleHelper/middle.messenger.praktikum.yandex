@@ -5,7 +5,7 @@ import {submitHandler} from "../../../scripts/content/handlers/FormHandler";
 import {formHasError} from "../../../scripts/content/validator/validator";
 import {withRouter} from "../../../scripts/utils/withRouter";
 import {withStore} from "../../../scripts/utils/withStore";
-
+import "./styles.pcss"
 
 export interface FormProps {
     header: string;

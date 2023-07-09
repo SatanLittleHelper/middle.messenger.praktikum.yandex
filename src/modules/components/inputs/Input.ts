@@ -1,7 +1,7 @@
 import Block from "../../../scripts/utils/Block";
 import template from "./input.hbs";
 import {validateInputTriggeredByEvent} from "../../../scripts/content/validator/validator";
-
+import "./styles.pcss"
 export interface InputProps {
     type: string;
     text: string;

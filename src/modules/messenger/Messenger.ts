@@ -10,7 +10,7 @@ import {deleteChat, getAllChats} from "../../services/chat";
 import {startAllWebsocket} from "../../services/socket";
 import getCurrentChatWebsocket from "../../scripts/utils/helpers/getCurrentChatWebsoket";
 import {Popup} from "./components/popup/popup";
-
+import './styles.pcss'
 export interface MessengerProps {
     messengerMainWindow: MessengerMainWindowProps;
     sidebar: DialogsSideBarProps;
