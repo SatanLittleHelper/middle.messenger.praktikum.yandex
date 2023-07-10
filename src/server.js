@@ -9,6 +9,6 @@ app.use('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
-app.listen(3000, () => {
+app.listen(3000, '0.0.0.0', () => {
     console.log('App listening on port 3000!');
 });
