@@ -2,16 +2,16 @@
   "name": "ya",
   "version": "1.0.0",
   "description": "",
-  "scripts": {
-      "build": "yarn lint && webpack",
-      "compile": "babel src -d lib --extensions '.ts,.tsx'",
-      "start": "webpack && node ./src/server.js",
-      "prod": "webpack && node server.js",
-      "lint": "yarn stylelint '**/*.pcss'",
-      "precommit": "yarn lint",
-      "prepush": "yarn lint",
-      "test": "./node_modules/.bin/mocha"
-  },
+    "scripts": {
+        "build": "yarn lint && webpack",
+        "compile": "babel src -d lib --extensions '.ts,.tsx'",
+        "start": "webpack && node ./src/server.js",
+        "prod": "webpack && node server.js",
+        "lint": "yarn stylelint '**/*.pcss'",
+        "precommit": "yarn lint",
+        "prepush": "yarn lint",
+        "test": "mocha "
+    },
   "author": "",
   "license": "ISC",
   "devDependencies": {

@@ -3,5 +3,8 @@
         "ts"
     ],
     "spec": "src/**/*.test.ts",
-    "require": "test/babel-register.js"
+    "require": [
+        "ts-node/register",
+        "mochaSetup.js"
+    ]
 }
