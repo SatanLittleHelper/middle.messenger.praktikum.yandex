@@ -96,3 +96,5 @@ export class HTTPTransport {
         return query.slice(0, -1);
     }
 }
+
+export default HTTPTransport

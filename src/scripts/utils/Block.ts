@@ -7,14 +7,14 @@ export interface BlockClass<P> extends Function {
     componentName?: string;
 }
 class Block<P = any> {
-    static EVENTS = {
-        INIT: "init",
-        FLOW_CDM: "flow:component-did-mount",
-        FLOW_CDR: "flow:component-did-render",
-        FLOW_CDU: "flow:component-did-update",
-        FLOW_CWU: 'flow:component-will-unmount',
-        FLOW_RENDER: "flow:render"
-    };
+     static EVENTS = {
+         INIT: "init",
+         FLOW_CDM: "flow:component-did-mount",
+         FLOW_CDR: "flow:component-did-render",
+         FLOW_CDU: "flow:component-did-update",
+         FLOW_CWU: 'flow:component-will-unmount',
+         FLOW_RENDER: "flow:render"
+     };
 
     public id = nanoid(6);
     public children: Record<string, Block>;

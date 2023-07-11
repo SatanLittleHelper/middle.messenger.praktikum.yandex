@@ -20,6 +20,7 @@ module.exports = {
         hot: true,
         port: 3000,
         liveReload: true,
+        host: '0.0.0.0',
     },
     entry: './src/index.ts',
     output: {
@@ -59,9 +60,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new ESLintPlugin({
-
-        }),
+        new ESLintPlugin({}),
         new HtmlWebpackPlugin({
             title: "Uber Chat",
             template: path.resolve(__dirname, './src/index.html'),
@@ -70,10 +69,9 @@ module.exports = {
         new CleanWebpackPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         // new BundleAnalyzerPlugin(),
-        new StylelintPlugin({
-        }),
+        new StylelintPlugin({}),
 
 
-],
+    ],
 
 };

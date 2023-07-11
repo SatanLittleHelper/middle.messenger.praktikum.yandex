@@ -1,7 +1,7 @@
 import Route from "./Route";
 import Block from "../Block";
 
-type TRouteConstructor = {
+export type TRouteConstructor = {
     pathname: string,
     block: Block,
     props: any,
