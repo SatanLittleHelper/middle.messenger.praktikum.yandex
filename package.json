@@ -59,7 +59,6 @@
   },
   "dependencies": {
       "handlebars": "^4.7.7",
-      "nanoid": "^4.0.2",
-      "typescript": "^5.0.4"
+      "nanoid": "^4.0.2"
   }
 }
