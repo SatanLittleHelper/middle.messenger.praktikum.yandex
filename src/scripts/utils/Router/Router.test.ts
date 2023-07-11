@@ -8,6 +8,7 @@ describe('Router', () => {
     //@ts-ignore
     let getContentFake = sinon.stub();
     let destroyFake = sinon.stub()
+    let dispatchComponentDidMountFake = sinon.stub()
     let router: PathRouter;
 
     beforeEach(() => {
@@ -17,6 +18,7 @@ describe('Router', () => {
             //@ts-ignore
             getContent = getContentFake;
             destroy = destroyFake;
+            dispatchComponentDidMount = dispatchComponentDidMountFake
         } as unknown as Block
         router = new PathRouter('#app');
     })
@@ -80,6 +82,8 @@ describe('Router', () => {
         let BlockMockError: Block;
         BlockMockError = class {
             getContent = getContentFake;
+            dispatchComponentDidMount = dispatchComponentDidMountFake
+
         } as unknown as Block
 
         it('should be redirect to /404 at path not in route', () => {

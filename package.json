@@ -4,7 +4,7 @@
   "description": "",
     "scripts": {
         "build": "yarn lint && yarn test && webpack",
-        "start": "webpack && node ./src/server.js",
+        "start": "webpack serve",
         "prod": "webpack && node server.js",
         "lint": "yarn stylelint '**/*.pcss'",
         "precommit": "yarn lint && yarn test",
