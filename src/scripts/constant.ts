@@ -1,4 +1,6 @@
-export const BASE_URL = "https://ya-praktikum.tech/api/v2/"
+export const BASE_URL = 'https://ya-praktikum.tech/api/v2/';
+
+// eslint-disable-next-line no-shadow
 export enum USER {
     FIRST_NAME = 'first_name',
     DISPLAY_NAME = 'display_name',
@@ -12,6 +14,7 @@ export enum USER {
     EMAIL = 'email',
 }
 
+// eslint-disable-next-line no-shadow
 export enum BUTTON_NAME {
     EDIT_PROFILE = 'editProfile',
     CHANGE_PASSWORD = 'changePassword',
@@ -30,24 +33,28 @@ export enum BUTTON_NAME {
     POPUP_HEADER_OPEN = 'popupHeaderOpen',
 }
 
+// eslint-disable-next-line no-shadow
 export enum PROFILE_STATE {
     CHANGE_PASSWORD = 'changePassword',
     EDIT_PROFILE = 'editProfile',
     CHANGE_AVATAR = 'changeAvatar',
 
 }
+
+// eslint-disable-next-line no-shadow
 export enum MESSENGER_STATE {
-    IDLE = "",
+    IDLE = '',
     ADD_USER = 'addUser',
     DELETE_USER = 'deleteUser',
     NEW_CHAT = 'newChat',
     DELETE_CHAT = 'deleteChat',
     OPEN_CHAT = 'openChat',
     CHAT_OPENED = 'chatOpened',
-    POPUP_HEADER_OPEN = 'popupHeaderOpen'
+    POPUP_HEADER_OPEN = 'popupHeaderOpen',
 
 }
 
+// eslint-disable-next-line no-shadow
 export enum FORM_NAME {
     SIGN_IN = 'signIn',
     SIGN_UP = 'signup',

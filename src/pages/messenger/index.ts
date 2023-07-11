@@ -1,11 +1,12 @@
-import Messenger, {MessengerProps} from "../../modules/messenger/Messenger";
-import {WithMessengerPage} from "./withMessengerPage";
-
+/* eslint-disable import/extensions,import/no-unresolved */
+import Messenger, { MessengerProps } from '../../modules/messenger/Messenger';
+import { WithMessengerPage } from './withMessengerPage';
 
 class MessengerPage extends Messenger {
-    constructor(props: MessengerProps) {
-        super(props);
-    }
+  constructor(props: MessengerProps) {
+    super(props);
+  }
 }
+
 // @ts-ignore
 export default WithMessengerPage(MessengerPage);

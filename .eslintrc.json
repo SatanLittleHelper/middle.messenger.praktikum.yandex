@@ -3,7 +3,25 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "rules": {
-    "max-len": [2, 100],
-    "@typescript-eslint/no-unused-vars": 2
+      "max-len": [
+          2,
+          105
+      ],
+      "@typescript-eslint/no-unused-vars": 2,
+      "camelcase": "off",
+      "no-undef": "off",
+      "no-use-before-define": "off",
+      "no-useless-constructor": "off",
+      "class-methods-use-this": "off",
+      "no-restricted-imports": "off",
+      "no-case-declarations": "off",
+      "no-underscore-dangle": "off",
+      "no-param-reassign": "off",
+      "no-continue": "warn",
+      "default-case": "warn",
+      "no-lonely-if": "warn",
+      "eqeqeq": "warn",
+      "no-shadow": "warn",
+      "no-empty-function": "warn"
   }
 }

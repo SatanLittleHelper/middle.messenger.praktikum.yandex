@@ -7,35 +7,35 @@ export default class EventBus<
     public listeners: { [key in E]?: Listener<M[E]>[] } = {};
 
     on(event: E, callback: Listener<M[E]>) {
-        if (!this.listeners[event]) {
-            this.listeners[event] = [];
-        }
+      if (!this.listeners[event]) {
+        this.listeners[event] = [];
+      }
 
         this.listeners[event]!.push(callback);
     }
 
     off(event: E, callback: Listener<M[E]>) {
-        if (!this.listeners[event]) {
-            throw new Error(`Нет события: ${event}`);
-        }
+      if (!this.listeners[event]) {
+        throw new Error(`Нет события: ${event}`);
+      }
 
-        this.listeners[event] = this.listeners[event]!.filter(
-            (listener) => listener !== callback,
-        );
+      this.listeners[event] = this.listeners[event]!.filter(
+        (listener) => listener !== callback,
+      );
     }
 
     emit(event: E, ...args: M[E]) {
-        if (!this.listeners[event]) {
-            return;
-            // throw new Error(`Нет события: ${event}`);
-        }
+      if (!this.listeners[event]) {
+        return;
+        // throw new Error(`Нет события: ${event}`);
+      }
 
-        this.listeners[event]!.forEach(function (listener) {
-            listener(...args);
+        this.listeners[event]!.forEach((listener) => {
+          listener(...args);
         });
     }
 
     destroy() {
-        this.listeners = {};
+      this.listeners = {};
     }
 }

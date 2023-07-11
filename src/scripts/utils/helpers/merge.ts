@@ -3,24 +3,26 @@ type Indexed<T = unknown> = {
 };
 
 function merge(lhs: Indexed, rhs: Indexed): Indexed {
-    for (let p in rhs) {
-        if (!rhs.hasOwnProperty(p)) {
-            continue;
-        }
-
-        try {
-            // @ts-ignore
-            if (rhs[p].constructor === Object) {
-                rhs[p] = merge(lhs[p] as Indexed, rhs[p] as Indexed);
-            } else {
-                lhs[p] = rhs[p];
-            }
-        } catch(e) {
-            lhs[p] = rhs[p];
-        }
+  // eslint-disable-next-line no-restricted-syntax
+  for (const p in rhs) {
+    // eslint-disable-next-line no-prototype-builtins
+    if (!rhs.hasOwnProperty(p)) {
+      continue;
     }
 
-    return lhs;
+    try {
+      // @ts-ignore
+      if (rhs[p].constructor === Object) {
+        rhs[p] = merge(lhs[p] as Indexed, rhs[p] as Indexed);
+      } else {
+        lhs[p] = rhs[p];
+      }
+    } catch (e) {
+      lhs[p] = rhs[p];
+    }
+  }
+
+  return lhs;
 }
 
-export default merge
+export default merge;

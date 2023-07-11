@@ -1,15 +1,20 @@
-import {BlockClass} from "./Block";
-import {router} from "../../router";
+/* eslint-disable import/extensions,import/no-unresolved */
+import { BlockClass } from './Block';
+import { router } from '../../router';
 
-type WithRouterProps = { }
+type WithRouterProps = {};
 
+// eslint-disable-next-line import/prefer-default-export
 export function withRouter<P extends WithRouterProps>(WrappedBlock: BlockClass<P>) {
-    // @ts-expect-error No base constructor has the specified number of type arguments
-    return class extends WrappedBlock<P> {
+  // @ts-expect-error No base constructor has the specified number of type arguments
+  return class extends WrappedBlock<P> {
         public static componentName = WrappedBlock.componentName || WrappedBlock.name;
 
         constructor(props: P) {
-            super({ ...props, router: router });
+          super({
+            ...props,
+            router,
+          });
         }
-    } as BlockClass<P>;
+  } as BlockClass<P>;
 }

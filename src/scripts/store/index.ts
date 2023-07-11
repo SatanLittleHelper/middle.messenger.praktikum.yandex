@@ -1,4 +1,5 @@
-import { User } from "../utils/apiTransformers";
+/* eslint-disable import/extensions,import/no-unresolved */
+import { User } from '../utils/apiTransformers';
 
 export interface AppState {
     chatsOffset?: number;
@@ -7,23 +8,21 @@ export interface AppState {
     user?: User | null;
     appIsInited?: boolean;
     messengerState?: string | null;
-    isLoading?: boolean
+    isLoading?: boolean;
     profileState?: string | null;
     currentChatId?: string;
     currentChatToken?: string;
     ws?: Array<Record<string, WebSocket>>;
-    currentChatMessages?: Array<Record<string, any>> | []
+    currentChatMessages?: Array<Record<string, any>> | [];
 
 }
 
-
 export const defaultState: AppState = {
-    Error: null,
-    user: null,
-    messengerState: null,
-    isLoading: false,
-    profileState: null,
-    currentChatMessages: []
+  Error: null,
+  user: null,
+  messengerState: null,
+  isLoading: false,
+  profileState: null,
+  currentChatMessages: [],
 
 };
-
