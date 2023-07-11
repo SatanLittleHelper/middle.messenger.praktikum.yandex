@@ -8,8 +8,8 @@
         "start": "webpack && node ./src/server.js",
         "prod": "webpack && node server.js",
         "lint": "yarn stylelint '**/*.pcss'",
-        "precommit": "yarn lint",
-        "prepush": "yarn lint",
+        "precommit": "yarn lint && yarn test",
+        "prepush": "yarn lint && yarn test",
         "test": "mocha "
     },
   "author": "",
