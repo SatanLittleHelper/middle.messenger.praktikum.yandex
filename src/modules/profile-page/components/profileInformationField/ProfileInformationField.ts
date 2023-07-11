@@ -1,5 +1,6 @@
-import Block from "../../../../scripts/utils/Block";
-import  template  from "./profileInformationField.hbs";
+/* eslint-disable import/extensions,import/no-unresolved */
+import Block from '../../../../scripts/utils/Block';
+import template from './profileInformationField.hbs';
 
 export interface ProfileInformationFieldProps {
     text: string;
@@ -7,12 +8,12 @@ export interface ProfileInformationFieldProps {
     name: string;
 }
 
-export  class ProfileInformationField extends Block {
-    constructor(props: ProfileInformationFieldProps) {
-        super(props);
-    }
+export class ProfileInformationField extends Block {
+  constructor(props: ProfileInformationFieldProps) {
+    super(props);
+  }
 
-    render() {
-        return this.compile(template, this.props);
-    }
+  render() {
+    return this.compile(template, this.props);
+  }
 }

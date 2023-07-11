@@ -1,11 +1,12 @@
-import {AppState, defaultState} from "./scripts/store";
-import {Store} from "./scripts/utils/store";
-import {initRouter} from "./router";
-import {initApp} from "./services/initApp";
-import {StateHandler} from "./services/stateHandler";
-import "./styles/variables.pcss"
-import "./styles/styles.pcss"
-import "./styles/fonts.pcss"
+/* eslint-disable import/extensions,import/no-unresolved */
+import { AppState, defaultState } from './scripts/store';
+import { Store } from './scripts/utils/store';
+import { initRouter } from './router';
+import { initApp } from './services/initApp';
+import { StateHandler } from './services/stateHandler';
+import './styles/variables.pcss';
+import './styles/styles.pcss';
+import './styles/fonts.pcss';
 
 declare global {
     interface Window {
@@ -14,23 +15,22 @@ declare global {
     }
 }
 window.addEventListener('DOMContentLoaded', () => {
-    const store = new Store<AppState>(defaultState);
-    window.store = store;
+  const store = new Store<AppState>(defaultState);
+  window.store = store;
 
-    const stateHandler = new StateHandler();
+  const stateHandler = new StateHandler();
 
-    store.on('changed', (prevState, nextState) => {
-        if(!prevState.appIsInited && nextState.appIsInited) {
-            initRouter(store);
-        }
-        stateHandler.handleState();
-        console.log(
-            '%cstore updated',
-            'background: #222; color: #bada55',
-            nextState,
-        );
-    });
+  store.on('changed', (prevState, nextState) => {
+    if (!prevState.appIsInited && nextState.appIsInited) {
+      initRouter(store);
+    }
+    stateHandler.handleState();
+    console.log(
+      '%cstore updated',
+      'background: #222; color: #bada55',
+      nextState,
+    );
+  });
 
-    store.dispatch(initApp);
-
-})
+  store.dispatch(initApp);
+});

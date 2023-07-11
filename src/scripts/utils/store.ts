@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions,import/no-unresolved */
 import EventBus from './eventBus';
 
 export type Dispatch<State> = (
@@ -15,28 +16,28 @@ export class Store<State extends Record<string, any>> extends EventBus {
     private state: State = {} as State;
 
     constructor(defaultState: State) {
-        super();
+      super();
 
-        this.state = defaultState;
-        this.set(defaultState);
+      this.state = defaultState;
+      this.set(defaultState);
     }
 
     public getState() {
-        return this.state;
+      return this.state;
     }
 
     public set(nextState: Partial<State>) {
-        const prevState = { ...this.state };
+      const prevState = { ...this.state };
 
-        this.state = { ...this.state, ...nextState };
-        this.emit('changed', prevState, nextState);
+      this.state = { ...this.state, ...nextState };
+      this.emit('changed', prevState, nextState);
     }
 
     dispatch(nextStateOrAction: Partial<State> | Action<State>, payload?: any) {
-        if (typeof nextStateOrAction === 'function') {
-            nextStateOrAction(this.dispatch.bind(this), this.state, payload);
-        } else {
-            this.set({ ...this.state, ...nextStateOrAction });
-        }
+      if (typeof nextStateOrAction === 'function') {
+        nextStateOrAction(this.dispatch.bind(this), this.state, payload);
+      } else {
+        this.set({ ...this.state, ...nextStateOrAction });
+      }
     }
 }

@@ -1,7 +1,7 @@
-import template from "./modalWithInputText.hbs";
-import Block from "../../../../scripts/utils/Block";
-import {Input, InputProps} from "../../inputs/Input";
-
+/* eslint-disable import/extensions,import/no-unresolved */
+import template from './modalWithInputText.hbs';
+import Block from '../../../../scripts/utils/Block';
+import { Input, InputProps } from '../../inputs/Input';
 
 export interface ModalWithInputTextProps {
     title: string;
@@ -14,18 +14,16 @@ export interface ModalWithInputTextProps {
 }
 
 export class ModalWithInputText extends Block {
-    constructor(props: ModalWithInputTextProps) {
-        super(props);
+  constructor(props: ModalWithInputTextProps) {
+    super(props);
+  }
 
-    }
+  protected init() {
+    this.children.input = new Input(this.props.input);
+  }
 
-    protected init() {
-        this.children.input = new Input(this.props.input)
-    }
-
-    render() {
-        return this.compile(template, this.props);
-    }
+  render() {
+    return this.compile(template, this.props);
+  }
 }
 export default ModalWithInputText;
-

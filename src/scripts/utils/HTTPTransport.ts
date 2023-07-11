@@ -3,7 +3,7 @@ enum METHOD {
     POST = 'POST',
     PUT = 'PUT',
     PATCH = 'PATCH',
-    DELETE = 'DELETE'
+    DELETE = 'DELETE',
 }
 
 type Options = {
@@ -13,88 +13,102 @@ type Options = {
 };
 
 type OptionsWithoutMethod = Omit<Options, 'method'>;
-type HTTPMethod = (url: string, options?: OptionsWithoutMethod) => Promise<XMLHttpRequest> | {}
-
+type HTTPMethod = (url: string, options?: OptionsWithoutMethod) => Promise<XMLHttpRequest> | {};
 
 export class HTTPTransport {
     private readonly url: string;
 
-    constructor(url: string ) {
-         this.url  = url;
+    constructor(url: string) {
+      this.url = url;
     }
 
-    get: HTTPMethod = (url, options  = {}) => {
-        const { data } = options;
-        if (data) {
-            url = url.concat(this.queryStringify(data));
+    get: HTTPMethod = (url, options = {}) => {
+      const { data } = options;
+      if (data) {
+        url = url.concat(this.queryStringify(data));
+      }
+
+      return this.request(url, {
+        ...options,
+        method: METHOD.GET,
+      });
+    };
+
+    post: HTTPMethod = (url, options = {}) => this.request(url, {
+      ...options,
+      method: METHOD.POST,
+    });
+
+    put: HTTPMethod = (url, options = {}) => this.request(url, {
+      ...options,
+      method: METHOD.PUT,
+    });
+
+    delete: HTTPMethod = (url, options = {}) => this.request(url, {
+      ...options,
+      method: METHOD.DELETE,
+    });
+
+    patch: HTTPMethod = (url, options = {}) => this.request(url, {
+      ...options,
+      method: METHOD.PATCH,
+    });
+
+    private request(url: string, options: Options = { method: METHOD.GET }) {
+      const {
+        method,
+        data,
+        headers,
+      } = options;
+      const reqUrl = this.url + url;
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open(method, reqUrl);
+
+        if (headers) {
+          Object.entries(headers)
+            .forEach((value) => {
+              xhr.setRequestHeader(value[0], value[1]);
+            });
         }
+        xhr.withCredentials = true;
+        xhr.responseType = 'json';
+        xhr.onload = function () {
+          resolve(xhr);
+        };
 
-        return this.request(url, {...options, method: METHOD.GET});
-    };
-    post: HTTPMethod = (url, options = {})  => {
-        return this.request(url, {...options, method: METHOD.POST})
-    };
-    put: HTTPMethod = (url, options = {}) => {
-        return this.request(url, {...options, method: METHOD.PUT});
-    };
-    delete: HTTPMethod = (url, options = {}) => {
+        xhr.onabort = reject;
+        xhr.onerror = reject;
+        xhr.ontimeout = reject;
 
-        return this.request(url, {...options, method: METHOD.DELETE});
-    };
-    patch: HTTPMethod = (url, options = {}) => {
+        if (method === METHOD.GET || !data) {
+          xhr.send();
+        } else if (data instanceof FormData) {
+          xhr.send(data);
+        } else {
+          xhr.send(JSON.stringify(data));
+        }
+      }).then((req: any): {} => {
+        if (!req.response && req.status === 200) {
+          return {};
+        }
+        return req.response;
+      })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
 
-        return this.request(url, {...options, method: METHOD.PATCH});
-    };
-
-   private request(url: string, options: Options = { method: METHOD.GET }) {
-        const {method, data, headers} = options;
-        const reqUrl = this.url + url;
-        return new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            xhr.open(method, reqUrl);
-
-            if (headers) {
-                Object.entries(headers).forEach((value) => {
-                    xhr.setRequestHeader(value[0], value[1]);
-                })
-            }
-            xhr.withCredentials = true;
-            xhr.responseType = "json";
-            xhr.onload = function() {
-                resolve(xhr);
-            };
-
-            xhr.onabort = reject;
-            xhr.onerror = reject;
-            xhr.ontimeout = reject;
-
-            if (method === METHOD.GET || !data) {
-                xhr.send();
-            }
-            else if (data instanceof FormData) {
-                xhr.send(data);
-            }
-            else {
-                xhr.send(JSON.stringify(data));
-            }
-        }).then((req:any): {} => {
-            if (!req.response && req.status === 200) {
-                return {}
-            }
-            return req.response;
-        }).catch((error) => {
-            console.error(error);
-       });
-    };
     private queryStringify(data: Record<string, any>) {
-        let query = '?';
+      let query = '?';
 
-        for (let key in data) {
-            query += `${key}=${data[key]}&`;
-        }
+      // eslint-disable-next-line guard-for-in,no-restricted-syntax
+      for (const key in data) {
+        query += `${key}=${data[key]}&`;
+      }
 
-        return query.slice(0, -1);
+      return query.slice(0, -1);
     }
 }
 
-export default HTTPTransport
+export default HTTPTransport;

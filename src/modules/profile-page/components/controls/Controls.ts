@@ -1,6 +1,6 @@
-import Block from "../../../../scripts/utils/Block";
-import  template  from "./controls.hbs";
-
+/* eslint-disable import/extensions,import/no-unresolved */
+import Block from '../../../../scripts/utils/Block';
+import template from './controls.hbs';
 
 export interface ControlsProps {
     saveButtons?: ProfileSaveButtonsProps[];
@@ -9,28 +9,28 @@ export interface ControlsProps {
 
 export interface ProfileButtonsProps {
     name: string;
-    formID?: string
+    formID?: string;
     text: string;
     buttonRed: boolean;
-    events?: {}
+    events?: {};
 
 }
 
-export  interface ProfileSaveButtonsProps {
+export interface ProfileSaveButtonsProps {
     name: string;
-    formID: string
+    formID: string;
 }
 
-export  class Controls extends Block {
-    constructor(props: ControlsProps) {
-        super(props);
-    }
+export class Controls extends Block {
+  constructor(props: ControlsProps) {
+    super(props);
+  }
 
-    protected init() {
+  protected init() {
 
-    }
+  }
 
-    render() {
-        return this.compile(template, this.props);
-    }
+  render() {
+    return this.compile(template, this.props);
+  }
 }
