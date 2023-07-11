@@ -3,14 +3,13 @@
   "version": "1.0.0",
   "description": "",
     "scripts": {
-        "build": "yarn lint && webpack",
-        "compile": "babel src -d lib --extensions '.ts,.tsx'",
+        "build": "yarn lint && yarn test && webpack",
         "start": "webpack && node ./src/server.js",
         "prod": "webpack && node server.js",
         "lint": "yarn stylelint '**/*.pcss'",
         "precommit": "yarn lint && yarn test",
         "prepush": "yarn lint && yarn test",
-        "test": "mocha "
+        "test": "mocha"
     },
   "author": "",
   "license": "ISC",
