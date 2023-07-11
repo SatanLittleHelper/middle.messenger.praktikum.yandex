@@ -1,7 +1,15 @@
 /* eslint-disable import/extensions,import/no-unresolved */
 import { nanoid } from 'nanoid';
+// @ts-ignore
+import process from 'process';
+import buffer from 'buffer';
 import EventBus from './eventBus';
 import isEqual from './helpers/isEqual';
+
+global.Buffer = buffer.Buffer;
+global.process = process;
+
+// eslint-disable-next-line global-require
 
 export interface BlockClass<P> extends Function {
     new(props: P): Block<P>;

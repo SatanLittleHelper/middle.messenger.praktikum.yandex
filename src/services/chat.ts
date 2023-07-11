@@ -40,8 +40,8 @@ export const createChat = async (
   }
   // @ts-ignore
   dispatch(startWebsocket, { chatId: response?.id });
-  // @ts-ignore
   dispatch({
+    // @ts-ignore
     currentChatId: response.id,
     currentChatMessages: [],
   });
@@ -107,10 +107,10 @@ export const addUserToChat = async (
     return;
   }
   const userToAddId = userToAdd[0].id;
-  // @ts-ignore
   const response = await chatAPI.addUserToChat({
     data: {
       users: [userToAddId],
+      // @ts-ignore
       chatId,
     },
   });

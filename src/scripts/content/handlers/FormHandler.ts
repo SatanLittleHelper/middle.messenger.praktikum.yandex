@@ -7,8 +7,8 @@ import getCurrentChatWebsocket from '../../utils/helpers/getCurrentChatWebsoket'
 
 export function collectInputsData(event: any) {
   const inputs = { ...event.target?.querySelectorAll('input') };
-  // @ts-ignore
   const data: Array<any> = Object.values(inputs)
+  // @ts-ignore
     ?.filter((item) => item?.value || item?.files[0]);
   return Object.fromEntries(data.map((item) => [item?.name, item?.value || item?.files[0]?.file]));
 }

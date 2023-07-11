@@ -19,6 +19,7 @@ export function withStore<P extends WithStateProps>(WrappedBlock: BlockClass<P>)
         __onChangeStoreCallback = () => {
           // @ts-expect-error this is not typed
           this.setProps({
+            // @ts-ignore
             ...this.props,
             store: window.store,
           });
